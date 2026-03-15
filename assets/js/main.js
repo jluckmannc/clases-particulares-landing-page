@@ -1,5 +1,3 @@
-// main.js
-
 document.addEventListener("DOMContentLoaded", () => {
   function escapeHTML(str) {
     return String(str)
@@ -120,11 +118,26 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 async function loadTestimonials(escapeHTML) {
+  function formatPeriodo(inicio, fin) {
+    const inicioLimpio = inicio ? String(inicio).trim() : "";
+    const finLimpio = fin ? String(fin).trim() : "";
+
+    if (inicioLimpio && finLimpio) {
+      if (inicioLimpio === finLimpio) return inicioLimpio;
+      return `${inicioLimpio}–${finLimpio}`;
+    }
+
+    if (inicioLimpio) return inicioLimpio;
+    if (finLimpio) return finLimpio;
+
+    return "";
+  }
+
   try {
     const container = document.getElementById("testimonials-container");
     if (!container) return;
 
-    const res = await fetch("assets/data/comments.json");
+    const res = await fetch("assets/data/comments.json", { cache: "no-store" });
     const testimonials = await res.json();
 
     const publicados = testimonials.filter((t) => t.publicado === true);
@@ -135,7 +148,7 @@ async function loadTestimonials(escapeHTML) {
       container.innerHTML = `
         <div class="col-span-1 md:col-span-2 xl:col-span-3 rounded-2xl border border-slate-200/80 dark:border-slate-700 bg-white/80 dark:bg-slate-800/70 p-8 md:p-10 text-center shadow-sm">
           <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
-            Pronto compartiré aquí algunos testimonios de estudiantes que han querido contar su experiencia.
+            Pronto compartiré aquí algunas experiencias de estudiantes que han querido contar su proceso.
           </p>
         </div>
       `;
@@ -143,9 +156,10 @@ async function loadTestimonials(escapeHTML) {
     }
 
     const mode = container.dataset.mode === "all" ? "all" : "featured";
-    const source = mode === "all"
-      ? publicados
-      : [...publicados].sort(() => 0.5 - Math.random()).slice(0, 3);
+    const source =
+      mode === "all"
+        ? publicados
+        : [...publicados].sort(() => 0.5 - Math.random()).slice(0, 3);
 
     source.forEach((t) => {
       const card = document.createElement("article");
@@ -158,17 +172,25 @@ async function loadTestimonials(escapeHTML) {
         flex flex-col
       `;
 
-      const meta = [
-        t.edad ? `${escapeHTML(t.edad)} años` : null,
-        t.ciudad ? escapeHTML(t.ciudad) : null,
-        t.nivel ? escapeHTML(t.nivel) : null
-      ]
-        .filter(Boolean)
-        .join(" · ");
+      const nombre = t.nombre ? escapeHTML(t.nombre) : "Estudiante";
+      const edad = t.edad ? `${escapeHTML(t.edad)} años` : "";
+      const ciudad = t.ciudad ? escapeHTML(t.ciudad) : "";
 
-      const nombre = t.nombre ? escapeHTML(t.nombre) : "";
+      // Campo nuevo principal + compatibilidad con archivos antiguos
+      const cursoCarreraNivel = t.curso_carrera_nivel
+        ? escapeHTML(t.curso_carrera_nivel)
+        : t.nivel
+        ? escapeHTML(t.nivel)
+        : "";
+
       const proceso = t.proceso ? escapeHTML(t.proceso) : "";
-      const comentario = t.comentario ? escapeHTML(t.comentario) : "";
+      // Dejamos la original sin borrar por si algún día necesito mayor seguridad
+      // const comentario = t.comentario ? escapeHTML(t.comentario) : "";
+      const comentario = t.comentario ? t.comentario : "";
+      const periodo = formatPeriodo(t.anio_inicio, t.anio_fin);
+
+      const metaTop = [edad, ciudad].filter(Boolean).join(" · ");
+      const metaBottom = [cursoCarreraNivel, periodo].filter(Boolean).join(" · ");
 
       card.innerHTML = `
         <div class="flex flex-col h-full">
@@ -178,8 +200,14 @@ async function loadTestimonials(escapeHTML) {
             </h3>
 
             ${
-              meta
-                ? `<p class="mt-1 text-sm text-slate-500 dark:text-slate-400 leading-relaxed">${meta}</p>`
+              metaTop
+                ? `<p class="mt-1 text-sm text-slate-500 dark:text-slate-400 leading-relaxed">${metaTop}</p>`
+                : ""
+            }
+
+            ${
+              metaBottom
+                ? `<p class="mt-1.5 text-sm text-slate-500 dark:text-slate-400 leading-relaxed">${metaBottom}</p>`
                 : ""
             }
           </header>
@@ -187,10 +215,11 @@ async function loadTestimonials(escapeHTML) {
           ${
             proceso
               ? `
-                <p class="mb-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                  <span class="font-medium text-slate-700 dark:text-slate-200">Apoyo en:</span>
-                  ${proceso}
-                </p>
+                <div class="mb-4">
+                  <span class="inline-flex items-center rounded-full bg-slate-100 dark:bg-slate-700/70 px-3 py-1 text-xs font-medium text-slate-700 dark:text-slate-200">
+                    ${proceso}
+                  </span>
+                </div>
               `
               : ""
           }
