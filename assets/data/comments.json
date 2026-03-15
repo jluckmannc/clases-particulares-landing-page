@@ -1,5 +1,49 @@
 [
   {
+    "nombre": "Agustín",
+    "edad": 15,
+    "ciudad": "Concepción",
+    "curso_carrera_nivel": "2º medio",
+    "anio_inicio": 2025,
+    "anio_fin": 2026,
+    "proceso": "Matemática educación media",
+    "comentario": "<p>1. Lo que más me ayudó fue tener una experiencia más personalizada en las clases y poder aprender mejor, ya que todas mis dudas se podían resolver enseguida y <strong>la forma de aprendizaje que usa el profesor es muy buena.</strong></p><p class=\"mt-3\">2. Antes me costaban las matemáticas, <strong>ahora me cuestan mucho menos</strong> gracias a lo que he aprendido y a aprender a resolver los ejercicios de distintas maneras y como se me acomode mejor.</p><p class=\"mt-3\">3. Diría que es un <strong>buen profesor</strong>.</p>",
+    "publicado": true
+  },
+    {
+    "nombre": "",
+    "edad": 0,
+    "ciudad": "",
+    "curso_carrera_nivel": "",
+    "anio_inicio": 202,
+    "anio_fin": 202,
+    "proceso": "",
+    "comentario": "",
+    "publicado": false
+  },
+    {
+    "nombre": "",
+    "edad": 0,
+    "ciudad": "",
+    "curso_carrera_nivel": "",
+    "anio_inicio": 202,
+    "anio_fin": 202,
+    "proceso": "",
+    "comentario": "",
+    "publicado": false
+  },
+    {
+    "nombre": "",
+    "edad": 0,
+    "ciudad": "",
+    "curso_carrera_nivel": "",
+    "anio_inicio": 202,
+    "anio_fin": 202,
+    "proceso": "",
+    "comentario": "",
+    "publicado": false
+  },
+    {
     "nombre": "",
     "edad": 0,
     "ciudad": "",

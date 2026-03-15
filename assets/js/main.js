@@ -224,9 +224,9 @@ async function loadTestimonials(escapeHTML) {
               : ""
           }
 
-          <p class="text-[15px] md:text-base leading-7 text-slate-700 dark:text-slate-200 flex-grow">
-            “${comentario}”
-          </p>
+          <div class="text-[15px] md:text-base leading-7 text-slate-700 dark:text-slate-200 flex-grow">
+            ${comentario}
+          </div>
         </div>
       `;
 
