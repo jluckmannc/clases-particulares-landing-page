@@ -1,13 +1,13 @@
 [
   {
-    "nombre": "Sor Rita",
-    "edad": 43,
-    "ciudad": "Miami",
-    "curso_carrera_nivel": "Ing en optimización de espacios",
-    "anio_inicio": 2025,
-    "anio_fin": 2025,
-    "proceso": "Utilización de espacios expandibles",
-    "comentario": "Buena experiencia, <strong>sin duda recogiendo al profe.<strong>",
-    "publicado": true
+    "nombre": "",
+    "edad": 0,
+    "ciudad": "",
+    "curso_carrera_nivel": "",
+    "anio_inicio": 202,
+    "anio_fin": 202,
+    "proceso": "",
+    "comentario": "",
+    "publicado": false
   }
 ]
