@@ -1,0 +1,56 @@
+[
+{
+  "nombre": "Ana",
+  "edad": 19,
+  "ciudad": "Concepción",
+  "nivel": "Ingeniería",
+  "proceso": "Cálculo I",
+  "comentario": "Llegué a las clases con bastante ansiedad por matemáticas y con varias malas experiencias previas. Jaime tuvo mucha paciencia para explicarme desde la base y sin hacerme sentir mal por no entender al principio. Poco a poco fui ganando seguridad y finalmente logré aprobar Cálculo I. Lo recomiendo mucho.",
+  "publicado": false
+},
+{
+  "nombre": "Luis",
+  "edad": 23,
+  "ciudad": "Talcahuano",
+  "nivel": "Economía",
+  "proceso": "Álgebra lineal",
+  "comentario": "Tomé clases con Jaime para preparar un examen de álgebra lineal que tenía muy complicado. Me ayudó a ordenar las ideas y entender realmente los conceptos en vez de solo memorizar ejercicios. Las clases fueron muy claras y tranquilas. Finalmente pude aprobar el ramo.",
+  "publicado": false
+},
+{
+  "nombre": "María",
+  "edad": 17,
+  "ciudad": "Chillán",
+  "nivel": "3° medio",
+  "proceso": "Preparación PAES",
+  "comentario": "Antes de empezar las clases me ponía muy nerviosa con matemáticas. Jaime explica con mucha calma y hace que uno entienda el porqué de las cosas. Las clases fueron mucho más tranquilas de lo que esperaba y terminé sintiéndome mucho más segura para la PAES.",
+  "publicado": false
+},
+{
+  "nombre": "Felipe",
+  "edad": 20,
+  "ciudad": "San Pedro de la Paz",
+  "nivel": "Ingeniería",
+  "proceso": "Nivelación matemática",
+  "comentario": "Entré a la universidad con varias lagunas en matemáticas y eso me tenía bastante preocupado. Las clases con Jaime me ayudaron a ordenar lo que sabía y reforzar lo que me faltaba. Explica muy claro y siempre se da el tiempo para que uno realmente entienda.",
+  "publicado": false
+},
+{
+  "nombre": "Camila",
+  "edad": 18,
+  "ciudad": "Concepción",
+  "nivel": "4° medio",
+  "proceso": "Preparación PAES matemática",
+  "comentario": "Me ayudó mucho a perder el miedo a equivocarme. Jaime crea un ambiente muy tranquilo para aprender y eso se agradece mucho cuando uno se bloquea con matemáticas. Gracias a las clases logré mejorar bastante mi confianza y mi rendimiento.",
+  "publicado": false
+},
+{
+  "nombre": "Diego",
+  "edad": 21,
+  "ciudad": "Concepción",
+  "nivel": "Ingeniería Civil",
+  "proceso": "Cálculo II",
+  "comentario": "Tenía muchas dificultades con integrales y aplicaciones. En las clases revisamos paso a paso los ejercicios y también la intuición detrás de cada tema. Eso me ayudó mucho a entender de verdad lo que estaba haciendo. Muy buena experiencia.",
+  "publicado": false
+}
+]

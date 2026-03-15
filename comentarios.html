@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dejar testimonio | Jaime Luckmann</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+            colors: {
+              terracotta: {
+                DEFAULT: "#D9A384",
+                dark: "#B47F6E",
+              },
+            },
+            boxShadow: {
+              soft: "0 10px 30px rgba(15, 23, 42, 0.08)",
+              softDark: "0 10px 30px rgba(0, 0, 0, 0.25)",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      .fade-section {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+
+      .fade-section.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      h1, h2, h3, button, span, a, img, label {
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+    </style>
+  </head>
+
+  <body class="bg-slate-100 text-slate-900 dark:bg-slate-900 dark:text-slate-200 font-sans">
+    <header
+      id="navbar"
+      class="sticky top-0 z-50 backdrop-blur bg-white/90 dark:bg-slate-900/80 shadow-md hover:shadow-lg transition-shadow duration-300"
+    >
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex items-center space-x-3">
+            <a href="index.html" class="flex items-center space-x-3">
+              <img
+                src="assets/img/avatar-jaime.png"
+                alt="Avatar de Jaime"
+                class="w-8 h-8 rounded-full"
+              />
+              <span class="font-semibold text-lg">Jaime Luckmann</span>
+            </a>
+          </div>
+
+          <nav class="hidden md:flex items-center space-x-6">
+            <a href="index.html#inicio" class="hover:text-terracotta-dark transition-colors">Inicio</a>
+            <a href="index.html#enfoque" class="hover:text-terracotta-dark transition-colors">Enfoque</a>
+            <a href="testimonios.html" class="hover:text-terracotta-dark transition-colors">Testimonios</a>
+            <a href="comentarios.html" class="text-terracotta-dark dark:text-terracotta transition-colors">Dejar testimonio</a>
+            <a href="index.html#contacto" class="hover:text-terracotta-dark transition-colors">Contacto</a>
+            <a href="material.html" class="hover:text-terracotta-dark transition-colors">Material</a>
+          </nav>
+
+          <div class="flex items-center space-x-3">
+            <a
+              href="testimonios.html"
+              class="hidden md:inline-flex items-center px-4 py-2 rounded-full border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-white/70 dark:hover:bg-slate-800 transition-colors"
+            >
+              Volver a testimonios
+            </a>
+
+            <button
+              id="theme-toggle"
+              class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+              aria-label="Cambiar a modo oscuro"
+            >
+              <svg
+                id="icon-theme"
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              ></svg>
+            </button>
+
+            <button
+              id="mobile-menu-button"
+              class="md:hidden p-2 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 focus:outline-none"
+              aria-label="Abrir menú"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="mobile-menu"
+        class="md:hidden hidden px-4 pb-4 backdrop-blur bg-white/90 dark:bg-slate-900/90 shadow-md transition-shadow duration-300"
+      >
+        <nav class="space-y-2 flex flex-col">
+          <a href="index.html#inicio" class="block py-2 px-2 rounded hover:bg-slate-200 dark:hover:bg-slate-700">Inicio</a>
+          <a href="index.html#enfoque" class="block py-2 px-2 rounded hover:bg-slate-200 dark:hover:bg-slate-700">Enfoque</a>
+          <a href="testimonios.html" class="block py-2 px-2 rounded hover:bg-slate-200 dark:hover:bg-slate-700">Testimonios</a>
+          <a href="comentarios.html" class="block py-2 px-2 rounded hover:bg-slate-200 dark:hover:bg-slate-700">Dejar testimonio</a>
+          <a href="index.html#contacto" class="block py-2 px-2 rounded hover:bg-slate-200 dark:hover:bg-slate-700">Contacto</a>
+          <a href="material.html" class="block py-2 px-2 rounded hover:bg-slate-200 dark:hover:bg-slate-700">Material</a>
+          <a href="testimonios.html" class="block py-2 px-2 rounded bg-terracotta text-white hover:bg-terracotta-dark shadow-md transition-all duration-300">
+            Volver a testimonios
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 md:pt-20 pb-8 fade-section">
+        <div class="text-center">
+          <span class="inline-block px-3 py-1 text-xs sm:text-sm font-medium rounded-full bg-terracotta/25 text-terracotta-dark dark:bg-terracotta-dark/25 dark:text-terracotta">
+            Testimonio voluntario
+          </span>
+
+          <h1 class="mt-5 text-4xl sm:text-5xl font-semibold leading-[1.05] tracking-tight text-slate-900 dark:text-slate-100">
+            Deja tu testimonio
+          </h1>
+
+          <p class="mt-5 text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto">
+            Gracias por darte este tiempo. Tu experiencia puede ayudar a que otros estudiantes lleguen con más confianza. Puedes escribir con naturalidad: si hace falta, corregiré detalles mínimos antes de publicarlo.
+          </p>
+
+          <p class="mt-4 text-sm text-slate-500 dark:text-slate-400 max-w-xl mx-auto leading-relaxed">
+            Solo se publicará con tu autorización y nunca compartiré información sensible.
+          </p>
+        </div>
+      </section>
+
+      <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 fade-section">
+        <div class="rounded-[2rem] border border-slate-200/80 dark:border-slate-700/70 bg-white/80 dark:bg-slate-800/70 backdrop-blur-sm shadow-sm p-5 sm:p-7 md:p-8">
+          <form id="testimonial-form" action="https://formspree.io/f/REEMPLAZAR_ID" method="POST" class="space-y-8">
+            <input type="hidden" name="_subject" value="Nuevo testimonio para la página de Jaime Luckmann">
+            <!-- Tus datos -->
+            <div class="space-y-5">
+              <div>
+                <h2 class="text-2xl font-semibold text-slate-900 dark:text-slate-100">
+                  Tus datos
+                </h2>
+                <p class="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+                  Completa estos datos pensando en cómo eras y qué estabas estudiando cuando tomaste clases conmigo.
+                </p>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="space-y-2">
+                  <label for="nombre" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                    Nombre *
+                  </label>
+                  <input
+                    id="nombre"
+                    name="nombre"
+                    type="text"
+                    required
+                    placeholder="Solo tu primer nombre"
+                    class="w-full rounded-2xl border border-slate-300/80 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-4 py-3 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-terracotta/60"
+                  />
+                </div>
+
+                <div class="space-y-2">
+                  <label for="edad" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                    Edad *
+                  </label>
+                  <input
+                    id="edad"
+                    name="edad"
+                    type="text"
+                    required
+                    placeholder="Cuando tomaste clases conmigo"
+                    class="w-full rounded-2xl border border-slate-300/80 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-4 py-3 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-terracotta/60"
+                  />
+                </div>
+
+                <div class="space-y-2">
+                  <label for="ciudad" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                    Ciudad *
+                  </label>
+                  <input
+                    id="ciudad"
+                    name="ciudad"
+                    type="text"
+                    required
+                    placeholder="Ej: Concepción"
+                    class="w-full rounded-2xl border border-slate-300/80 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-4 py-3 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-terracotta/60"
+                  />
+                </div>
+
+                <div class="space-y-2">
+                  <label for="nivel" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                    Curso, carrera o nivel que cursabas *
+                  </label>
+                  <input
+                    id="nivel"
+                    name="nivel"
+                    type="text"
+                    required
+                    placeholder="4° medio / Ingeniería / Universidad"
+                    class="w-full rounded-2xl border border-slate-300/80 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-4 py-3 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-terracotta/60"
+                  />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-[1fr_1fr_auto] gap-4 items-end">
+                <div class="space-y-2">
+                  <label for="anio_inicio" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                    Año inicio *
+                  </label>
+                  <input
+                    id="anio_inicio"
+                    name="anio_inicio"
+                    type="text"
+                    inputmode="numeric"
+                    required
+                    maxlength="4"
+                    placeholder="Ej: 2024"
+                    class="w-full rounded-2xl border border-slate-300/80 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-4 py-3 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-terracotta/60"
+                  />
+                </div>
+
+                <div class="space-y-2">
+                  <label for="anio_fin" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                    Año fin
+                    <span class="text-slate-400 dark:text-slate-500">(opcional)</span>
+                  </label>
+                  <input
+                    id="anio_fin"
+                    name="anio_fin"
+                    type="text"
+                    inputmode="numeric"
+                    maxlength="4"
+                    placeholder="Ej: 2025"
+                    class="w-full rounded-2xl border border-slate-300/80 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-4 py-3 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-terracotta/60"
+                  />
+                </div>
+
+                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed sm:pb-3">
+                  Si tomaste clases más de un año, puedes indicar ambos.
+                </p>
+              </div>
+
+              <div class="space-y-2">
+                <label for="proceso" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                  Ramo, curso o proceso que trabajamos *
+                </label>
+                <input
+                  id="proceso"
+                  name="proceso"
+                  type="text"
+                  required
+                  placeholder="Cálculo, PAES, nivelación matemática..."
+                  class="w-full rounded-2xl border border-slate-300/80 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-4 py-3 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-terracotta/60"
+                />
+              </div>
+            </div>
+
+            <div class="border-t border-slate-200/80 dark:border-slate-700/70"></div>
+
+            <!-- Tu experiencia -->
+            <div class="space-y-5">
+              <div>
+                <h2 class="text-2xl font-semibold text-slate-900 dark:text-slate-100">
+                  Tu experiencia
+                </h2>
+                <p class="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+                  Puedes escribir libremente. Si te ayuda, puedes inspirarte en estas ideas.
+                </p>
+              </div>
+
+              <div class="rounded-2xl border border-slate-200/70 dark:border-slate-700/70 bg-slate-50/80 dark:bg-slate-900/40 p-4 sm:p-5">
+                <p class="text-sm font-medium text-slate-700 dark:text-slate-300">
+                  Ideas para guiarte
+                </p>
+                <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>• ¿Qué fue lo que más te ayudó del acompañamiento?</li>
+                  <li>• ¿Cómo te sentías con matemáticas antes y cómo te sentiste después?</li>
+                  <li>• ¿Qué le dirías a otra persona que está pensando en tomar clases conmigo?</li>
+                </ul>
+              </div>
+
+              <div class="space-y-2">
+                <label for="comentario" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                  Comentario *
+                </label>
+                <textarea
+                  id="comentario"
+                  name="comentario"
+                  required
+                  maxlength="420"
+                  placeholder="Escribe aquí tu testimonio con tranquilidad. No tiene que quedar perfecto: yo puedo corregir detalles mínimos de redacción antes de publicarlo."
+                  class="w-full min-h-[200px] rounded-2xl border border-slate-300/80 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-4 py-3 text-[15px] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 leading-7 resize-none focus:outline-none focus:ring-2 focus:ring-terracotta/60"
+                ></textarea>
+
+                <div class="flex justify-end">
+                  <p id="char-counter" class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+                    420 caracteres restantes
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="border-t border-slate-200/80 dark:border-slate-700/70"></div>
+
+            <!-- Consentimiento -->
+            <div class="space-y-5">
+              <div>
+                <h2 class="text-2xl font-semibold text-slate-900 dark:text-slate-100">
+                  Publicación y consentimiento
+                </h2>
+                <p class="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+                  Tu testimonio solo se publicará si tú lo autorizas.
+                </p>
+              </div>
+
+              <label class="flex items-start gap-3 rounded-2xl border border-slate-200/70 dark:border-slate-700/70 bg-slate-50/70 dark:bg-slate-900/40 p-4 sm:p-5">
+                <input
+                  id="consentimiento"
+                  name="consentimiento"
+                  type="checkbox"
+                  required
+                  class="mt-1 h-4 w-4 rounded border-slate-300 text-terracotta focus:ring-terracotta"
+                />
+                <span class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  Entiendo que mi testimonio puede ser publicado en esta página con mi nombre, edad, ciudad, contexto académico y periodo en que tomé clases. También acepto pequeñas correcciones de ortografía o redacción, sin cambiar el sentido de lo que escribí.
+                </span>
+              </label>
+
+              <div class="mt-6 text-center space-y-4">
+                <p class="text-sm text-slate-400 max-w-md mx-auto">
+                  Gracias por compartir tu experiencia. Tu mensaje puede ayudar a que otra persona se acerque a las matemáticas con menos miedo y más confianza.
+                </p>
+
+                <button class="px-7 py-3 mt-6 rounded-full bg-terracotta text-white font-medium shadow-lg hover:shadow-xl transition">
+                  Enviar testimonio
+                </button>
+              </div>
+
+              <div
+                id="form-message"
+                class="hidden rounded-2xl border border-slate-200/70 dark:border-slate-700/70 bg-slate-50/70 dark:bg-slate-900/40 px-4 py-3 text-sm text-slate-600 dark:text-slate-400"
+              ></div>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="py-6 text-center text-sm text-slate-500 dark:text-slate-400 bg-slate-200 dark:bg-slate-800">
+      © <span id="year"></span> Jaime Luckmann. Todos los derechos reservados.
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/comentarios.js"></script>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("testimonial-form");
+  const comentario = document.getElementById("comentario");
+  const charCounter = document.getElementById("char-counter");
+  const anioInicio = document.getElementById("anio_inicio");
+  const anioFin = document.getElementById("anio_fin");
+  const formMessage = document.getElementById("form-message");
+
+  if (!form) return;
+
+  function updateCounter() {
+    const max = Number(comentario.getAttribute("maxlength")) || 420;
+    const current = comentario.value.length;
+    const remaining = max - current;
+    charCounter.textContent = `${remaining} caracteres restantes`;
+  }
+
+  function isValidYear(value) {
+    return /^\d{4}$/.test(value);
+  }
+
+  function showMessage(text, type = "neutral") {
+    formMessage.classList.remove("hidden", "border-red-200", "text-red-600", "dark:text-red-400", "border-green-200", "text-green-700", "dark:text-green-400");
+    formMessage.textContent = text;
+
+    if (type === "error") {
+      formMessage.classList.add("border-red-200", "text-red-600", "dark:text-red-400");
+    } else if (type === "success") {
+      formMessage.classList.add("border-green-200", "text-green-700", "dark:text-green-400");
+    }
+  }
+
+  updateCounter();
+
+  comentario.addEventListener("input", updateCounter);
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const inicio = anioInicio.value.trim();
+    const fin = anioFin.value.trim();
+
+    if (!isValidYear(inicio)) {
+      showMessage("Revisa el año de inicio. Debe tener 4 dígitos, por ejemplo: 2024.", "error");
+      anioInicio.focus();
+      return;
+    }
+
+    if (fin !== "" && !isValidYear(fin)) {
+      showMessage("Revisa el año de fin. Debe tener 4 dígitos, por ejemplo: 2025.", "error");
+      anioFin.focus();
+      return;
+    }
+
+    if (fin !== "" && Number(fin) < Number(inicio)) {
+      showMessage("El año de fin no puede ser anterior al año de inicio.", "error");
+      anioFin.focus();
+      return;
+    }
+
+    showMessage("Tu testimonio fue preparado correctamente. Ahora puedes conectarlo a tu sistema de envío o backend.", "success");
+  });
+});
+  
+</script>

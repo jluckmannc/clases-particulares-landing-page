@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jaime Luckmann – Acompañamiento matemático humano</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+            colors: {
+              terracotta: {
+                DEFAULT: "#D9A384",
+                dark: "#B47F6E",
+              },
+            },
+            boxShadow: {
+              soft: "0 10px 30px rgba(15, 23, 42, 0.08)",
+              softDark: "0 12px 30px rgba(2, 6, 23, 0.35)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .fade-section {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+      .fade-section.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      h1, h2, button, span, a, img {
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-100 text-slate-900 dark:bg-slate-900 dark:text-slate-200 font-sans">
+    <header
+      id="navbar"
+      class="sticky top-0 z-50 backdrop-blur bg-white/90 dark:bg-slate-900/80 shadow-md transition-shadow duration-300"
+    >
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex items-center space-x-3 min-w-0">
+            <img
+              src="assets/img/avatar-jaime.png"
+              alt="Avatar de Jaime"
+              class="w-8 h-8 rounded-full flex-shrink-0"
+            />
+            <span class="font-semibold text-base sm:text-lg truncate">Jaime Luckmann</span>
+          </div>
+
+          <nav class="hidden md:flex items-center space-x-6 text-sm">
+            <a href="#inicio" class="hover:text-terracotta-dark transition-colors">Inicio</a>
+            <a href="#enfoque" class="hover:text-terracotta-dark transition-colors">Enfoque</a>
+            <a href="#testimonios" class="hover:text-terracotta-dark transition-colors">Testimonios</a>
+            <a href="#servicios" class="hover:text-terracotta-dark transition-colors">Servicios</a>
+            <a href="#sobre" class="hover:text-terracotta-dark transition-colors">Sobre mí</a>
+            <a href="#faq" class="hover:text-terracotta-dark transition-colors">FAQ</a>
+            <a href="#contacto" class="hover:text-terracotta-dark transition-colors">Contacto</a>
+            <a href="material.html" class="hover:text-terracotta-dark transition-colors">Material</a>
+          </nav>
+
+          <div class="flex items-center space-x-2 sm:space-x-3">
+            <a
+              href="https://wa.me/56958733947"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hidden md:inline-flex items-center px-4 py-2 rounded-full bg-terracotta hover:bg-terracotta-dark text-white transition-colors text-sm font-medium"
+              >WhatsApp</a
+            >
+            <button
+              id="theme-toggle"
+              class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+              aria-label="Cambiar a modo oscuro"
+            >
+              <svg
+                id="icon-theme"
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              ></svg>
+            </button>
+            <button
+              id="mobile-menu-button"
+              class="md:hidden p-2 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 focus:outline-none"
+              aria-label="Abrir menú"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="mobile-menu"
+        class="md:hidden hidden px-4 pb-4 backdrop-blur bg-white/95 dark:bg-slate-900/95 shadow-md"
+      >
+        <nav class="space-y-2 flex flex-col text-sm">
+          <a href="#inicio" class="block py-2 px-2 rounded hover:bg-slate-200 dark:hover:bg-slate-700">Inicio</a>
+          <a href="#enfoque" class="block py-2 px-2 rounded hover:bg-slate-200 dark:hover:bg-slate-700">Enfoque</a>
+          <a href="#testimonios" class="block py-2 px-2 rounded hover:bg-slate-200 dark:hover:bg-slate-700">Testimonios</a>
+          <a href="#servicios" class="block py-2 px-2 rounded hover:bg-slate-200 dark:hover:bg-slate-700">Servicios</a>
+          <a href="#sobre" class="block py-2 px-2 rounded hover:bg-slate-200 dark:hover:bg-slate-700">Sobre mí</a>
+          <a href="#faq" class="block py-2 px-2 rounded hover:bg-slate-200 dark:hover:bg-slate-700">FAQ</a>
+          <a href="#contacto" class="block py-2 px-2 rounded hover:bg-slate-200 dark:hover:bg-slate-700">Contacto</a>
+          <a href="material.html" class="block py-2 px-2 rounded hover:bg-slate-200 dark:hover:bg-slate-700">Material</a>
+          <a
+            href="https://wa.me/56958733947"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block py-2.5 px-3 rounded-xl bg-terracotta text-white hover:bg-terracotta-dark shadow-md transition-all duration-300"
+            >WhatsApp</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <main id="inicio" class="space-y-20 md:space-y-24">
+      <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-20 fade-section">
+        <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-14 items-center">
+          
+          <div class="space-y-5 text-center lg:text-left order-2 lg:order-1">
+            <span class="inline-block px-3 py-1 text-xs sm:text-sm font-medium rounded-full bg-terracotta/25 text-terracotta-dark dark:bg-terracotta-dark/25 dark:text-terracotta">
+              Acompañamiento matemático humano
+            </span>
+
+            <h1 class="text-4xl sm:text-5xl lg:text-5xl font-semibold leading-tight text-slate-900 dark:text-slate-200">
+              La matemática es desafiante, pero aprenderla nunca debería ser doloroso.
+            </h1>
+
+            <p class="text-base sm:text-lg text-slate-700 dark:text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+              Acompaño a estudiantes escolares y universitarios desde la calma, la claridad y el respeto por su proceso. Mi objetivo no es solo ayudarte a resolver ejercicios, sino que vuelvas a sentirte capaz de aprender.
+            </p>
+
+            <p class="text-sm sm:text-base text-slate-500 dark:text-slate-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+              Jaime Luckmann · Ingeniero Civil Matemático · Universidad de Concepción
+            </p>
+
+            <div class="flex flex-col sm:flex-row sm:flex-wrap sm:justify-center lg:justify-start gap-3 pt-1">
+              <a
+                href="https://wa.me/56958733947"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-terracotta text-white font-medium hover:bg-terracotta-dark transition-colors shadow-md"
+              >
+                Contáctame por WhatsApp
+              </a>
+
+              <a
+                href="#enfoque"
+                class="inline-flex items-center justify-center px-6 py-3 rounded-full border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-medium hover:bg-white/70 dark:hover:bg-slate-800 transition-colors"
+              >
+                Conoce mi forma de enseñar
+              </a>
+
+              <a
+                href="material.html"
+                class="inline-flex items-center justify-center px-6 py-3 rounded-full border border-terracotta text-terracotta font-medium hover:bg-terracotta hover:text-white transition-colors"
+              >
+                Ver material de muestra
+              </a>
+            </div>
+
+            <p class="text-sm text-slate-500 dark:text-slate-400 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+              Primera conversación breve para entender tu situación, responder dudas y ver si puedo ayudarte de la mejor manera.
+            </p>
+
+            <div class="flex flex-col sm:flex-row sm:flex-wrap gap-2.5 justify-center lg:justify-start text-sm text-slate-500 dark:text-slate-400">
+              <span class="px-3 py-1.5 rounded-full bg-white/70 dark:bg-slate-800/70 border border-slate-200/70 dark:border-slate-700">
+                Online y presencial
+              </span>
+              <span class="px-3 py-1.5 rounded-full bg-white/70 dark:bg-slate-800/70 border border-slate-200/70 dark:border-slate-700">
+                Material personalizado
+              </span>
+              <span class="px-3 py-1.5 rounded-full bg-white/70 dark:bg-slate-800/70 border border-slate-200/70 dark:border-slate-700">
+                Acompañamiento continuo
+              </span>
+            </div>
+
+            <p class="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-2 justify-center lg:justify-start">
+              <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+              Marzo 2026: aún con algunos cupos disponibles.
+            </p>
+          </div>
+
+          <div class="order-1 lg:order-2 flex justify-center">
+            <div class="relative flex flex-col items-center">
+              <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div class="w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full bg-terracotta/15 dark:bg-terracotta-dark/20 blur-3xl"></div>
+              </div>
+
+              <img
+                src="assets/img/avatar-jaime.png"
+                alt="Avatar de Jaime"
+                class="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 rounded-full object-cover shadow-xl"
+              />
+
+              <p class="relative mt-5 text-center text-sm sm:text-base text-slate-500 dark:text-slate-400 max-w-[240px] sm:max-w-[280px] leading-relaxed">
+                Enseñar desde la comprensión, no desde la presión.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 fade-section">
+        <div class="rounded-[2rem] border border-slate-200/80 dark:border-slate-700/70 bg-white/55 dark:bg-slate-800/35 backdrop-blur-sm px-5 sm:px-8 py-8 sm:py-10 text-center shadow-soft dark:shadow-softDark">
+          <span class="inline-block px-3 py-1 text-xs font-medium rounded-full bg-slate-100 dark:bg-slate-700/60 text-slate-500 dark:text-slate-300">
+            Para quienes han sentido distancia con la matemática
+          </span>
+          <h2 class="mt-4 text-2xl sm:text-3xl font-semibold text-slate-900 dark:text-slate-100 leading-snug">
+            A veces no falta capacidad. Falta una forma más clara, humana y paciente de aprender.
+          </h2>
+          <p class="mt-4 text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
+            Trabajo con estudiantes que llegan con ansiedad matemática, vacíos de base o malas experiencias previas. Mi acompañamiento busca ordenar, explicar con calma y construir confianza paso a paso.
+          </p>
+        </div>
+      </section>
+
+      <section id="enfoque" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 fade-section">
+        <div class="text-center max-w-3xl mx-auto">
+          <span class="inline-block px-3 py-1 text-xs font-medium rounded-full bg-terracotta/20 text-terracotta-dark dark:bg-terracotta-dark/25 dark:text-terracotta">
+            Mi enfoque
+          </span>
+          <h2 class="mt-4 text-3xl sm:text-4xl font-semibold text-slate-900 dark:text-slate-100 leading-tight">
+            Una forma de enseñar que cuida tanto la comprensión como la experiencia de aprender.
+          </h2>
+          <p class="mt-4 text-slate-600 dark:text-slate-300 leading-relaxed">
+            Creo que muchas dificultades en matemáticas no nacen de una falta de capacidad, sino de haber aprendido con demasiada presión, demasiada rapidez o muy poca claridad. Por eso trabajo desde la paciencia, la comprensión profunda y un acompañamiento sostenido.
+          </p>
+        </div>
+
+        <div class="grid gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <article class="rounded-3xl border border-slate-200/80 dark:border-slate-700/70 bg-white/75 dark:bg-slate-800/45 p-6 shadow-soft dark:shadow-softDark">
+            <div class="w-10 h-10 rounded-2xl bg-terracotta/15 dark:bg-terracotta-dark/20 flex items-center justify-center mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-terracotta dark:text-terracotta" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A8.966 8.966 0 0112 15c2.493 0 4.758.969 6.879 2.804M15 10a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+            </div>
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Aprender sin juicio</h3>
+            <p class="mt-2 text-slate-600 dark:text-slate-300 leading-relaxed">
+              Busco que puedas preguntar, equivocarte y volver a intentar sin sentir presión innecesaria.
+            </p>
+          </article>
+
+          <article class="rounded-3xl border border-slate-200/80 dark:border-slate-700/70 bg-white/75 dark:bg-slate-800/45 p-6 shadow-soft dark:shadow-softDark">
+            <div class="w-10 h-10 rounded-2xl bg-terracotta/15 dark:bg-terracotta-dark/20 flex items-center justify-center mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-terracotta dark:text-terracotta" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4m0-8c2.21 0 4 1.79 4 4 0 .73-.2 1.41-.55 2M12 8V6m0 10v2m0 0h.01" /></svg>
+            </div>
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Comprensión profunda</h3>
+            <p class="mt-2 text-slate-600 dark:text-slate-300 leading-relaxed">
+              No me interesa que memorices fórmulas sin sentido. Buscamos entender la lógica detrás de lo que estás haciendo.
+            </p>
+          </article>
+
+          <article class="rounded-3xl border border-slate-200/80 dark:border-slate-700/70 bg-white/75 dark:bg-slate-800/45 p-6 shadow-soft dark:shadow-softDark">
+            <div class="w-10 h-10 rounded-2xl bg-terracotta/15 dark:bg-terracotta-dark/20 flex items-center justify-center mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-terracotta dark:text-terracotta" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2M5 12a7 7 0 1114 0 7 7 0 01-14 0z" /></svg>
+            </div>
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Respeto por tu ritmo</h3>
+            <p class="mt-2 text-slate-600 dark:text-slate-300 leading-relaxed">
+              Cada estudiante necesita tiempos distintos. Ajustamos el proceso para que puedas avanzar con más seguridad.
+            </p>
+          </article>
+
+          <article class="rounded-3xl border border-slate-200/80 dark:border-slate-700/70 bg-white/75 dark:bg-slate-800/45 p-6 shadow-soft dark:shadow-softDark">
+            <div class="w-10 h-10 rounded-2xl bg-terracotta/15 dark:bg-terracotta-dark/20 flex items-center justify-center mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-terracotta dark:text-terracotta" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6M12 9v6M4 7h16M4 17h16" /></svg>
+            </div>
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Claridad conceptual</h3>
+            <p class="mt-2 text-slate-600 dark:text-slate-300 leading-relaxed">
+              Ordenamos ideas, conectamos conceptos y simplificamos lo complejo para que todo tenga más sentido.
+            </p>
+          </article>
+
+          <article class="rounded-3xl border border-slate-200/80 dark:border-slate-700/70 bg-white/75 dark:bg-slate-800/45 p-6 shadow-soft dark:shadow-softDark">
+            <div class="w-10 h-10 rounded-2xl bg-terracotta/15 dark:bg-terracotta-dark/20 flex items-center justify-center mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-terracotta dark:text-terracotta" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 18v-6a9 9 0 0118 0v6M5 18a7 7 0 0114 0" /></svg>
+            </div>
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Acompañamiento sostenido</h3>
+            <p class="mt-2 text-slate-600 dark:text-slate-300 leading-relaxed">
+              Cuando hace falta, no trabajamos solo una duda puntual: construimos una base más estable en el tiempo.
+            </p>
+          </article>
+
+          <article class="rounded-3xl border border-slate-200/80 dark:border-slate-700/70 bg-white/75 dark:bg-slate-800/45 p-6 shadow-soft dark:shadow-softDark">
+            <div class="w-10 h-10 rounded-2xl bg-terracotta/15 dark:bg-terracotta-dark/20 flex items-center justify-center mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-terracotta dark:text-terracotta" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L15 12l-5.25-5" /></svg>
+            </div>
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Tecnología a favor</h3>
+            <p class="mt-2 text-slate-600 dark:text-slate-300 leading-relaxed">
+              Utilizo pizarra online, material personalizado y herramientas digitales para facilitar la comprensión.
+            </p>
+          </article>
+        </div>
+
+        <p class="text-center text-sm text-slate-500 dark:text-slate-400 max-w-3xl mx-auto">
+          La meta no es solo resolver ejercicios, sino ayudarte a pensar matemáticamente con más claridad y confianza.
+        </p>
+      </section>
+
+      <section id="testimonios" class="py-2 fade-section">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-2xl mx-auto">
+            <span class="inline-block px-3 py-1 text-xs font-medium rounded-full bg-terracotta/20 text-terracotta-dark dark:bg-terracotta-dark/25 dark:text-terracotta">
+              Testimonios
+            </span>
+            <h2 class="mt-4 text-3xl sm:text-4xl font-semibold text-slate-900 dark:text-white leading-tight">
+              Experiencias de estudiantes que fueron recuperando claridad y confianza.
+            </h2>
+            <p class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+              Distintas trayectorias, distintos ramos, pero una misma idea: entender mejor y sentirse acompañado en el proceso.
+            </p>
+          </div>
+
+          <div
+            id="testimonials-container"
+            class="mt-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6 items-stretch"
+          ></div>
+
+          <div class="mt-10 flex justify-center">
+            <a
+              href="testimonios.html"
+              class="inline-flex items-center gap-2 rounded-full border border-slate-300/70 dark:border-slate-600 px-6 py-3 text-sm font-medium text-slate-700 dark:text-slate-200 bg-white/70 dark:bg-slate-800/70 hover:bg-white dark:hover:bg-slate-800 hover:shadow-md transition-all duration-300"
+            >
+              Ver más experiencias de estudiantes
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10.293 15.707a1 1 0 010-1.414L13.586 11H4a1 1 0 110-2h9.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="servicios" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 fade-section">
+        <div class="text-center max-w-3xl mx-auto">
+          <span class="inline-block px-3 py-1 text-xs font-medium rounded-full bg-terracotta/20 text-terracotta-dark dark:bg-terracotta-dark/25 dark:text-terracotta">
+            Servicios
+          </span>
+          <h2 class="mt-4 text-3xl sm:text-4xl font-semibold text-slate-900 dark:text-slate-100 leading-tight">
+            Modalidades de acompañamiento según lo que hoy necesites.
+          </h2>
+          <p class="mt-4 text-slate-600 dark:text-slate-300 leading-relaxed">
+            No se trata solo de "hacer clases", sino de encontrar la forma de apoyo que mejor responda a tu momento y a tus objetivos.
+          </p>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-3">
+          <article class="bg-white dark:bg-slate-800/80 border border-slate-200/70 dark:border-slate-700/70 rounded-3xl shadow-soft dark:shadow-softDark p-6 sm:p-8 space-y-4 transition-colors">
+            <h3 class="text-2xl font-semibold text-slate-900 dark:text-slate-100">Acompañamiento continuo</h3>
+            <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+              Ideal si necesitas ordenar bases, sostener un proceso y avanzar con más seguridad a lo largo de varias semanas.
+            </p>
+            <ul class="space-y-2 text-slate-600 dark:text-slate-300 text-sm sm:text-base">
+              <li>4 clases por mes — <span class="font-medium">5 % de descuento</span></li>
+              <li>6 clases por mes — <span class="font-medium">10 % de descuento</span></li>
+              <li>8 clases por mes — <span class="font-medium">15 % de descuento</span></li>
+            </ul>
+          </article>
+
+          <article class="bg-white dark:bg-slate-800/80 border border-slate-200/70 dark:border-slate-700/70 rounded-3xl shadow-soft dark:shadow-softDark p-6 sm:p-8 space-y-4 transition-colors">
+            <h3 class="text-2xl font-semibold text-slate-900 dark:text-slate-100">Apoyo puntual</h3>
+            <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+              Para dudas específicas, preparación de pruebas o contenidos que hoy te están costando especialmente.
+            </p>
+            <ul class="space-y-2 text-slate-600 dark:text-slate-300 text-sm sm:text-base">
+              <li>Clases escolares disponibles</li>
+              <li>Ideal para evaluaciones cercanas</li>
+              <li>Enfoque claro y práctico</li>
+            </ul>
+          </article>
+
+          <article class="bg-white dark:bg-slate-800/80 border border-slate-200/70 dark:border-slate-700/70 rounded-3xl shadow-soft dark:shadow-softDark p-6 sm:p-8 space-y-4 transition-colors">
+            <h3 class="text-2xl font-semibold text-slate-900 dark:text-slate-100">Nivelación de bases</h3>
+            <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+              Si sientes que vienes arrastrando vacíos desde hace tiempo, trabajamos desde una base más clara y segura.
+            </p>
+            <ul class="space-y-2 text-slate-600 dark:text-slate-300 text-sm sm:text-base">
+              <li>Escolar y enseñanza media</li>
+              <li>Universitario: álgebra, cálculo, lógica y más</li>
+              <li>Reconstrucción sin frustración</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="sobre" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 fade-section">
+        <div class="text-center max-w-3xl mx-auto">
+          
+          <h2 class="text-3xl font-semibold text-slate-900 dark:text-slate-100">
+            Sobre mí
+          </h2>
+
+          <div class="mt-5 space-y-4 text-slate-700 dark:text-slate-300 leading-relaxed text-left sm:text-center">
+
+            <p>
+              Soy Jaime Luckmann, Ingeniero Civil Matemático titulado de la Universidad de Concepción. 
+              He sido ayudante universitario, tutor y docente en educación superior, acompañando a 
+              estudiantes de distintas edades y niveles en su aprendizaje matemático.
+            </p>
+
+            <p>
+              Con el tiempo he visto que muchas dificultades en matemáticas no tienen que ver con falta 
+              de capacidad, sino con experiencias de aprendizaje poco cuidadas, vacíos acumulados o 
+              procesos de enseñanza demasiado rápidos. Por eso mi trabajo busca fortalecer la comprensión 
+              conceptual y, al mismo tiempo, cuidar la experiencia de aprendizaje de cada estudiante.
+            </p>
+
+            <p>
+              He acompañado a estudiantes en asignaturas como álgebra, cálculo, métodos numéricos, lógica 
+              y nivelación de bases. Esta experiencia me ha llevado a desarrollar una forma de enseñar 
+              centrada en la comprensión, la paciencia y la compasión por el proceso de aprender.
+            </p>
+
+          </div>
+        </div>
+      </section>
+
+      <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 fade-section">
+        <div class="rounded-[2rem] border border-slate-200/80 dark:border-slate-700/70 bg-white/60 dark:bg-slate-800/40 backdrop-blur-sm p-6 sm:p-8 md:p-10 shadow-soft dark:shadow-softDark">
+          <div class="text-center max-w-2xl mx-auto">
+            <span class="inline-block px-3 py-1 text-xs font-medium rounded-full bg-terracotta/20 text-terracotta-dark dark:bg-terracotta-dark/25 dark:text-terracotta">
+              Cómo funciona el primer contacto
+            </span>
+            <h2 class="mt-4 text-2xl sm:text-3xl font-semibold text-slate-900 dark:text-slate-100">
+              Un primer paso simple y sin presión.
+            </h2>
+          </div>
+
+          <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <article class="rounded-2xl border border-slate-200/80 dark:border-slate-700/70 bg-white/70 dark:bg-slate-800/60 p-5">
+              <p class="text-sm font-semibold text-slate-900 dark:text-slate-100">1. Me escribes</p>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Me cuentas brevemente qué te está costando o en qué necesitas apoyo.
+              </p>
+            </article>
+            <article class="rounded-2xl border border-slate-200/80 dark:border-slate-700/70 bg-white/70 dark:bg-slate-800/60 p-5">
+              <p class="text-sm font-semibold text-slate-900 dark:text-slate-100">2. Entiendo tu caso</p>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Conversamos tu contexto, tus objetivos y el tipo de apoyo que podría servirte mejor.
+              </p>
+            </article>
+            <article class="rounded-2xl border border-slate-200/80 dark:border-slate-700/70 bg-white/70 dark:bg-slate-800/60 p-5">
+              <p class="text-sm font-semibold text-slate-900 dark:text-slate-100">3. Lo revisamos juntos</p>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Vemos si te conviene un apoyo puntual o un acompañamiento más continuo.
+              </p>
+            </article>
+            <article class="rounded-2xl border border-slate-200/80 dark:border-slate-700/70 bg-white/70 dark:bg-slate-800/60 p-5">
+              <p class="text-sm font-semibold text-slate-900 dark:text-slate-100">4. Coordinamos</p>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Acordamos modalidad, horario y la mejor forma de empezar con calma.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 fade-section">
+        <h2 class="text-3xl font-semibold text-center text-slate-900 dark:text-slate-100">Preguntas frecuentes</h2>
+
+        <div class="space-y-4">
+          <div class="faq-item border border-slate-200/70 dark:border-slate-700 rounded-2xl bg-white/40 dark:bg-slate-800/30 backdrop-blur-sm transition-colors duration-300">
+            <button class="faq-question w-full text-left px-5 py-4 flex justify-between items-center gap-4">
+              <span class="font-medium text-slate-800 dark:text-slate-100">¿Cuánto dura cada clase?</span>
+              <svg class="w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform duration-300 ease-out flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="faq-answer grid grid-rows-[0fr] opacity-0 px-5 transition-all duration-300 ease-out">
+              <div class="overflow-hidden"><div class="pb-4 text-slate-600 dark:text-slate-400 leading-7">Generalmente 1 hora. A veces, si lo considero necesario para cerrar bien una idea, me quedo un poquito más sin problema.</div></div>
+            </div>
+          </div>
+
+          <div class="faq-item border border-slate-200/70 dark:border-slate-700 rounded-2xl bg-white/40 dark:bg-slate-800/30 backdrop-blur-sm transition-colors duration-300">
+            <button class="faq-question w-full text-left px-5 py-4 flex justify-between items-center gap-4">
+              <span class="font-medium text-slate-800 dark:text-slate-100">¿Trabajas con alumnos universitarios?</span>
+              <svg class="w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform duration-300 ease-out flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="faq-answer grid grid-rows-[0fr] opacity-0 px-5 transition-all duration-300 ease-out">
+              <div class="overflow-hidden"><div class="pb-4 text-slate-600 dark:text-slate-400 leading-7">Claro que sí. He acompañado a muchos estudiantes en asignaturas como álgebra, cálculo, métodos, lógica y otras áreas más aplicadas.</div></div>
+            </div>
+          </div>
+
+          <div class="faq-item border border-slate-200/70 dark:border-slate-700 rounded-2xl bg-white/40 dark:bg-slate-800/30 backdrop-blur-sm transition-colors duration-300">
+            <button class="faq-question w-full text-left px-5 py-4 flex justify-between items-center gap-4">
+              <span class="font-medium text-slate-800 dark:text-slate-100">¿Necesito ser bueno en matemáticas para tomar clases?</span>
+              <svg class="w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform duration-300 ease-out flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="faq-answer grid grid-rows-[0fr] opacity-0 px-5 transition-all duration-300 ease-out">
+              <div class="overflow-hidden"><div class="pb-4 text-slate-600 dark:text-slate-400 leading-7">No. De hecho, muchos estudiantes llegan convencidos de que “no son buenos para matemáticas”. Parte importante de mi trabajo es reconstruir esa relación con la materia desde la comprensión y la calma.</div></div>
+            </div>
+          </div>
+
+          <div class="faq-item border border-slate-200/70 dark:border-slate-700 rounded-2xl bg-white/40 dark:bg-slate-800/30 backdrop-blur-sm transition-colors duration-300">
+            <button class="faq-question w-full text-left px-5 py-4 flex justify-between items-center gap-4">
+              <span class="font-medium text-slate-800 dark:text-slate-100">¿Qué pasa si solo necesito una clase suelta?</span>
+              <svg class="w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform duration-300 ease-out flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="faq-answer grid grid-rows-[0fr] opacity-0 px-5 transition-all duration-300 ease-out">
+              <div class="overflow-hidden"><div class="pb-4 text-slate-600 dark:text-slate-400 leading-7">No hay ningún problema. Aunque mi enfoque principal es el acompañamiento sostenido, también hago clases puntuales.</div></div>
+            </div>
+          </div>
+
+          <div class="faq-item border border-slate-200/70 dark:border-slate-700 rounded-2xl bg-white/40 dark:bg-slate-800/30 backdrop-blur-sm transition-colors duration-300">
+            <button class="faq-question w-full text-left px-5 py-4 flex justify-between items-center gap-4">
+              <span class="font-medium text-slate-800 dark:text-slate-100">¿Cómo se coordinan horarios?</span>
+              <svg class="w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform duration-300 ease-out flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="faq-answer grid grid-rows-[0fr] opacity-0 px-5 transition-all duration-300 ease-out">
+              <div class="overflow-hidden"><div class="pb-4 text-slate-600 dark:text-slate-400 leading-7">Muy simple: me escribes por WhatsApp y acordamos un horario en conjunto según tu disponibilidad.</div></div>
+            </div>
+          </div>
+
+          <div class="faq-item border border-slate-200/70 dark:border-slate-700 rounded-2xl bg-white/40 dark:bg-slate-800/30 backdrop-blur-sm transition-colors duration-300">
+            <button class="faq-question w-full text-left px-5 py-4 flex justify-between items-center gap-4">
+              <span class="font-medium text-slate-800 dark:text-slate-100">¿Qué herramientas utilizas en clase?</span>
+              <svg class="w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform duration-300 ease-out flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="faq-answer grid grid-rows-[0fr] opacity-0 px-5 transition-all duration-300 ease-out">
+              <div class="overflow-hidden"><div class="pb-4 text-slate-600 dark:text-slate-400 leading-7">Utilizo Miro para clases online, además de material personalizado y distintos recursos digitales. Hago clases tanto online como presenciales.</div></div>
+            </div>
+          </div>
+
+          <div class="faq-item border border-slate-200/70 dark:border-slate-700 rounded-2xl bg-white/40 dark:bg-slate-800/30 backdrop-blur-sm transition-colors duration-300">
+            <button class="faq-question w-full text-left px-5 py-4 flex justify-between items-center gap-4">
+              <span class="font-medium text-slate-800 dark:text-slate-100">¿Cómo se paga?</span>
+              <svg class="w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform duration-300 ease-out flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="faq-answer grid grid-rows-[0fr] opacity-0 px-5 transition-all duration-300 ease-out">
+              <div class="overflow-hidden"><div class="pb-4 text-slate-600 dark:text-slate-400 leading-7">Vía transferencia a mi cuenta Mercado Pago. Si tomas un plan mensual, puedes pagar durante las primeras dos semanas.</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contacto" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 fade-section pb-20">
+        <h2 class="text-3xl font-semibold text-center text-slate-900 dark:text-slate-100">Contacto</h2>
+        <p class="text-center text-slate-700 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
+          Si sientes que las matemáticas se te han hecho pesadas, frustrantes o confusas, no tienes que enfrentarlo solo. Podemos trabajarlo paso a paso, con claridad y calma.
+        </p>
+        <p class="text-center text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+          Escríbeme y conversemos brevemente sobre tu situación para encontrar la mejor forma de ayudarte.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+          <a
+            href="https://wa.me/56958733947"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 rounded-full bg-terracotta text-white font-medium hover:bg-terracotta-dark transition-colors shadow-md"
+            >Escríbeme por WhatsApp</a
+          >
+          <a
+            href="mailto:jluckmann.math@gmail.com"
+            class="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 rounded-full border border-terracotta text-terracotta font-medium hover:bg-terracotta hover:text-white transition-colors"
+            >Enviar correo</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer class="py-6 text-center text-sm text-slate-500 dark:text-slate-400 bg-slate-200 dark:bg-slate-800">
+      © <span id="year"></span> Jaime Luckmann. Todos los derechos reservados.
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
