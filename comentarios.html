@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dejar testimonio | Jaime Luckmann</title>
+    <title>Escribe sobre tu experiencia</title>
 
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
@@ -170,8 +170,23 @@
 
       <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 fade-section">
         <div class="rounded-[2rem] border border-slate-200/80 dark:border-slate-700/70 bg-white/80 dark:bg-slate-800/70 backdrop-blur-sm shadow-sm p-5 sm:p-7 md:p-8">
-          <form id="testimonial-form" action="https://formspree.io/f/REEMPLAZAR_ID" method="POST" class="space-y-8">
-            <input type="hidden" name="_subject" value="Nuevo testimonio para la página de Jaime Luckmann">
+          <form
+            id="testimonial-form"
+            name="testimonios"
+            method="POST"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            class="space-y-8"
+          >
+            <input type="hidden" name="form-name" value="testimonios" />
+
+            <p class="hidden" aria-hidden="true">
+              <label>
+                No llenar este campo:
+                <input name="bot-field" tabindex="-1" autocomplete="off" />
+              </label>
+            </p>
+
             <!-- Tus datos -->
             <div class="space-y-5">
               <div>
@@ -370,8 +385,12 @@
                   Gracias por compartir tu experiencia. Tu mensaje puede ayudar a que otra persona se acerque a las matemáticas con menos miedo y más confianza.
                 </p>
 
-                <button class="px-7 py-3 mt-6 rounded-full bg-terracotta text-white font-medium shadow-lg hover:shadow-xl transition">
-                  Enviar testimonio
+                <button
+                  id="submit-button"
+                  type="submit"
+                  class="px-7 py-3 mt-6 rounded-full bg-terracotta text-white font-medium shadow-lg hover:shadow-xl transition disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  Compartir experiencia
                 </button>
               </div>
 
@@ -386,80 +405,133 @@
     </main>
 
     <footer class="py-6 text-center text-sm text-slate-500 dark:text-slate-400 bg-slate-200 dark:bg-slate-800">
-      © <span id="year"></span> Jaime Luckmann. Todos los derechos reservados.
+      <p class="px-4 leading-6">
+        © <span id="year"></span> Jaime Luckmann
+        <span class="hidden sm:inline"> · </span>
+        <span class="block sm:inline">Talcahuano, Chile</span>
+        <span class="hidden sm:inline"> · </span>
+        <span class="block sm:inline">Diseñado y desarrollado con ♥ por Jaime Luckmann</span>
+      </p>
     </footer>
 
     <script src="assets/js/main.js"></script>
-    <script src="assets/js/comentarios.js"></script>
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("testimonial-form");
+        const comentario = document.getElementById("comentario");
+        const charCounter = document.getElementById("char-counter");
+        const anioInicio = document.getElementById("anio_inicio");
+        const anioFin = document.getElementById("anio_fin");
+        const formMessage = document.getElementById("form-message");
+        const submitButton = document.getElementById("submit-button");
+
+        if (!form || !comentario || !charCounter || !anioInicio || !anioFin || !formMessage || !submitButton) {
+          return;
+        }
+
+        function updateCounter() {
+          const max = Number(comentario.getAttribute("maxlength")) || 420;
+          const current = comentario.value.length;
+          const remaining = max - current;
+          charCounter.textContent = `${remaining} caracteres restantes`;
+        }
+
+        function isValidYear(value) {
+          return /^\d{4}$/.test(value);
+        }
+
+        function encode(data) {
+          return new URLSearchParams(data).toString();
+        }
+
+        function showMessage(text, type = "neutral") {
+          formMessage.className =
+            "rounded-2xl border px-4 py-3 text-sm bg-slate-50/70 dark:bg-slate-900/40";
+
+          if (type === "error") {
+            formMessage.classList.add(
+              "border-red-200",
+              "text-red-600",
+              "dark:border-red-800/60",
+              "dark:text-red-400"
+            );
+          } else if (type === "success") {
+            formMessage.classList.add(
+              "border-green-200",
+              "text-green-700",
+              "dark:border-green-800/60",
+              "dark:text-green-400"
+            );
+          } else {
+            formMessage.classList.add(
+              "border-slate-200/70",
+              "dark:border-slate-700/70",
+              "text-slate-600",
+              "dark:text-slate-400"
+            );
+          }
+
+          formMessage.textContent = text;
+          formMessage.classList.remove("hidden");
+        }
+
+        function setSubmittingState(isSubmitting) {
+          submitButton.disabled = isSubmitting;
+          submitButton.textContent = isSubmitting ? "Enviando..." : "Enviar testimonio";
+        }
+
+        updateCounter();
+        comentario.addEventListener("input", updateCounter);
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const inicio = anioInicio.value.trim();
+          const fin = anioFin.value.trim();
+
+          if (!isValidYear(inicio)) {
+            showMessage("Revisa el año de inicio. Debe tener 4 dígitos, por ejemplo: 2024.", "error");
+            anioInicio.focus();
+            return;
+          }
+
+          if (fin !== "" && !isValidYear(fin)) {
+            showMessage("Revisa el año de fin. Debe tener 4 dígitos, por ejemplo: 2025.", "error");
+            anioFin.focus();
+            return;
+          }
+
+          if (fin !== "" && Number(fin) < Number(inicio)) {
+            showMessage("El año de fin no puede ser anterior al año de inicio.", "error");
+            anioFin.focus();
+            return;
+          }
+
+          try {
+            setSubmittingState(true);
+
+            const formData = new FormData(form);
+
+            await fetch("/", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              body: encode(formData),
+            });
+
+            form.reset();
+            updateCounter();
+            showMessage("Gracias. Tu experiencia con las clases fue enviada correctamente y la revisaré antes de publicarla.", "success");
+          } catch (error) {
+            showMessage("Hubo un problema al enviar tu mensaje. Intenta nuevamente en unos minutos.", "error");
+          } finally {
+            setSubmittingState(false);
+          }
+        });
+      });
     </script>
   </body>
 </html>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("testimonial-form");
-  const comentario = document.getElementById("comentario");
-  const charCounter = document.getElementById("char-counter");
-  const anioInicio = document.getElementById("anio_inicio");
-  const anioFin = document.getElementById("anio_fin");
-  const formMessage = document.getElementById("form-message");
-
-  if (!form) return;
-
-  function updateCounter() {
-    const max = Number(comentario.getAttribute("maxlength")) || 420;
-    const current = comentario.value.length;
-    const remaining = max - current;
-    charCounter.textContent = `${remaining} caracteres restantes`;
-  }
-
-  function isValidYear(value) {
-    return /^\d{4}$/.test(value);
-  }
-
-  function showMessage(text, type = "neutral") {
-    formMessage.classList.remove("hidden", "border-red-200", "text-red-600", "dark:text-red-400", "border-green-200", "text-green-700", "dark:text-green-400");
-    formMessage.textContent = text;
-
-    if (type === "error") {
-      formMessage.classList.add("border-red-200", "text-red-600", "dark:text-red-400");
-    } else if (type === "success") {
-      formMessage.classList.add("border-green-200", "text-green-700", "dark:text-green-400");
-    }
-  }
-
-  updateCounter();
-
-  comentario.addEventListener("input", updateCounter);
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const inicio = anioInicio.value.trim();
-    const fin = anioFin.value.trim();
-
-    if (!isValidYear(inicio)) {
-      showMessage("Revisa el año de inicio. Debe tener 4 dígitos, por ejemplo: 2024.", "error");
-      anioInicio.focus();
-      return;
-    }
-
-    if (fin !== "" && !isValidYear(fin)) {
-      showMessage("Revisa el año de fin. Debe tener 4 dígitos, por ejemplo: 2025.", "error");
-      anioFin.focus();
-      return;
-    }
-
-    if (fin !== "" && Number(fin) < Number(inicio)) {
-      showMessage("El año de fin no puede ser anterior al año de inicio.", "error");
-      anioFin.focus();
-      return;
-    }
-
-    showMessage("Tu testimonio fue preparado correctamente. Ahora puedes conectarlo a tu sistema de envío o backend.", "success");
-  });
-});
-  
-</script>
