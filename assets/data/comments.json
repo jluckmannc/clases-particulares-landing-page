@@ -33,15 +33,15 @@
     "publicado": true
   },
     {
-    "nombre": "",
-    "edad": 0,
-    "ciudad": "",
-    "curso_carrera_nivel": "",
-    "anio_inicio": 202,
-    "anio_fin": 202,
-    "proceso": "",
-    "comentario": "",
-    "publicado": false
+    "nombre": "Andrea",
+    "edad": 45,
+    "ciudad": "Concepción",
+    "curso_carrera_nivel": "Pedagogía en matemática",
+    "anio_inicio": 2024,
+    "anio_fin": 2025,
+    "proceso": "Cálculo y Álgebra abstracta",
+    "comentario": "Excelente persona y profesor, muy empático ante situaciones de dificultad. Explica con mucha paciencia y usa una metodología motivadora. En cuanto a conocimiento no hay ninguna duda que se maneja muy bien con un nivel de profundidad requerido para enseñar en educación superior.",
+    "publicado": true
   },
     {
     "nombre": "",
