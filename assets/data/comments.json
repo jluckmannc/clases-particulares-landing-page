@@ -40,18 +40,18 @@
     "anio_inicio": 2024,
     "anio_fin": 2025,
     "proceso": "Cálculo y Álgebra abstracta",
-    "comentario": "Excelente persona y profesor, muy empático ante situaciones de dificultad. Explica con mucha paciencia y usa una metodología motivadora. En cuanto a conocimiento no hay ninguna duda que se maneja muy bien con un nivel de profundidad requerido para enseñar en educación superior.",
+    "comentario": "Excelente persona y profesor, muy empático ante situaciones de dificultad. Explica con mucha paciencia y usa una metodología motivadora. En cuanto a conocimiento <strong>no hay ninguna duda que se maneja muy bien con un nivel de profundidad requerido para enseñar en educación superior.</strong>",
     "publicado": true
   },
     {
-    "nombre": "",
-    "edad": 0,
-    "ciudad": "",
-    "curso_carrera_nivel": "",
-    "anio_inicio": 202,
-    "anio_fin": 202,
-    "proceso": "",
-    "comentario": "",
+    "nombre": "Benjamín",
+    "edad": 20,
+    "ciudad": "Concepción",
+    "curso_carrera_nivel": "Química y farmacia",
+    "anio_inicio": 2025,
+    "anio_fin": 2025,
+    "proceso": "Cálculo y electromagnetismo",
+    "comentario": "Yo creo que <strong>lo más especial es su forma tan espectacular de explicar las cosas</strong>. Es super sencillo de entender lo que comunica y se nota que quiere hacer que tú logres entender sin forzarte la materia. Es súper didáctico con los métodos de estudios, me entretuvieron mucho",
     "publicado": false
   }
 ]
