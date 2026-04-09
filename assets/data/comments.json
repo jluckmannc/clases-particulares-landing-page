@@ -55,14 +55,14 @@
     "publicado": true
   },
       {
-    "nombre": "",
-    "edad": 0,
-    "ciudad": "",
-    "curso_carrera_nivel": "",
-    "anio_inicio": 202,
-    "anio_fin": 202,
-    "proceso": "",
-    "comentario": "",
+    "nombre": "Carla",
+    "edad": 18,
+    "ciudad": "Talcahuano",
+    "curso_carrera_nivel": "Tecnología Médica",
+    "anio_inicio": 2017,
+    "anio_fin": 2017,
+    "proceso": "Cálculo",
+    "comentario": "Jaime me ayudó en mi primer año universitario entregándome la confianza del conocimiento previo a cada certamen. Si bien, tenía los conocimientos acerca de matemáticas el hecho de enfrentarme a un certamen me bloqueaba. Jaime me ayudó con la realización de guías y darme confianza con el conocimiento y de esta forma pasé mi ramo de cálculo I con excelencia. <strong>Pasé de tener en mi primer certamen un 4,5 a tener notas 5,7 y 6,5.</strong>",
     "publicado": false
   },
       {
