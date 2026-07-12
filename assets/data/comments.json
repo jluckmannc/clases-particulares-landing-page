@@ -26,8 +26,8 @@
     "edad": 40,
     "ciudad": "Coronel",
     "curso_carrera_nivel": "Pedagogía",
-    "anio_inicio": 2026,
-    "anio_fin": 2027,
+    "anio_inicio": 2025,
+    "anio_fin": 2026,
     "proceso": "Fundamentos matemáticos",
     "comentario": "Excelente profesor, <strong>bastante paciencia para explicar temas complejos</strong>. En general muy pedagógico.",
     "publicado": true
@@ -66,14 +66,14 @@
     "publicado": true
   },
       {
-    "nombre": "",
-    "edad": 0,
-    "ciudad": "",
-    "curso_carrera_nivel": "",
-    "anio_inicio": 202,
-    "anio_fin": 202,
-    "proceso": "",
-    "comentario": "",
+    "nombre": "Laura",
+    "edad": 13,
+    "ciudad": "Talcahuano",
+    "curso_carrera_nivel": "Octavo básico",
+    "anio_inicio": 2026,
+    "anio_fin": 2026,
+    "proceso": "Fracciones",
+    "comentario": "Explica bien los contenidos de manera clara y sencilla tiene paciencia para resolver dudas.",
     "publicado": false
   },
       {
