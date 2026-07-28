@@ -77,15 +77,15 @@
     "publicado": true
   },
       {
-    "nombre": "",
-    "edad": 0,
-    "ciudad": "",
-    "curso_carrera_nivel": "",
-    "anio_inicio": 202,
-    "anio_fin": 202,
+    "nombre": "Joaquín",
+    "edad": 19,
+    "ciudad": "Talcahuano",
+    "curso_carrera_nivel": "Cálculo",
+    "anio_inicio": 2026,
+    "anio_fin": 2026,
     "proceso": "",
-    "comentario": "",
-    "publicado": false
+    "comentario": "Excelente profesor, Súper buena onda, <strong>hace que la clase sea divertida</strong>, explica súper bien, <strong>siempre está dispuesto a ayudar</strong>, y buenos precios!",
+    "publicado": true
   },
       {
     "nombre": "",
