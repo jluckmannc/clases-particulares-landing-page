@@ -69,11 +69,11 @@
                 alt="Avatar de Jaime"
                 class="w-8 h-8 rounded-full"
               />
-              <span class="font-semibold text-lg">Jaime Luckmann</span>
+              <span class="font-semibold text-lg whitespace-nowrap">Jaime Luckmann</span>
             </a>
           </div>
 
-          <nav class="hidden md:flex items-center space-x-6">
+          <nav class="hidden xl:flex items-center space-x-5 text-sm whitespace-nowrap">
             <a href="index.html#inicio" class="hover:text-terracotta-dark transition-colors">Inicio</a>
             <a href="index.html#enfoque" class="hover:text-terracotta-dark transition-colors">Enfoque</a>
             <a href="testimonios.html" class="hover:text-terracotta-dark transition-colors">Testimonios</a>
@@ -90,7 +90,7 @@
               href="https://wa.me/56958733947"
               target="_blank"
               rel="noopener noreferrer"
-              class="hidden md:inline-flex items-center px-4 py-2 rounded-full bg-terracotta hover:bg-terracotta-dark text-white transition-colors"
+              class="hidden xl:inline-flex items-center px-4 py-2 rounded-full bg-terracotta hover:bg-terracotta-dark text-white transition-colors"
             >
               WhatsApp
             </a>
@@ -112,7 +112,7 @@
 
             <button
               id="mobile-menu-button"
-              class="md:hidden p-2 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 focus:outline-none"
+              class="xl:hidden p-2 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 focus:outline-none"
               aria-label="Abrir menú"
             >
               <svg
@@ -136,7 +136,7 @@
 
       <div
         id="mobile-menu"
-        class="md:hidden hidden px-4 pb-4 backdrop-blur bg-white/90 dark:bg-slate-900/90 shadow-md transition-shadow duration-300"
+        class="xl:hidden hidden px-4 pb-4 backdrop-blur bg-white/90 dark:bg-slate-900/90 shadow-md transition-shadow duration-300"
       >
         <nav class="space-y-2 flex flex-col">
           <a href="index.html#inicio" class="block py-2 px-2 rounded hover:bg-slate-200 dark:hover:bg-slate-700">Inicio</a>
@@ -186,7 +186,7 @@
           </div>
         </div>
 
-        <div class="mt-12 max-w-xl mx-auto">
+        <div class="mt-12 max-w-4xl mx-auto grid gap-6 md:grid-cols-2">
           <article class="rounded-[2rem] border border-slate-200/80 dark:border-slate-700/70 bg-white/85 dark:bg-slate-800/70 backdrop-blur-sm p-6 md:p-8 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 flex flex-col">
             <div class="flex justify-center">
               <div class="w-16 h-16 rounded-2xl bg-terracotta/10 dark:bg-terracotta-dark/15 flex items-center justify-center text-3xl">
@@ -206,12 +206,43 @@
               Sale una carta y dices cuánto da. Se puede jugar solo, escribiendo la respuesta, o con un adulto al lado: el niño la dice en voz alta y el adulto marca. Eso ayuda mucho cuando escribir cuesta.
             </p>
 
-            <p class="mt-3 text-slate-600 dark:text-slate-400 leading-relaxed">
+            <p class="mt-3 text-slate-600 dark:text-slate-400 leading-relaxed flex-grow">
               Por ahora trae también dos juegos más: 🐸 Salta por la tabla y 🧠 un Memorice.
             </p>
 
             <a
               href="juegos/tablas-al-vuelo.html"
+              class="mt-7 inline-flex items-center justify-center px-6 py-3 rounded-full bg-terracotta text-white font-medium hover:bg-terracotta-dark transition-colors shadow-md"
+            >
+              Jugar
+            </a>
+          </article>
+
+          <article class="rounded-[2rem] border border-slate-200/80 dark:border-slate-700/70 bg-white/85 dark:bg-slate-800/70 backdrop-blur-sm p-6 md:p-8 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 flex flex-col">
+            <div class="flex justify-center">
+              <div class="w-16 h-16 rounded-2xl bg-terracotta/10 dark:bg-terracotta-dark/15 flex items-center justify-center text-3xl">
+                🐕
+              </div>
+            </div>
+
+            <h2 class="mt-5 text-2xl font-semibold text-center text-slate-900 dark:text-slate-100">
+              Carrera de perritos
+            </h2>
+
+            <p class="mt-1 text-center text-sm text-slate-500 dark:text-slate-400">
+              Suma de números positivos y negativos
+            </p>
+
+            <p class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+              Eliges tu perrito y compites contra otros. Cada respuesta correcta te hace avanzar, y los rivales solo se mueven cuando contestas, así que puedes pensar con calma.
+            </p>
+
+            <p class="mt-3 text-slate-600 dark:text-slate-400 leading-relaxed flex-grow">
+              Si te equivocas, te muestra por qué, y esa pregunta vuelve a salir más adelante en la carrera.
+            </p>
+
+            <a
+              href="juegos/carrera-de-perritos.html"
               class="mt-7 inline-flex items-center justify-center px-6 py-3 rounded-full bg-terracotta text-white font-medium hover:bg-terracotta-dark transition-colors shadow-md"
             >
               Jugar
