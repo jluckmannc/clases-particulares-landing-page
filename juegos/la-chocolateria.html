@@ -15,9 +15,10 @@
    (El archivo se sigue llamando la-chocolateria.html para que no se
    rompa el enlace de la pagina.)
 
-   Tres juegos: en el meson del chocolate, Corta y reparte y Junta y
+   Cuatro juegos: en el meson del chocolate, Corta y reparte y Junta y
    quita; en la barra, Prepara el pedido (medir con taza y jarra, de las
-   fracciones a los decimales).
+   fracciones a los decimales); en la bodega, Cajas justas (minimo comun
+   multiplo).
 
    La barra de chocolate es el entero. Se corta en partes iguales con
    el cuchillo (− 🔪 +) y se llevan pedazos a la caja, que mide lo
@@ -705,8 +706,92 @@ h2{font-size:clamp(26px, 7vw, 34px); margin:6px 0 4px; font-weight:700; line-hei
 .vm .escala{top:0; bottom:auto; height:112px}
 .rm-fila{display:grid; grid-template-columns:34px 1fr; align-items:center; gap:8px; margin:8px 0}
 
+/* =====================================================================
+   CAJAS JUSTAS
+   ===================================================================== */
+.btn.lila{background:linear-gradient(180deg,#d0bfff,#9775fa); color:#fff; box-shadow:0 5px 0 #6741d9, 0 14px 24px rgba(0,0,0,.3);
+  text-shadow:0 2px 0 rgba(60,20,140,.35)}
+.btn.lila:not(:disabled):active{box-shadow:0 1px 0 #6741d9, 0 6px 12px rgba(0,0,0,.3)}
+.g-sub{font-size:15px; color:var(--tinta2); text-align:center; margin-top:2px}
+.pk{white-space:nowrap}
+.filas-c{display:flex; flex-direction:column; gap:10px; margin-top:12px}
+.fila-c{padding:8px 10px 6px; border-radius:18px; background:linear-gradient(180deg,#fffaf2,#f3e3cc); color:var(--tinta);
+  box-shadow:0 5px 0 #d8b994, 0 10px 18px rgba(0,0,0,.25)}
+.fc-cab{display:flex; align-items:center; gap:8px}
+.fc-emo{font-size:26px; line-height:1}
+.fc-k{flex:1; font-size:14px; color:var(--tinta2)} .fc-k b{font-size:19px; color:var(--tinta)}
+.fc-tot{font-size:13.5px; color:var(--tinta2); white-space:nowrap} .fc-tot b{font-size:20px; color:var(--tinta)}
+.fc-mas{flex:none; height:42px; padding:0 12px; border:0; border-radius:14px; font-size:17px; font-weight:700; color:#fff; background:var(--c);
+  box-shadow:0 4px 0 rgba(0,0,0,.28); transition:transform .06s, box-shadow .06s}
+.fc-mas:active{transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,.28)}
+.fc-mas.invita{animation:invita-btn 1.3s ease-in-out infinite}
+.fc-pista{position:relative; height:38px; margin:20px 2px 18px; border-radius:8px;
+  background:repeating-linear-gradient(90deg, rgba(90,47,25,.07) 0 6px, transparent 6px 12px); box-shadow:inset 0 0 0 2px rgba(90,47,25,.14)}
+.tres .fc-pista{height:30px; margin:18px 2px 16px}
+.caja-c{position:absolute; top:0; bottom:0; border:2px solid #fffaf2; border-radius:9px; background-color:var(--c);
+  background-image:repeating-linear-gradient(90deg, transparent 0 calc(100% / var(--k) - 1.5px), rgba(255,255,255,.5) calc(100% / var(--k) - 1.5px) calc(100% / var(--k)));
+  display:grid; place-items:center; color:#fff; font-weight:700; font-size:15px; text-shadow:0 1px 2px rgba(0,0,0,.45);
+  box-shadow:inset 0 -3px 0 rgba(0,0,0,.18); transition:left .25s, width .25s}
+.caja-c.ultima{cursor:pointer}
+.fc-num{position:absolute; top:-18px; transform:translateX(-50%); font-size:12px; font-weight:700; color:var(--tinta2); transition:left .25s}
+.fc-num.ult{font-size:14px; color:var(--tinta); z-index:4; background:#fbf1e2; border-radius:99px; padding:0 3px}
+.angosta .caja-c{font-size:0}
+.angosta .fc-num:not(.ult){display:none}
+.meta-c{position:absolute; top:-6px; bottom:-6px; border-left:3px dashed var(--mal); z-index:3; transition:left .25s}
+.meta-c span{position:absolute; bottom:-19px; left:0; transform:translateX(-50%); font-style:normal; font-size:12.5px; font-weight:700; color:var(--mal); white-space:nowrap}
+.junto-c{position:absolute; top:-10px; bottom:-10px; margin-left:-2px; border-left:4px solid var(--oro); z-index:3; box-shadow:0 0 12px rgba(255,212,59,.9); transform-origin:50% 50%}
+.tk-c{position:absolute; bottom:-16px; transform:translateX(-50%); font-size:10.5px; font-weight:700; color:#1864ab; transition:left .25s}
+.tk-c.com{color:#5c4100; background:var(--oro); border-radius:99px; padding:0 4px}
+/* las tablas, para tocar el primer numero comun */
+.tablas-c{display:flex; flex-direction:column; gap:10px; margin-top:12px}
+.tc-fila{padding:10px; border-radius:18px; background:linear-gradient(180deg,#fffaf2,#f3e3cc); color:var(--tinta); box-shadow:0 5px 0 #d8b994}
+.tc-cab{font-size:15px; color:var(--tinta2); margin-bottom:7px} .tc-cab b{color:var(--tinta); font-size:18px}
+.tc-chips{display:flex; flex-wrap:wrap; gap:6px}
+.chip-c{min-width:44px; height:42px; padding:0 8px; border:0; border-radius:12px; font-size:18px; font-weight:700; color:var(--tinta); background:#fff;
+  box-shadow:0 3px 0 rgba(0,0,0,.16), inset 0 0 0 2.5px var(--c); display:inline-grid; place-items:center; transition:opacity .2s}
+button.chip-c:active{transform:translateY(2px)}
+.chip-c.apagado{opacity:.28}
+.chip-c.marcado{background:var(--oro); box-shadow:0 0 0 3px #e8a600}
+.tablas-c.chica{gap:6px; margin-top:4px; width:100%}
+.tablas-c.chica .tc-fila{padding:6px 8px; box-shadow:none; background:rgba(90,47,25,.06)}
+.tablas-c.chica .tc-cab{margin-bottom:4px; font-size:13px}
+.tablas-c.chica .chip-c{min-width:32px; height:28px; font-size:14px; border-radius:8px; box-shadow:inset 0 0 0 2px var(--c)}
+/* escribir: la cuenta con casillas, y el teclado */
+.expr-c{margin-top:12px; padding:14px 10px; border-radius:22px; background:linear-gradient(180deg,#fffaf2,#f3e3cc); color:var(--tinta);
+  display:flex; flex-direction:column; gap:12px; align-items:center; box-shadow:0 6px 0 #d8b994}
+.ex-linea{display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:7px; font-size:17px; font-weight:600; text-align:center}
+.ex-linea.apagada{opacity:.3}
+.ex-linea .frac{font-size:26px}
+.ex-linea b{font-size:20px}
+.ex-n{font-size:20px; color:var(--tinta2)}
+.ex-linea .sep{width:14px}
+.ex-ayuda{font-size:14.5px; font-weight:600; color:#8a6400; background:rgba(255,212,59,.3); border-radius:12px; padding:6px 10px}
+.blank{min-width:52px; height:46px; padding:0 8px; display:inline-grid; place-items:center; border:3px solid #c9ab88; border-radius:12px;
+  font-size:24px; font-weight:700; background:#fff; color:var(--tinta)}
+.blank.actual{border-color:#e8a600; box-shadow:0 0 0 4px rgba(255,212,59,.45)}
+.blank.ok{border-color:var(--bien); color:var(--bien)}
+.frac .blank{min-width:40px; height:36px; font-size:21px; border-width:2.5px}
+.teclado-c{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; width:min(100%, 330px); margin:0 auto}
+.tecla-c{height:50px; border:0; border-radius:14px; font-size:24px; font-weight:700; color:var(--tinta); background:linear-gradient(180deg,#fff,#f1e3cf);
+  box-shadow:0 4px 0 #c4a17a; transition:transform .06s, box-shadow .06s}
+.tecla-c:active{transform:translateY(3px); box-shadow:0 1px 0 #c4a17a}
+.tecla-c.ok{background:linear-gradient(180deg,#ffe066,#fcc419); color:#3b2c00; box-shadow:0 4px 0 #d99a00}
+.tecla-c.borra{background:rgba(255,255,255,.14); color:#fff; box-shadow:0 4px 0 rgba(0,0,0,.28)}
+#p-cajas .aviso{min-height:40px}
+@media (max-height:700px){ .tecla-c{height:42px} .expr-c{gap:8px; padding:10px 8px} }
+/* hojas: las tablas con el minimo encerrado */
+.th-c{display:flex; flex-direction:column; gap:6px; margin:10px 0 4px}
+.th-f{display:flex; align-items:center; flex-wrap:wrap; gap:4px}
+.th-ic{width:62px; font-size:20px} .th-ic small{font-size:12px; color:var(--tinta2)}
+.th-n{min-width:30px; text-align:center; font-weight:700; font-size:16px; padding:2px 4px; border-radius:99px}
+.th-n.com{box-shadow:inset 0 0 0 2px #c9ab88}
+.th-n.min{background:var(--oro); box-shadow:0 0 0 2px #e8a600}
+.th-n.tuyo{outline:2.5px dashed var(--mal); outline-offset:1px}
+
 /* computador: todo un poco mas grande, para que no quede un juego chico al centro */
 @media (min-width:900px) and (min-height:760px){
+  .fc-pista{height:48px} .caja-c{font-size:18px} .chip-c{min-width:52px; height:48px; font-size:20px}
+  .g-txt{font-size:24px} .g-sub{font-size:18px} .fc-emo{font-size:32px} .fc-k, .fc-tot{font-size:16px} .fc-k b, .fc-tot b{font-size:24px} .fc-num{font-size:14px} .fc-num.ult{font-size:16px}
   .vaso-m{width:110px} .jarra .vaso-m{width:124px}
   .in-ic{font-size:48px} .in-nom{font-size:17px} .in-cant, .in-cant .frac, .in-cant .mixto{font-size:58px} .in-uni{font-size:19px} .in-pal{font-size:16px}
   .g-prod{font-size:26px} .g-pemo{font-size:48px}
@@ -797,6 +882,9 @@ h2{font-size:clamp(26px, 7vw, 34px); margin:6px 0 4px; font-weight:700; line-hei
   <div class="seccion">☕ La barra</div>
   <button class="btn principal menta" id="j-prep"><span>🥛 Prepara el pedido</span><small id="j-prep-sub"></small></button>
 
+  <div class="seccion">📦 La bodega</div>
+  <button class="btn principal lila" id="j-cajas"><span>📦 Cajas justas</span><small id="j-cajas-sub"></small></button>
+
   <div class="seccion">Muy pronto</div>
   <div class="juegos">
     <button class="juego pronto"><span class="emo">⚔️</span><b>Guerra</b><small>¿Cuál es más grande?</small></button>
@@ -876,6 +964,25 @@ h2{font-size:clamp(26px, 7vw, 34px); margin:6px 0 4px; font-weight:700; line-hei
   <div class="mando" id="r-mando"></div>
   <div class="aviso" id="r-aviso" aria-live="polite"></div>
   <button class="btn" id="r-accion"></button>
+</section>
+
+<!-- ==================== CAJAS JUSTAS ==================== -->
+<section id="p-cajas" class="pantalla">
+  <div class="barra">
+    <button class="ico btn-atras" aria-label="Salir">←</button>
+    <div class="progreso" aria-hidden="true"><i id="c-prog-i"></i></div>
+    <span class="cuenta" id="c-prog-n">0 / 0</span>
+    <button class="ico btn-repetir" aria-label="Repetir este ejercicio">↻</button>
+    <button class="ico" id="c-ayuda" aria-label="Ayuda">💡</button>
+    <button class="ico btn-sonido" aria-label="Sonido">🔊</button>
+  </div>
+  <div class="mostrador">
+    <div class="cliente" id="c-cliente"></div>
+    <div class="globo" id="c-globo"></div>
+  </div>
+  <div class="obra" id="c-obra"></div>
+  <div class="mando" id="c-mando"></div>
+  <div class="aviso" id="c-aviso" aria-live="polite"></div>
 </section>
 
 <!-- ==================== FIN DE NIVEL ==================== -->
@@ -2950,6 +3057,420 @@ function rAyuda(){
 }
 
 /* =====================================================================
+   CAJAS JUSTAS  ·  minimo comun multiplo
+   En la bodega, cada producto viene en cajas de un tamano (vasos de 4,
+   galletas de 6). Se ponen cajas hasta tener la misma cantidad de cada
+   uno: donde se juntan las filas es un multiplo comun, y el primero es
+   el minimo. Las cajas de una fila son la tabla de ese numero (4, 8, 12).
+   Si se juntan mas alla del primero (en 24 y no en 12), se avisa: ahi
+   se aprende lo de "minimo". Despues sin cajas: las dos tablas, escribir
+   el numero, tres productos y, al final, para sumar fracciones (1/4 + 1/6).
+   ===================================================================== */
+const PRODS = [{emo: "🥤", nom: "vasos"}, {emo: "🍪", nom: "galletas"}, {emo: "🧁", nom: "muffins"}, {emo: "🍩", nom: "donas"},
+               {emo: "🥄", nom: "cucharas"}, {emo: "🧻", nom: "servilletas"}, {emo: "🥐", nom: "medialunas"}, {emo: "🍫", nom: "chocolates"}];
+const COLF = ["#339af0", "#f76707", "#d6336c"];
+const mcmL = l => l.reduce((a, b) => mcm(a, b));
+const multiplos = (k, hasta) => { const l = []; for(let v = k; v <= hasta; v += k) l.push(v); return l; };
+function pedC(tipo, ks, o){
+  return Object.assign({tipo: tipo, ks: ks, prods: barajar(PRODS.slice()).slice(0, ks.length), cli: cliente(), M: mcmL(ks)}, o || {});
+}
+/* los pares van de facil a dificil, con algo de azar y el mas grande no siempre segundo */
+const pares = (l, tipo) => l.map(x => pedC(tipo, Math.random() < .5 ? x : x.slice().reverse()));
+function genCajas1(){
+  const l = [[3, 12], [2, 10], [5, 20], [3, 10], [4, 12], [6, 18], [4, 14], [5, 25]];
+  return l.map(x => pedC("saltos", [x[0]], {T: x[1]}));
+}
+const genCajas2 = () => pares([[2, 4], [3, 6], [5, 10]].concat(barajar([[4, 8], [2, 6], [3, 9], [4, 12], [2, 8]])), "juntar");
+const genCajas3 = () => pares([[2, 3], [3, 4]].concat(barajar([[2, 5], [3, 5], [4, 5], [2, 7], [5, 6], [3, 7]])), "juntar");
+const genCajas4 = () => pares([[4, 6]].concat(barajar([[6, 8], [6, 9], [4, 10], [6, 10], [8, 12], [9, 12], [10, 15]])), "juntar");
+const genCajas5 = () => pares([[4, 6], [3, 4]].concat(barajar([[6, 8], [2, 5], [6, 9], [4, 10], [8, 12], [3, 5]])), "tabla");
+const genCajas6 = () => pares([[2, 3], [4, 6]].concat(barajar([[3, 9], [6, 8], [5, 10], [4, 5], [6, 9], [8, 12]])), "escribe");
+function genCajas7(){
+  return [[2, 3, 4]].concat(barajar([[2, 4, 5], [3, 4, 6], [2, 3, 5], [4, 6, 8], [2, 5, 10], [3, 6, 9], [2, 6, 8]]))
+    .map(k => pedC("juntar", barajar(k.slice())));
+}
+function genCajas8(){
+  return [[[1, 4], [1, 6]], [[1, 2], [1, 3]]].concat(barajar([[[1, 3], [1, 4]], [[2, 3], [1, 6]], [[3, 4], [1, 6]], [[2, 5], [1, 4]], [[1, 6], [3, 8]], [[1, 6], [4, 9]]]))
+    .map(f => pedC("fraccion", [f[0][1], f[1][1]], {fr: f}));
+}
+const NIVELES_CAJAS = [
+  {id: 1, emo: "🐸", tit: "Contar de a cajas",   gen: genCajas1, ej: () => '<span class="caras">🥤 3 · 6 · 9 · 12</span>'},
+  {id: 2, emo: "📦", tit: "Uno cabe en el otro", gen: genCajas2, ej: () => '<span class="dnum">2 y 4 → 4</span>'},
+  {id: 3, emo: "📦", tit: "Sin nada en común",   gen: genCajas3, ej: () => '<span class="dnum">3 y 4 → 12</span>'},
+  {id: 4, emo: "⚠️", tit: "La trampa",           gen: genCajas4, ej: () => '<span class="dnum">4 y 6 → 12, no 24</span>'},
+  {id: 5, emo: "📋", tit: "Con las tablas",      gen: genCajas5, ej: () => '<span class="caras">4 8 <b>12</b> · 6 <b>12</b></span>'},
+  {id: 6, emo: "✏️", tit: "Escríbelo tú",        gen: genCajas6, ej: () => '<span class="dnum">6 y 8 → ?</span>'},
+  {id: 7, emo: "📦", tit: "Tres cajas",          gen: genCajas7, ej: () => '<span class="dnum">2, 3 y 4 → 12</span>'},
+  {id: 8, emo: "✂️", tit: "Para sumar fracciones", gen: genCajas8, ej: () => frac(1, 4) + opHTML("+") + frac(1, 6) + opHTML("=") + frac(3, 12) + opHTML("+") + frac(2, 12)}
+];
+
+const C = {
+  nivel: 0, cola: [], hechos: 0, total: 0, errores: 0, conAyuda: 0, extras: 0, racha: 0,
+  ped: null, filas: [], paso: 0, buf: "", resp: [], fallo: false, ayuda: 0, usoAyuda: false, bloqueado: false, guia: false
+};
+const VISTOS_C = new Set();
+const lens = () => C.filas.map((n, i) => n * C.ped.ks[i]);
+/* lo que hay que escribir en cada paso (escribe: 1 paso; fraccion: 4) */
+function respuestasC(){
+  const p = C.ped;
+  if(p.tipo === "escribe") return [p.M];
+  const f = p.fr, a = f[0][0] * p.M / f[0][1], b = f[1][0] * p.M / f[1][1];
+  return [p.M, a, b, a + b];
+}
+
+function empezarCajas(i){
+  G.turno++;
+  Object.assign(C, {nivel: i, cola: NIVELES_CAJAS[i].gen(), hechos: 0, errores: 0, conAyuda: 0, extras: 0, racha: 0});
+  C.total = C.cola.length;
+  pantalla("p-cajas");
+  siguienteCajas();
+}
+function siguienteCajas(){
+  if(C.hechos >= C.total) return terminarNivel("cajas", C.nivel, C);
+  const p = C.ped = C.cola[C.hechos];
+  Object.assign(C, {filas: p.ks.map(() => 0), paso: 0, buf: "", resp: [], fallo: false, ayuda: 0, usoAyuda: false, bloqueado: false});
+  if(C.repite){ C.fallo = C.repite.fallo; C.repite = null; }
+  C.guia = !VISTOS_C.has(p.tipo);
+  VISTOS_C.add(p.tipo);
+  $("c-cliente").textContent = p.cli;
+  $("c-globo").innerHTML = cGloboHTML();
+  cPintar();
+  cProgreso();
+  anima($("c-cliente"), [{transform: "translateX(-24px) scale(.3)", opacity: 0}, {transform: "none", opacity: 1}], {duration: 460, easing: "cubic-bezier(.2,1.4,.4,1)"});
+  anima($("c-globo"), [{transform: "scale(.85)", opacity: 0}, {transform: "none", opacity: 1}], {duration: 360, delay: 120});
+  anima($("c-obra"), [{transform: "translateY(24px)", opacity: 0}, {transform: "none", opacity: 1}], {duration: 420, delay: 160, easing: "cubic-bezier(.2,.9,.3,1.1)"});
+  sfxTimbre();
+}
+function cProgreso(){
+  $("c-prog-i").style.width = (100 * C.hechos / Math.max(1, C.total)) + "%";
+  $("c-prog-n").textContent = C.hechos + " / " + C.total;
+}
+
+/* ---------- pintar ---------- */
+const prodTxt = (i, n) => '<span class="pk">' + C.ped.prods[i].emo + (n == null ? "" : " de " + n) + "</span>";
+function cGloboHTML(){
+  const p = C.ped;
+  switch(p.tipo){
+    case "saltos":   return '<div class="g-prod"><span class="g-pemo">' + p.prods[0].emo + "</span><b>Necesito " + p.T + " " + p.prods[0].nom + '</b></div><div class="g-sub">Vienen en cajas de ' + p.ks[0] + "</div>";
+    case "juntar":   return '<div class="g-txt">' + p.ks.map((k, i) => prodTxt(i, k)).join(" · ") + '</div><div class="g-sub">¡La misma cantidad de ' + (p.ks.length > 2 ? "todos" : "los dos") + "!</div>";
+    case "tabla":    return '<div class="g-txt">' + p.ks.map((k, i) => prodTxt(i, k)).join(" · ") + '</div><div class="g-sub">¿Dónde se juntan primero?</div>';
+    case "escribe":  return '<div class="g-txt">Mínimo común múltiplo</div><div class="g-sub">de ' + p.ks.join(" y ") + "</div>";
+    case "fraccion": return '<div class="g-ex">' + frac(p.fr[0][0], p.fr[0][1]) + "<span>+</span>" + frac(p.fr[1][0], p.fr[1][1]) + '<span>=</span><span class="q">?</span></div>';
+  }
+  return "";
+}
+function cPintar(){
+  const p = C.ped, t = p.tipo;
+  $("c-obra").innerHTML = t === "saltos" || t === "juntar" ? filasHTML() : (t === "tabla" ? tablasHTML(false) : exprHTML());
+  $("p-cajas").classList.toggle("tres", p.ks.length > 2);
+  if(t === "saltos" || t === "juntar") ajustarAngostas();
+  cPintarMando();
+  cRefrescar();
+}
+/* la regla crece a medida que se ponen cajas: asi el largo no delata la respuesta */
+function escalaC(){
+  const p = C.ped, L = lens(), kmax = Math.max.apply(null, p.ks);
+  if(p.tipo === "saltos") return Math.max(p.T, L[0]) + p.ks[0];
+  return Math.max(kmax * 3, Math.max.apply(null, L) + kmax);
+}
+function filasHTML(){
+  const p = C.ped, esc = escalaC(), L = lens(), pc = v => (v / esc * 100).toFixed(3) + "%";
+  const juntas = p.tipo === "juntar" && L[0] > 0 && L.every(x => x === L[0]);
+  return '<div class="filas-c">' + p.ks.map((k, f) => {
+    const n = C.filas[f];
+    let h = "";
+    for(let i = 0; i < n; i++)
+      h += '<span class="caja-c' + (i === n - 1 ? " ultima" : "") + '" data-f="' + f + '" data-i="' + i + '" style="left:' + pc(i * k) + ";width:" + pc(k) + ";--k:" + k + '">' + k + "</span>" +
+           '<span class="fc-num' + (i === n - 1 ? " ult" : "") + '" style="left:' + pc((i + 1) * k) + '">' + (i + 1) * k + "</span>";
+    if(p.tipo === "saltos") h += '<i class="meta-c" style="left:' + pc(p.T) + '"><span>🏁 ' + p.T + "</span></i>";
+    if(juntas) h += '<i class="junto-c" style="left:' + pc(L[0]) + '"></i>';
+    if(C.ayuda >= (p.tipo === "saltos" ? 1 : 2)) multiplos(k, esc).forEach(v => {
+      const com = p.ks.every(x => v % x === 0);
+      h += '<span class="tk-c' + (com ? " com" : "") + '" style="left:' + pc(v) + '">' + v + "</span>";
+    });
+    return '<div class="fila-c" data-f="' + f + '" style="--c:' + COLF[f] + '"><div class="fc-cab"><span class="fc-emo">' + p.prods[f].emo + "</span>" +
+      '<span class="fc-k">cajas de <b>' + k + '</b></span><span class="fc-tot">' + n + (n === 1 ? " caja" : " cajas") + " = <b>" + L[f] + "</b></span>" +
+      '<button type="button" class="fc-mas" data-f="' + f + '" aria-label="Poner una caja">+ 📦</button></div><div class="fc-pista">' + h + "</div></div>";
+  }).join("") + "</div>";
+}
+/* si las cajas quedan muy angostas, solo se escribe el total de la fila */
+function ajustarAngostas(){
+  const esc = escalaC();
+  document.querySelectorAll("#c-obra .fila-c").forEach(fl => {
+    const w = fl.querySelector(".fc-pista").clientWidth, k = C.ped.ks[+fl.dataset.f];
+    fl.classList.toggle("angosta", w * k / esc < 24);
+  });
+}
+function tablasHTML(estatica){
+  const p = C.ped, lim = Math.max(2 * p.M, Math.max.apply(null, p.ks) * 6);
+  return '<div class="tablas-c' + (estatica ? " chica" : "") + '">' + p.ks.map((k, f) => {
+    const l = multiplos(k, lim).slice(0, 12);
+    return '<div class="tc-fila" style="--c:' + COLF[f] + '"><div class="tc-cab">' + p.prods[f].emo + " Tabla del <b>" + k + '</b></div><div class="tc-chips">' +
+      l.map(v => {
+        const com = p.ks.every(x => v % x === 0);
+        const cls = estatica ? (v === p.M ? " marcado" : "") : (C.ayuda >= 1 && !com ? " apagado" : "");
+        return estatica ? '<span class="chip-c' + cls + '">' + v + "</span>" : '<button type="button" class="chip-c' + cls + '" data-v="' + v + '">' + v + "</button>";
+      }).join("") + "</div></div>";
+  }).join("") + "</div>";
+}
+function blanco(i){
+  const ok = C.resp[i] != null, act = i === C.paso;
+  return '<span class="blank' + (ok ? " ok" : "") + (act ? " actual" : "") + '">' + (ok ? C.resp[i] : (act ? C.buf : "")) + "</span>";
+}
+function exprHTML(){
+  const p = C.ped;
+  let h = '<div class="expr-c">';
+  if(p.tipo === "escribe"){
+    h += '<div class="ex-linea">Mínimo común múltiplo de <b>' + p.ks[0] + "</b> y <b>" + p.ks[1] + "</b></div>" +
+         '<div class="ex-linea"><span>=</span>' + blanco(0) + "</div>";
+    if(C.ayuda >= 1) h += tablasHTML(true);
+    return h + "</div>";
+  }
+  const f = p.fr, d = C.resp[0] != null ? p.M : '<span class="q">?</span>', R2 = respuestasC();
+  const clase = i => C.paso < i ? " apagada" : "";
+  h += '<div class="ex-linea"><span class="ex-n">①</span>Mínimo común múltiplo de <b>' + f[0][1] + "</b> y <b>" + f[1][1] + "</b><span>=</span>" + blanco(0) + "</div>";
+  if(C.ayuda >= 1 && C.paso === 0) h += tablasHTML(true);
+  h += '<div class="ex-linea' + clase(1) + '"><span class="ex-n">②</span>' + frac(f[0][0], f[0][1]) + "<span>=</span>" + frac(blanco(1), d) +
+       '<span class="sep"></span><span class="f-b">' + frac(f[1][0], f[1][1]) + "</span><span>=</span>" + frac(blanco(2), d) + "</div>";
+  if(C.ayuda >= 1 && (C.paso === 1 || C.paso === 2)){
+    const i = C.paso - 1, m = p.M / f[i][1];
+    h += '<div class="ex-ayuda">✂️ ' + p.M + " = " + f[i][1] + " × <b>" + m + "</b> → ×" + m + " arriba y abajo</div>";
+  }
+  h += '<div class="ex-linea' + clase(3) + '"><span class="ex-n">③</span>' + frac(C.resp[1] != null ? R2[1] : "?", d) + "<span>+</span>" +
+       '<span class="f-b">' + frac(C.resp[2] != null ? R2[2] : "?", d) + "</span><span>=</span>" + frac(blanco(3), d) + "</div>";
+  if(C.ayuda >= 1 && C.paso === 3) h += '<div class="ex-ayuda">✋ Arriba se suma. 🔪 Abajo queda ' + p.M + ".</div>";
+  return h + "</div>";
+}
+function cPintarMando(){
+  const t = C.ped.tipo, m = $("c-mando");
+  if(t === "saltos")
+    m.innerHTML = '<div class="elige"><button type="button" class="btn" data-sl="1">✓ Listo</button><button type="button" class="btn claro" data-sl="0">🚫 No se puede justo</button></div>';
+  else if(t === "escribe" || t === "fraccion")
+    m.innerHTML = '<div class="teclado-c">' + [1, 2, 3, 4, 5, 6, 7, 8, 9].map(d => '<button type="button" class="tecla-c" data-d="' + d + '">' + d + "</button>").join("") +
+      '<button type="button" class="tecla-c borra" data-d="b" aria-label="Borrar">⌫</button><button type="button" class="tecla-c" data-d="0">0</button>' +
+      '<button type="button" class="tecla-c ok" data-d="ok" aria-label="Listo">✓</button></div>';
+  else m.innerHTML = "";
+}
+function cRefrescar(){
+  const p = C.ped, t = p.tipo, L = lens();
+  let h = "";
+  if(t === "saltos") h = L[0] ? "Toca la última caja para sacarla" : "📦 Toca + para poner cajas";
+  else if(t === "juntar") h = L.some(x => x) ? "Pon cajas en la fila que va más corta" : "📦 Pon cajas hasta que lleguen al mismo número";
+  else if(t === "tabla") h = "👆 Toca el primer número que está en " + (p.ks.length > 2 ? "todas" : "las dos");
+  $("c-aviso").innerHTML = h;
+  $("c-ayuda").classList.toggle("gastada", cAyudaMax());
+  document.querySelectorAll("#p-cajas .invita").forEach(e => e.classList.remove("invita"));
+  if(C.guia && !C.bloqueado && (t === "juntar" || t === "saltos")){
+    const corta = L.indexOf(Math.min.apply(null, L)), b = document.querySelector('#c-obra .fc-mas[data-f="' + corta + '"]');
+    if(b) b.classList.add("invita");
+  }
+}
+const cAyudaMax = () => C.ayuda >= (C.ped.tipo === "juntar" ? 2 : 1);
+
+/* ---------- poner y sacar cajas ---------- */
+function ponerCaja(f){
+  if(C.bloqueado) return;
+  const p = C.ped;
+  if(C.filas[f] >= 40) return;
+  C.filas[f]++;
+  sfxPieza(Math.min(C.filas[f], 24));
+  cPintar();
+  const cj = document.querySelectorAll('#c-obra .fila-c[data-f="' + f + '"] .caja-c');
+  const ult = cj[cj.length - 1];
+  if(ult) anima(ult, [{transform: "translateY(-26px) scale(.8)", opacity: 0}, {transform: "none", opacity: 1}], {duration: 300, easing: "cubic-bezier(.3,1.4,.5,1)"});
+  if(p.tipo === "juntar") revisarJuntas();
+}
+function sacarCaja(f){
+  if(C.bloqueado || !C.filas[f]) return;
+  C.filas[f]--;
+  sfxVuelve();
+  cPintar();
+}
+async function revisarJuntas(){
+  const L = lens(), p = C.ped;
+  if(!(L[0] > 0 && L.every(x => x === L[0]))) return;
+  const tk = G.turno;
+  C.bloqueado = true;
+  cRefrescar();
+  sfxEncaja();
+  document.querySelectorAll("#c-obra .junto-c").forEach(g => anima(g, [{transform: "scaleY(0)"}, {transform: "none"}], {duration: 380, easing: "cubic-bezier(.3,1.4,.5,1)"}));
+  await espera(650);
+  if(tk !== G.turno) return;
+  if(L[0] === p.M) cAcierto();
+  else cFallo({pasada: L[0]});
+}
+function elegirSaltos(listo){
+  if(C.bloqueado) return;
+  const p = C.ped, k = p.ks[0], L = lens()[0], sePuede = p.T % k === 0;
+  if(listo){
+    if(L === p.T) return cAcierto();
+    return cFallo({saltos: L > p.T ? "pasa" : (sePuede ? "falta" : "nunca")});
+  }
+  if(!sePuede) return cAcierto();
+  cFallo({saltos: "si"});
+}
+function elegirChip(v){
+  if(C.bloqueado) return;
+  const p = C.ped, com = p.ks.every(x => v % x === 0);
+  if(com && v === p.M) return cAcierto();
+  cFallo({v: v});
+}
+function tecla(d){
+  if(C.bloqueado) return;
+  const t = C.ped.tipo;
+  if(t !== "escribe" && t !== "fraccion") return;
+  if(d === "b") C.buf = C.buf.slice(0, -1);
+  else if(d === "ok") return revisarPaso();
+  else if(C.buf.length < 3) C.buf += d;
+  sfxClick();
+  $("c-obra").innerHTML = exprHTML();
+}
+async function revisarPaso(){
+  if(!C.buf) return;
+  const v = +C.buf, R2 = respuestasC(), tk = G.turno;
+  if(v !== R2[C.paso]) return cFallo({v: v, paso: C.paso});
+  C.resp[C.paso] = v;
+  C.buf = "";
+  C.paso++;
+  sfxEncaja();
+  if(C.paso >= R2.length){
+    $("c-obra").innerHTML = exprHTML();
+    C.bloqueado = true;
+    await espera(450);
+    if(tk === G.turno) cAcierto();
+    return;
+  }
+  $("c-obra").innerHTML = exprHTML();
+  const b = document.querySelector("#c-obra .blank.actual");
+  if(b) anima(b, [{transform: "scale(.7)"}, {transform: "none"}], {duration: 300, easing: "cubic-bezier(.3,1.5,.5,1)"});
+}
+
+/* ---------- acierto y error ---------- */
+function cAcierto(){
+  C.bloqueado = true;
+  cRefrescar();
+  C.racha++;
+  if(C.usoAyuda) C.conAyuda++;
+  sfxBien(C.racha);
+  chispas($("c-cliente"), "#ffd43b", 16);
+  flotar($("c-cliente"), elegir(["😋", "💖", "😍", "🤩"]));
+  saltito($("c-cliente"));
+  abrirHoja(cHojaBien(), [
+    {txt: C.hechos + 1 >= C.total ? "🏁 Terminar" : "Siguiente 👉", fn: () => { cerrarHoja(); C.hechos++; cProgreso(); siguienteCajas(); }},
+    {txt: "↻ Repetir este", cls: "sec", fn: repetirEjercicio}]);
+}
+function cFallo(info){
+  const p = C.ped;
+  C.bloqueado = true;
+  cRefrescar();
+  C.racha = 0;
+  if(!C.fallo){
+    C.fallo = true; C.errores++;
+    if(C.extras < 3){
+      C.extras++;
+      const q = Object.assign({}, p, {cli: cliente()});
+      C.cola.splice(Math.min(C.cola.length, C.hechos + 3), 0, q);
+      C.total = C.cola.length;
+      cProgreso();
+    }
+  }
+  sfxMal(); vibrar();
+  flotar($("c-cliente"), "🤔");
+  sacudir($("c-obra"));
+  abrirHoja(cHojaMal(info), [{txt: "↻ Otra vez", fn: () => {
+    cerrarHoja();
+    if(info.pasada) C.filas = p.ks.map(() => 0);
+    C.buf = "";
+    C.bloqueado = false;
+    cPintar();
+  }}]);
+}
+/* la tabla de cada producto hasta un numero, con los comunes encerrados */
+function tablasHoja(hasta, marca, objetivo){
+  const p = C.ped, obj = objetivo == null ? p.M : objetivo;
+  return '<div class="th-c">' + p.ks.map((k, f) => '<div class="th-f"><span class="th-ic">' + p.prods[f].emo + ' <small>del ' + k + "</small></span>" +
+    multiplos(k, hasta).map(v => {
+      const com = p.ks.every(x => v % x === 0);
+      return '<span class="th-n' + (v === obj ? " min" : (com && p.ks.length > 1 ? " com" : "")) + (marca === v ? " tuyo" : "") + '">' + v + "</span>";
+    }).join("") + "</div>").join("") + "</div>";
+}
+function cajasTxt(){
+  const p = C.ped;
+  return p.ks.map((k, i) => '<span class="grupo">' + (p.M / k) + " × " + k + "</span>").join("<span>=</span>") + "<span>=</span><b>" + p.M + "</b>";
+}
+function cHojaBien(){
+  const p = C.ped;
+  let h = '<div class="h-tit">' + elegir(["¡Justo!", "¡Perfecto!", "¡No sobra nada!", "¡Muy bien!"]) + " 😋</div>";
+  if(p.tipo === "saltos"){
+    const k = p.ks[0];
+    if(p.T % k) return h + '<div class="h-txt"><b>' + p.T + "</b> no está en la tabla del " + k + ": se pasa de " + (p.T - p.T % k) + " a " + (p.T - p.T % k + k) + ".</div>" +
+                       tablasHoja(p.T - p.T % k + k, null, 0);
+    return h + '<div class="h-eq h-cadena2"><span class="grupo">' + (p.T / k) + " cajas de " + k + "</span><span>=</span><b>" + p.T + "</b></div>" + tablasHoja(p.T, null, p.T);
+  }
+  if(p.tipo === "fraccion"){
+    const f = p.fr, R2 = respuestasC();
+    return h + '<div class="rp-fila"><span class="rp-ic">✂️ ×' + (p.M / f[0][1]) + '</span><span class="rp-num">' + frac(f[0][0], f[0][1]) + "</span>" + mini(R2[1], p.M) + "</div>" +
+      '<div class="rp-fila"><span class="rp-ic">✂️ ×' + (p.M / f[1][1]) + '</span><span class="rp-num f-b">' + frac(f[1][0], f[1][1]) + "</span>" + mini(R2[2], p.M, {fresa: 0}) + "</div>" +
+      '<div class="rp-fila"><span class="rp-ic">📦</span><span class="rp-num">' + frac(R2[3], p.M) + "</span>" + mini(R2[3], p.M, {fresa: R2[1]}) + "</div>" +
+      '<div class="h-eq h-cadena2">' + frac(f[0][0], f[0][1]) + "<span>+</span>" + frac(f[1][0], f[1][1]) + "<span>=</span>" + frac(R2[1], p.M) + "<span>+</span>" +
+      frac(R2[2], p.M) + "<span>=</span>" + frac(R2[3], p.M) + "</div>" +
+      '<div class="h-txt">' + p.M + " es el mínimo común múltiplo de " + f[0][1] + " y " + f[1][1] + ": la misma forma para los dos.</div>";
+  }
+  return h + '<div class="h-eq h-cadena2">' + cajasTxt() + "</div>" + tablasHoja(p.M + Math.max.apply(null, p.ks)) +
+    '<div class="h-txt">El mínimo común múltiplo de ' + p.ks.join(p.ks.length > 2 ? ", " : " y ").replace(/, (\d+)$/, " y $1") + " es <b>" + p.M + "</b>: el primer número que está en " + (p.ks.length > 2 ? "todas las tablas." : "las dos tablas.") + "</div>";
+}
+function cHojaMal(info){
+  const p = C.ped, tit = t => '<div class="h-tit mal">' + t + " 🤔</div>";
+  if(p.tipo === "saltos"){
+    const k = p.ks[0], L = lens()[0];
+    const txt = {pasa: "Te pasaste: con " + C.filas[0] + " cajas son " + L + ".",
+                 falta: "Faltan cajas: con " + C.filas[0] + (C.filas[0] === 1 ? " caja es " : " cajas son ") + L + ".",
+                 nunca: "Con cajas de " + k + " nunca llegas justo a " + p.T + ".",
+                 si: "Sí se puede: " + p.T + " está en la tabla del " + k + "."}[info.saltos];
+    return tit("Casi…") + '<div class="h-txt">' + txt + "</div>" + tablasHoja(Math.max(p.T + k, L), null, p.T % k ? 0 : p.T);
+  }
+  if(info.pasada) return tit("Se juntaron, pero…") +
+    '<div class="h-txt">Se juntaron en <b>' + info.pasada + "</b>. Pero ya se podían juntar antes, en <b>" + p.M + "</b>: es el <b>mínimo</b>.</div>" +
+    tablasHoja(info.pasada, info.pasada) + '<div class="h-txt">Pon cajas siempre en la fila que va más corta.</div>';
+  if(p.tipo === "fraccion" && info.paso > 0){
+    const f = p.fr, R2 = respuestasC();
+    if(info.paso === 3) return tit("Casi…") + '<div class="h-txt">✋ Arriba se suman los dos: ' + R2[1] + " + " + R2[2] + ".<br>🔪 Abajo queda " + p.M + ": el pedazo no cambia de tamaño.</div>";
+    const i = info.paso - 1, m = p.M / f[i][1];
+    return tit("Casi…") + '<div class="h-txt">' + p.M + " es " + f[i][1] + " × <b>" + m + "</b>. Recortas cada pedazo en " + m + ":<br>✂️ ×" + m +
+      " arriba y ×" + m + " abajo.</div>" + '<div class="h-eq h-cadena2">' + frac(f[i][0], f[i][1]) + "<span>=</span>" + frac(f[i][0] + " × " + m, p.M) + "</div>";
+  }
+  /* un numero elegido o escrito: tabla, escribe y el paso 1 de fraccion */
+  const v = info.v, en = p.ks.filter(k => v % k === 0), com = en.length === p.ks.length, prod = p.ks.reduce((a, b) => a * b, 1);
+  let txt;
+  if(com && v === prod) txt = p.ks.join(" × ") + " = " + v + " sirve: está en " + (p.ks.length > 2 ? "todas" : "las dos") + " tablas. Pero hay uno más chico.";
+  else if(com) txt = "<b>" + v + "</b> está en " + (p.ks.length > 2 ? "todas" : "las dos") + " tablas, pero hay uno más chico.";
+  else if(en.length) txt = "<b>" + v + "</b> está en la tabla del " + en.join(" y del ") + ", pero no en la del " + p.ks.filter(k => v % k).join(" ni en la del ") + ".";
+  else txt = "<b>" + v + "</b> no está en " + (p.ks.length > 2 ? "ninguna de las tablas." : "ninguna de las dos tablas.");
+  return tit("Casi…") + '<div class="h-txt">' + txt + "</div>" + tablasHoja(Math.max(p.M + Math.max.apply(null, p.ks), Math.min(v, 3 * p.M)), v);
+}
+
+/* ---------- ayuda 💡 ---------- */
+function cAyuda(){
+  if(!C.ped || C.bloqueado) return;
+  if(cAyudaMax()) return toast("💡 Ya está toda la ayuda");
+  C.ayuda++;
+  C.usoAyuda = true;
+  sfxDuda();
+  const t = C.ped.tipo;
+  if(t === "juntar") toast(C.ayuda === 1 ? "Pon una caja en la fila más corta" : "Abajo: la tabla de cada uno");
+  else if(t === "saltos") toast("Cuenta de " + C.ped.ks[0] + " en " + C.ped.ks[0]);
+  else if(t === "tabla") toast("Se apagan los que no están en la otra");
+  else toast("Mira la ayuda amarilla");
+  if(t === "juntar" && C.ayuda === 1){
+    cRefrescar();
+    const L = lens(), b = document.querySelector('#c-obra .fc-mas[data-f="' + L.indexOf(Math.min.apply(null, L)) + '"]');
+    if(b) b.classList.add("invita");
+    return;
+  }
+  cPintar();
+}
+
+/* =====================================================================
    FIN DE NIVEL (de cualquiera de los dos juegos)
    ===================================================================== */
 function finNivel(){ terminarNivel("corta", NIVELES.indexOf(J.nivel), J); }
@@ -2982,11 +3503,12 @@ function terminarNivel(juego, i, r){
 const JUEGOS = {
   corta: {tit: "🔪 Corta y reparte", niveles: NIVELES,      clave: "estrellas",      empezar: i => empezarNivel(i)},
   suma:  {tit: "➕ Junta y quita",   niveles: NIVELES_SUMA, clave: "estrellas-suma", empezar: i => empezarSuma(i)},
-  prep:  {tit: "🥛 Prepara el pedido", niveles: NIVELES_PREP, clave: "estrellas-prep", empezar: i => empezarPrep(i)}
+  prep:  {tit: "🥛 Prepara el pedido", niveles: NIVELES_PREP, clave: "estrellas-prep", empezar: i => empezarPrep(i)},
+  cajas: {tit: "📦 Cajas justas",     niveles: NIVELES_CAJAS, clave: "estrellas-cajas", empezar: i => empezarCajas(i)}
 };
 let JUEGO = "corta";
 function pintarMesa(){
-  ["corta", "suma", "prep"].forEach(k => {
+  ["corta", "suma", "prep", "cajas"].forEach(k => {
     const jg = JUEGOS[k], prog = leer(jg.clave, {}), tot = jg.niveles.reduce((s, nv) => s + (prog[nv.id] || 0), 0);
     $("j-" + k + "-sub").textContent = jg.niveles.length + " niveles · ★ " + tot + " de " + jg.niveles.length * 3;
   });
@@ -3027,7 +3549,7 @@ function volverMesa(){
 }
 async function atras(){
   const id = activa();
-  if(id === "p-juego" || id === "p-suma" || id === "p-prep"){
+  if(id === "p-juego" || id === "p-suma" || id === "p-prep" || id === "p-cajas"){
     const ok = await preguntar("¿Dejar el nivel?", "Lo que llevas de este nivel se pierde.", "Salir", "Seguir jugando");
     if(!ok || activa() !== id) return;
     return abrirMapa();
@@ -3055,6 +3577,23 @@ function pintarSonido(){ document.querySelectorAll(".btn-sonido").forEach(b => {
 $("j-corta").onclick = () => { sfxClick(); abrirMapa("corta"); };
 $("j-suma").onclick = () => { sfxClick(); abrirMapa("suma"); };
 $("j-prep").onclick = () => { sfxClick(); abrirMapa("prep"); };
+$("j-cajas").onclick = () => { sfxClick(); abrirMapa("cajas"); };
+$("c-ayuda").onclick = cAyuda;
+$("c-obra").addEventListener("click", e => {
+  const b = e.target.closest(".fc-mas");
+  if(b) return ponerCaja(+b.dataset.f);
+  const cj = e.target.closest(".caja-c.ultima");
+  if(cj) return sacarCaja(+cj.dataset.f);
+  const ch = e.target.closest("button.chip-c");
+  if(ch) elegirChip(+ch.dataset.v);
+});
+$("c-mando").addEventListener("click", e => {
+  const b = e.target.closest("button");
+  if(!b) return;
+  if(b.dataset.sl) elegirSaltos(b.dataset.sl === "1");
+  else if(b.dataset.d) tecla(b.dataset.d);
+});
+window.addEventListener("resize", () => { if(activa() === "p-cajas" && C.ped && (C.ped.tipo === "saltos" || C.ped.tipo === "juntar")) ajustarAngostas(); });
 document.querySelectorAll(".juego.pronto").forEach(b => b.onclick = () => { sfxClick(); toast("¡Muy pronto! 🍫"); });
 $("niveles").addEventListener("click", e => {
   const b = e.target.closest(".nivel");
@@ -3087,6 +3626,7 @@ function repetirEjercicio(){
   if(activa() === "p-suma"){ S.repite = {fallo: S.fallo}; siguienteSuma(); }
   else if(activa() === "p-juego"){ J.repite = {fallo: J.fallo}; siguientePedido(); }
   else if(activa() === "p-prep"){ R.repite = {fallo: R.fallo}; siguientePrep(); }
+  else if(activa() === "p-cajas"){ C.repite = {fallo: C.fallo}; siguienteCajas(); }
 }
 document.querySelectorAll(".btn-repetir").forEach(b => b.onclick = repetirEjercicio);
 $("accion").onclick = () => {
@@ -3126,7 +3666,7 @@ $("m-no").onclick = () => cerrarModal(false);
 $("btn-borrar").onclick = async () => {
   const ok = await preguntar("¿Borrar el avance?", "Se borran las estrellas de todos los niveles, solo en este aparato.", "Borrar", "Cancelar");
   if(!ok) return;
-  try{ ["estrellas", "estrellas-suma", "estrellas-prep"].forEach(k => localStorage.removeItem(CLAVE + "." + k)); }catch(e){}
+  try{ ["estrellas", "estrellas-suma", "estrellas-prep", "estrellas-cajas"].forEach(k => localStorage.removeItem(CLAVE + "." + k)); }catch(e){}
   pintarMesa();
 };
 /* teclado (computador): + y − cortan, Enter entrega, 1 2 3 eligen la barra justa */
@@ -3139,6 +3679,16 @@ document.addEventListener("keydown", e => {
     return;
   }
   if(e.key === "Escape"){ if(activa() !== "p-mesa") atras(); return; }
+  if(activa() === "p-cajas" && C.ped){
+    const t = C.ped.tipo;
+    if(t === "escribe" || t === "fraccion"){
+      if(/^[0-9]$/.test(e.key)) tecla(e.key);
+      else if(e.key === "Backspace"){ e.preventDefault(); tecla("b"); }
+      else if(e.key === "Enter"){ e.preventDefault(); tecla("ok"); }
+    } else if(t === "saltos" && e.key === "Enter"){ e.preventDefault(); elegirSaltos(true); }
+    else if((t === "juntar" || t === "saltos") && /^[1-3]$/.test(e.key) && +e.key <= C.ped.ks.length) ponerCaja(+e.key - 1);
+    return;
+  }
   if(activa() === "p-prep" && R.ped){
     if(e.key === "Enter"){ e.preventDefault(); if(!R.bloqueado && !$("r-accion").hidden) $("r-accion").click(); return; }
     if(R.fase === "elegir"){ const k = "123".indexOf(e.key); if(k >= 0 && R.opciones[k]) elegirNombre(R.opciones[k]); return; }
