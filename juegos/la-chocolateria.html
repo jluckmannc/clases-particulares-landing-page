@@ -4,14 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1c0f0a">
-<title>La Chocolatería</title>
+<title>La Cafetería</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* =====================================================================
-   LA CHOCOLATERIA  ·  fracciones con barras de chocolate
+   LA CAFETERIA  ·  fracciones y decimales
    Un solo archivo. Sin dependencias. Sin reloj.
+   (El archivo se sigue llamando la-chocolateria.html para que no se
+   rompa el enlace de la pagina.)
+
+   Tres juegos: en el meson del chocolate, Corta y reparte y Junta y
+   quita; en la barra, Prepara el pedido (medir con taza y jarra, de las
+   fracciones a los decimales).
 
    La barra de chocolate es el entero. Se corta en partes iguales con
    el cuchillo (− 🔪 +) y se llevan pedazos a la caja, que mide lo
@@ -34,6 +40,11 @@
    1. Misma forma  2. ¿Se pueden juntar? (pregunta y, si hay que
    recortar, se recorta ahi mismo)  3. Recortar los dos
    4. Quitar recortando  5. Pasarse del entero
+
+   Prepara el pedido, en ocho niveles: recetas en tazas (1. cuartos,
+   2. tercios y quintos, 3. a ojo), jarras para la mesa en litros
+   (4. la jarra de 10: 3/10 = 0,3; 5. decimos; 6. como se escribe con
+   coma 1/2 y 1/4; 7. mas de un litro) y 8. la recta, sin jarra.
 
    Reglas que vienen de los otros juegos: no hay reloj; al fallar se
    detiene, se muestra lo pedido junto a lo entregado y se vuelve a
@@ -136,6 +147,11 @@ h2{font-size:clamp(26px, 7vw, 34px); margin:6px 0 4px; font-weight:700; line-hei
 .portada .btn-pantalla{position:absolute; left:0; top:0}
 .logo{width:min(230px, 62vw); margin:4px auto -4px}
 .logo svg{display:block; width:100%; height:auto; filter:drop-shadow(0 16px 22px rgba(0,0,0,.5)); animation:flotar 4.5s ease-in-out infinite}
+.vapor{fill:none; stroke:#fff; stroke-width:5; stroke-linecap:round; opacity:0; transform-box:fill-box; animation:vapor 2.8s ease-in-out infinite}
+.vapor.v2{animation-delay:.9s} .vapor.v3{animation-delay:1.8s}
+@keyframes vapor{0%{transform:translateY(8px); opacity:0} 40%{opacity:.75} 100%{transform:translateY(-12px); opacity:0}}
+.portada + .seccion{margin-top:22px}
+.seccion + .btn.principal{margin-top:0}
 @keyframes flotar{50%{transform:translateY(-7px) rotate(1.5deg)}}
 .lead{color:rgba(255,255,255,.76); font-size:15.5px; margin:10px auto 0; max-width:380px; line-height:1.4}
 .btn.principal{font-size:24px; padding:16px 18px 14px; margin:20px 0 4px; border-radius:22px}
@@ -537,8 +553,164 @@ h2{font-size:clamp(26px, 7vw, 34px); margin:6px 0 4px; font-weight:700; line-hei
 .grupo{display:inline-flex; align-items:center; gap:8px; white-space:nowrap}
 .nv-ej .mixto{font-size:17px}
 
+/* =====================================================================
+   PREPARA EL PEDIDO
+   ===================================================================== */
+.g-prod{display:flex; align-items:center; justify-content:center; gap:10px; font-size:20px; font-weight:700; line-height:1.15; text-align:left}
+.g-pemo{font-size:36px; line-height:1}
+.nv-ej .dnum{font-size:17px}
+.sacar.invita{animation:invita-btn 1.3s ease-in-out infinite}
+.btn.menta{background:linear-gradient(180deg,#96f2d7,#38d9a9); color:#0b3d2e; box-shadow:0 5px 0 #0ca678, 0 14px 24px rgba(0,0,0,.3)}
+.btn.menta:not(:disabled):active{box-shadow:0 1px 0 #0ca678, 0 6px 12px rgba(0,0,0,.3)}
+/* la taza crece con la pantalla, pero siempre deja ver el boton Listo sin bajar */
+#p-prep{--hm:clamp(130px, calc(100vh - 560px), 300px); --hm:clamp(130px, calc(100dvh - 560px), 300px)}
+@media (max-height:700px){ #p-prep .receta{margin-top:8px; padding:6px 10px 4px} #p-prep .vs-vaso{height:28px} #p-prep .producto{width:46px; height:46px; font-size:28px} }
+/* la receta: un vasito por ingrediente, y al final el producto */
+.receta{display:flex; align-items:flex-end; justify-content:center; gap:10px; margin-top:14px; padding:10px 12px 8px;
+  border-radius:18px; background:rgba(255,255,255,.07); border:1px solid var(--vidrio-borde)}
+.receta:empty{display:none}
+.vasito{display:flex; flex-direction:column; align-items:center; gap:3px; min-width:50px; opacity:.55; transition:opacity .25s, transform .25s}
+.vasito.actual, .vasito.listo{opacity:1}
+.vasito.actual{transform:translateY(-3px)}
+.vs-vaso{position:relative; width:34px; height:40px; border:2.5px solid rgba(255,255,255,.75); border-top:0; border-radius:0 0 9px 9px;
+  overflow:hidden; background:rgba(255,255,255,.08)}
+.vasito.actual .vs-vaso{border-color:var(--oro); box-shadow:0 0 0 3px rgba(255,212,59,.3)}
+.vs-liq{position:absolute; left:0; right:0; bottom:0; height:0; background:var(--c); transition:height .55s cubic-bezier(.3,.8,.3,1)}
+.vs-ic{font-size:17px; line-height:1}
+.vs-num{display:flex; align-items:center; gap:2px; font-size:15px; font-weight:700; color:#fff; white-space:nowrap}
+.vs-num .frac{font-size:14px}
+.vs-num .mixto{font-size:14px}
+.vasito.listo .vs-num::after{content:"✓"; color:var(--menta); margin-left:2px}
+.vs-op{font-size:22px; font-weight:700; color:rgba(255,255,255,.55); align-self:center; margin-bottom:14px}
+.producto{width:58px; height:58px; display:grid; place-items:center; font-size:36px; border-radius:16px; margin-bottom:10px;
+  background:rgba(255,255,255,.08); border:2px dashed rgba(255,255,255,.3); filter:grayscale(1); opacity:.5}
+.producto.hecho{filter:none; opacity:1; border-style:solid; border-color:var(--oro); background:rgba(255,212,59,.15)}
+
+/* la estacion: lo que hay que servir, la taza o jarra, y los botones */
+.estacion{display:grid; grid-template-columns:1fr auto auto; align-items:center; gap:10px; margin-top:12px; padding:14px 12px 10px;
+  border-radius:22px; background:linear-gradient(180deg,#fffaf2,#f3e3cc); color:var(--tinta); box-shadow:0 6px 0 #d8b994, 0 14px 26px rgba(0,0,0,.3);
+  -webkit-user-select:none; user-select:none; -webkit-touch-callout:none}
+.estacion.horiz{grid-template-columns:1fr; gap:4px}
+.instr{display:flex; flex-direction:column; align-items:center; text-align:center; gap:2px; min-width:0}
+.horiz .instr{flex-direction:row; justify-content:center; gap:10px}
+.in-ic{font-size:34px; line-height:1.1}
+.in-nom{font-size:13.5px; color:var(--tinta2); font-weight:600; line-height:1.15}
+.in-cant{font-size:42px; font-weight:700; line-height:1; margin-top:4px}
+.in-cant .frac, .in-cant .mixto{font-size:40px}
+.in-uni{font-size:16px; font-weight:600; color:var(--tinta2)}
+.in-sub{font-size:15px; color:var(--tinta2); margin-top:2px}
+.in-sub .frac{font-size:17px}
+.in-pal{font-size:13px; color:var(--tinta2); font-style:italic; line-height:1.2; margin-top:3px}
+.in-preg{font-size:18px; font-weight:700; line-height:1.15}
+.dnum{font-weight:700; font-variant-numeric:tabular-nums}
+.listo-msg{grid-column:1 / -1; text-align:center; padding:26px 6px; font-size:22px; font-weight:700; color:var(--tinta)}
+.listo-msg span{display:block; font-size:54px; margin-top:6px}
+
+/* la taza medidora o la jarra (una recta numerica parada) */
+.med{position:relative; display:flex; flex-direction:column; align-items:center; padding:0 4px}
+.med-tope, .med-cero{font-size:12.5px; font-weight:700; color:var(--tinta2); line-height:1.2}
+.vaso-m{position:relative; width:92px; height:var(--hm); margin:5px 0 3px; border:3.5px solid #9fb3c1; border-top:0; border-radius:0 0 18px 18px;
+  background:linear-gradient(90deg, #e6f0f7, #c9dceb 60%, #e3eef6);
+  touch-action:none; cursor:ns-resize}
+.vaso-m::before{content:""; position:absolute; left:-7px; right:-7px; top:-4px; height:6px; border-radius:4px; background:#9fb3c1}
+.taza .vaso-m{margin-left:22px}
+.taza .vaso-m::after{content:""; position:absolute; left:-27px; top:16%; width:20px; height:42%; border:4px solid #9fb3c1; border-right:0; border-radius:18px 0 0 18px}
+.jarra .vaso-m{width:104px; margin-left:22px}
+.jarra .vaso-m::after{content:""; position:absolute; left:-27px; top:12%; width:20px; height:46%; border:4px solid #9fb3c1; border-right:0; border-radius:18px 0 0 18px}
+.liq{position:absolute; left:0; right:0; bottom:0; height:0; border-radius:0 0 14px 14px; background-color:var(--c);
+  background-image:linear-gradient(90deg, rgba(255,255,255,.3), rgba(255,255,255,0) 45%, rgba(0,0,0,.07));
+  box-shadow:inset 0 4px 0 var(--b, rgba(255,255,255,.45)), inset 0 0 0 2px rgba(60,40,20,.12)}
+.liq.suave{transition:height .2s ease-out}
+.liq.vacia{transition:height .5s ease-in}
+.chorro{position:absolute; left:50%; top:-30px; width:9px; margin-left:-4.5px; border-radius:5px; background:var(--c);
+  box-shadow:0 0 0 1px rgba(0,0,0,.08); opacity:0; pointer-events:none; z-index:2}
+.sirviendo .chorro{opacity:1}
+.botella{position:absolute; top:-30px; left:50%; font-size:30px; line-height:1; opacity:0; pointer-events:none; z-index:3;
+  transform:translate(-10%, -40%) rotate(-135deg); transition:opacity .12s}
+.sirviendo .botella{opacity:1}
+.mk{position:absolute; left:0; width:34%; height:2.5px; background:#5c6f7d; transform:translateY(50%); pointer-events:none; z-index:1}
+.mk.chica{width:20%; height:2px; opacity:.75}
+.mk.uno{width:52%; height:3px; background:#3a2216}
+.mk.uno span{position:absolute; left:calc(100% + 3px); top:50%; transform:translateY(-50%); font-size:11px; font-weight:700; color:#3a2216; white-space:nowrap}
+.mk.ay{background:#e8a600; width:50%; height:3px; z-index:2}
+.mk.ay em{position:absolute; left:calc(100% + 3px); top:50%; transform:translateY(-50%); font-size:11.5px; font-style:normal; font-weight:700; color:#8a6400}
+.mitad{position:absolute; left:-8px; right:-8px; border-top:3px dashed #e8a600; pointer-events:none; z-index:2; transform:translateY(-1.5px)}
+.mitad span{position:absolute; right:-2px; top:-19px; font-size:11px; font-weight:700; color:#5c4100; background:var(--oro); border-radius:99px; padding:1px 6px}
+.meta-l{position:absolute; left:-12px; right:-12px; border-top:3px dashed var(--mal); pointer-events:none; z-index:3}
+.meta-l span{position:absolute; left:-24px; top:-13px; font-size:20px; line-height:1}
+.escala{position:absolute; left:100%; top:0; bottom:0; width:40px; margin-left:4px; pointer-events:none}
+.esc-t{position:absolute; left:0; transform:translateY(50%); display:flex; align-items:center; gap:2px; font-size:11.5px; font-weight:700; color:#1864ab}
+.esc-t::before{content:""; width:7px; height:2px; background:#1864ab}
+.nivel-guia{position:absolute; left:0; right:-32px; border-top:2px dotted #1864ab; pointer-events:none; z-index:2}
+.gota{position:fixed; width:11px; height:14px; border-radius:50% 50% 50% 50% / 60% 60% 40% 40%; background:var(--c); z-index:46; pointer-events:none;
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.4)}
+/* los botones de servir: arriba sube, abajo baja */
+.ctl-v{display:flex; flex-direction:column; gap:12px}
+.servir, .sacar{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px; width:66px; border:0; border-radius:20px;
+  font-weight:700; color:#3b2c00; -webkit-touch-callout:none; touch-action:none; transition:transform .06s, box-shadow .06s}
+.servir{height:96px; font-size:30px; background:linear-gradient(180deg,#ffe066,#fcc419); box-shadow:0 5px 0 #d99a00, 0 10px 18px rgba(0,0,0,.2)}
+.sacar{height:60px; font-size:20px; color:var(--tinta); background:linear-gradient(180deg,#fff,#f1e3cf); box-shadow:0 4px 0 #c4a17a, 0 8px 14px rgba(0,0,0,.15)}
+.servir small, .sacar small{font-size:11.5px; font-weight:600}
+.servir.apretado{transform:translateY(4px); box-shadow:0 1px 0 #d99a00}
+.sacar.apretado{transform:translateY(3px); box-shadow:0 1px 0 #c4a17a}
+.servir.invita{animation:invita-btn 1.3s ease-in-out infinite}
+.ctl-h{display:flex; justify-content:center; gap:28px; margin-top:4px}
+.ctl-h .sacar{width:78px; height:54px; font-size:24px}
+/* la recta (ultimo nivel): la jarra acostada, sin jarra */
+.recta-h{position:relative; height:96px; margin:8px 22px 0; touch-action:none; cursor:ew-resize}
+.recta-h .linea{position:absolute; left:0; right:0; top:58%; height:5px; margin-top:-2.5px; background:#3a2216; border-radius:3px}
+.tk{position:absolute; top:58%; left:var(--x); width:3px; height:22px; margin:-11px 0 0 -1.5px; background:#3a2216; border-radius:2px; pointer-events:none}
+.tk.chica{height:14px; margin-top:-7px; width:2px}
+.tk.ay{background:#e8a600; height:26px; margin-top:-13px}
+.tk.ay em{position:absolute; top:-16px; left:50%; transform:translateX(-50%); font-size:11px; font-style:normal; font-weight:700; color:#8a6400}
+.tk-l{position:absolute; top:calc(58% + 16px); left:var(--x); transform:translateX(-50%); font-weight:700; font-size:17px; pointer-events:none}
+.pin{position:absolute; left:0; bottom:42%; transform:translateX(-50%); font-size:36px; line-height:1; pointer-events:none;
+  filter:drop-shadow(0 3px 2px rgba(0,0,0,.3)); z-index:3}
+.pin.suave{transition:left .2s ease-out}
+.meta-x{position:absolute; left:var(--x); top:12%; bottom:12%; border-left:3px dashed var(--mal); pointer-events:none; z-index:2}
+.mitad-x{position:absolute; left:50%; top:20%; bottom:14%; border-left:3px dashed #e8a600; pointer-events:none}
+.elige3{display:grid; grid-template-columns:repeat(3,1fr); gap:10px}
+.elige3 .btn{margin-top:0; font-size:26px; padding:14px 4px}
+
+/* hojas del pedido */
+.rp-prod{display:flex; align-items:center; justify-content:center; gap:14px; margin:-2px 0 6px}
+.rp-prod b{font-size:20px}
+.vc{position:relative; width:56px; height:66px; border:3px solid #9fb3c1; border-top:0; border-radius:0 0 14px 14px; overflow:hidden;
+  display:flex; flex-direction:column-reverse; background:#d3e3ef}
+.vc i{display:block; background:var(--c); box-shadow:inset 0 2px 0 rgba(255,255,255,.35), inset 0 -1px 0 rgba(60,40,20,.15)}
+.rp-fila{display:grid; grid-template-columns:30px 66px 1fr; align-items:center; gap:8px; margin:12px 0 2px}
+.rp-ic{font-size:24px; text-align:center}
+.rp-num{text-align:center; font-weight:700; font-size:21px; line-height:1}
+.rp-num .frac, .rp-num .mixto{font-size:22px}
+.rp-eq{display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:8px; margin:4px 0 0 38px; font-size:20px; font-weight:700}
+.rp-eq .frac, .rp-eq .mixto{font-size:22px}
+.rp-total{margin:0 0 4px; padding:6px 10px; border-radius:14px; background:rgba(255,212,59,.22)}
+.rp-uni{font-size:15px; color:#8a6400}
+.rp-est{margin-left:104px; font-size:15px; color:#e8a600; letter-spacing:1px}
+.rp-est .apagada{color:#d9cbb5}
+/* la jarra acostada: un tubo del 0 al 1 */
+.rm{position:relative; height:44px; transform-origin:0 22px; animation:acostar .85s cubic-bezier(.3,.9,.3,1.1) backwards}
+@keyframes acostar{from{transform:rotate(-90deg) scale(.6); opacity:.3} to{transform:none; opacity:1}}
+.rm-tubo{position:absolute; left:0; right:0; top:8px; height:18px; border:2.5px solid #9fb3c1; border-radius:4px 9px 9px 4px; background:#d3e3ef; overflow:hidden}
+.rm-liq{position:absolute; left:0; top:0; bottom:0; background:var(--c); box-shadow:inset -2px 0 0 rgba(60,40,20,.25)}
+.rm-t{position:absolute; top:28px; left:var(--x); transform:translateX(-50%); font-size:11.5px; font-weight:700; color:var(--tinta2)}
+.rm-meta{position:absolute; top:2px; height:30px; left:var(--x); border-left:3px dashed var(--mal)}
+.cmp{display:flex; justify-content:center; align-items:flex-end; gap:40px; margin:6px 0 4px}
+.vm{position:relative; display:flex; flex-direction:column; align-items:center; gap:6px}
+.vm-vaso{position:relative; width:54px; height:112px; border:3px solid #9fb3c1; border-top:0; border-radius:0 0 12px 12px; background:#d3e3ef; overflow:hidden}
+.vm.alta .vm-vaso, .vm.alta .escala{height:180px}
+.vm-liq{position:absolute; left:0; right:0; bottom:0; background:var(--c); box-shadow:inset 0 3px 0 rgba(60,40,20,.2)}
+.vm-mk{position:absolute; left:0; width:40%; height:2px; background:#5c6f7d; transform:translateY(50%)}
+.vm-q{font-size:26px; line-height:1}
+.vm .escala{top:0; bottom:auto; height:112px}
+.rm-fila{display:grid; grid-template-columns:34px 1fr; align-items:center; gap:8px; margin:8px 0}
+
 /* computador: todo un poco mas grande, para que no quede un juego chico al centro */
 @media (min-width:900px) and (min-height:760px){
+  .vaso-m{width:110px} .jarra .vaso-m{width:124px}
+  .in-ic{font-size:48px} .in-nom{font-size:17px} .in-cant, .in-cant .frac, .in-cant .mixto{font-size:58px} .in-uni{font-size:19px} .in-pal{font-size:16px}
+  .g-prod{font-size:26px} .g-pemo{font-size:48px}
+  .vs-vaso{width:44px; height:52px} .vs-ic{font-size:21px} .vs-num, .vs-num .frac{font-size:18px} .producto{width:70px; height:70px; font-size:44px}
   #p-suma{--hs:62px}
   #p-suma.dos{--hs:50px}
   .globo .g-ex .frac{font-size:40px}
@@ -572,7 +744,7 @@ h2{font-size:clamp(26px, 7vw, 34px); margin:6px 0 4px; font-weight:700; line-hei
     <button class="ico btn-pantalla" id="btn-pantalla" aria-label="Pantalla completa" hidden></button>
     <button class="ico btn-sonido" aria-label="Sonido">🔊</button>
     <div class="logo" aria-hidden="true">
-      <svg viewBox="0 0 240 150">
+      <svg viewBox="0 0 260 160">
         <defs>
           <linearGradient id="lg-ch" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stop-color="#b5764c"/><stop offset=".18" stop-color="#8d522e"/><stop offset="1" stop-color="#4b2713"/>
@@ -585,7 +757,7 @@ h2{font-size:clamp(26px, 7vw, 34px); margin:6px 0 4px; font-weight:700; line-hei
             <circle cx="214" cy="34" r="15" fill="#000"/><circle cx="200" cy="22" r="12" fill="#000"/><circle cx="224" cy="54" r="11" fill="#000"/>
           </mask>
         </defs>
-        <g transform="rotate(-9 120 75)">
+        <g transform="translate(-2 30) scale(.74)"><g transform="rotate(-9 120 75)">
           <g mask="url(#mordida)">
             <rect x="22" y="28" width="200" height="96" rx="12" fill="url(#lg-ch)"/>
             <g fill="#9b5c36" stroke="#5a2f19" stroke-opacity=".5" stroke-width="2">
@@ -599,20 +771,34 @@ h2{font-size:clamp(26px, 7vw, 34px); margin:6px 0 4px; font-weight:700; line-hei
           <rect x="84" y="22" width="8" height="108" fill="#dfe6ee"/>
           <path d="M84 22 l8 4 -8 4 8 4 -8 4 8 4 -8 4 8 4 -8 4 8 4 -8 4 8 4 -8 4 8 4 -8 4 8 4 -8 4 8 4 -8 4 8 4 -8 4 8 4 -8 4 8 4 -8 4 8 4 -8 4" fill="none" stroke="#aab4c0" stroke-width="1.5"/>
           <text x="51" y="84" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="22" fill="#fff" transform="rotate(-90 51 76)">CHOCO</text>
+        </g></g>
+        <!-- la taza de cafe, con su vapor -->
+        <g transform="translate(128 26)">
+          <path class="vapor" d="M36 26 q-9 -10 0 -20 q9 -10 0 -20"/>
+          <path class="vapor v2" d="M58 26 q-9 -10 0 -20 q9 -10 0 -20"/>
+          <path class="vapor v3" d="M80 26 q-9 -10 0 -20 q9 -10 0 -20"/>
+          <path d="M104 52 h8 a22 22 0 0 1 0 44 h-8" fill="none" stroke="#efdcc4" stroke-width="11"/>
+          <path d="M8 36 h100 v60 a32 32 0 0 1 -32 32 h-36 a32 32 0 0 1 -32 -32 z" fill="#fffaf3" stroke="#e3caa8" stroke-width="3"/>
+          <rect x="8" y="76" width="100" height="15" fill="#ff8fb3"/>
+          <ellipse cx="58" cy="37" rx="49" ry="10" fill="#6b4226"/>
+          <ellipse cx="52" cy="35" rx="20" ry="4" fill="#d9a066" opacity=".85"/>
         </g>
-        <text x="206" y="138" font-size="22">✨</text>
+        <text x="226" y="150" font-size="20">✨</text>
       </svg>
     </div>
-    <h1 class="brillo">La Chocolatería</h1>
-    <p class="lead">Corta el chocolate en partes iguales y atiende los pedidos.</p>
+    <h1 class="brillo">La Cafetería</h1>
+    <p class="lead">Corta, mide y prepara los pedidos de los clientes.</p>
   </header>
 
+  <div class="seccion">🍫 Mesón del chocolate</div>
   <button class="btn principal" id="j-corta"><span>🔪 Corta y reparte</span><small id="j-corta-sub"></small></button>
   <button class="btn principal fresa" id="j-suma"><span>➕ Junta y quita</span><small id="j-suma-sub"></small></button>
 
+  <div class="seccion">☕ La barra</div>
+  <button class="btn principal menta" id="j-prep"><span>🥛 Prepara el pedido</span><small id="j-prep-sub"></small></button>
+
   <div class="seccion">Muy pronto</div>
   <div class="juegos">
-    <button class="juego pronto"><span class="emo">🎯</span><b>¿Dónde cae?</b><small>La fracción en la recta</small></button>
     <button class="juego pronto"><span class="emo">⚔️</span><b>Guerra</b><small>¿Cuál es más grande?</small></button>
   </div>
 
@@ -669,6 +855,27 @@ h2{font-size:clamp(26px, 7vw, 34px); margin:6px 0 4px; font-weight:700; line-hei
   <div class="mando" id="s-mando"></div>
   <div class="aviso" id="s-aviso" aria-live="polite"></div>
   <button class="btn" id="s-accion"></button>
+</section>
+
+<!-- ==================== PREPARA EL PEDIDO ==================== -->
+<section id="p-prep" class="pantalla">
+  <div class="barra">
+    <button class="ico btn-atras" aria-label="Salir">←</button>
+    <div class="progreso" aria-hidden="true"><i id="r-prog-i"></i></div>
+    <span class="cuenta" id="r-prog-n">0 / 0</span>
+    <button class="ico btn-repetir" aria-label="Repetir este ejercicio">↻</button>
+    <button class="ico" id="r-ayuda" aria-label="Ayuda">💡</button>
+    <button class="ico btn-sonido" aria-label="Sonido">🔊</button>
+  </div>
+  <div class="mostrador">
+    <div class="cliente" id="r-cliente"></div>
+    <div class="globo" id="r-globo"></div>
+  </div>
+  <div class="receta" id="r-receta"></div>
+  <div class="estacion" id="r-estacion"></div>
+  <div class="mando" id="r-mando"></div>
+  <div class="aviso" id="r-aviso" aria-live="polite"></div>
+  <button class="btn" id="r-accion"></button>
 </section>
 
 <!-- ==================== FIN DE NIVEL ==================== -->
@@ -2115,6 +2322,634 @@ function sAyuda(){
 }
 
 /* =====================================================================
+   PREPARA EL PEDIDO  ·  medir con taza y jarra: fracciones y decimales
+   La taza medidora y la jarra son una recta numerica parada: abajo el 0,
+   arriba 1 taza o 1 litro. Cada pedido es una receta: cada ingrediente se
+   mide y queda en su vasito, y al final se juntan con "¡Preparar!". Los
+   cafes van en tazas (fracciones: 3/4 de taza) y las jarras para la mesa
+   en litros (decimales: 0,3 L), que es donde los decimales son de verdad.
+   Con marcas, el liquido se acomoda a la marca mas cercana y esta bien o
+   mal. Sin marcas (a ojo) no hay bien o mal: estrellas segun lo cerca; si
+   queda muy lejos aparecen las marcas y se intenta de nuevo. Al terminar
+   cada pedido la jarra se acuesta: es la misma recta del colegio.
+   ===================================================================== */
+const ING = {
+  leche:     {nom: "leche",              emo: "🥛", c: "#fbf0d9", b: "#d7bd8e"},
+  cafe:      {nom: "café",               emo: "☕", c: "#6b4226"},
+  chocolate: {nom: "chocolate",          emo: "🍫", c: "#7a4528"},
+  te:        {nom: "té",                 emo: "🍵", c: "#c46f2c"},
+  matcha:    {nom: "té matcha",          emo: "🌿", c: "#7cb342"},
+  espuma:    {nom: "espuma de leche",    emo: "☁️", c: "#ffffff", b: "#c9ad7f"},
+  naranja:   {nom: "esencia de naranja", emo: "🍊", c: "#ff9800"},
+  limon:     {nom: "jugo de limón",      emo: "🍋", c: "#f2dc3d"},
+  frutilla:  {nom: "jugo de frutilla",   emo: "🍓", c: "#f06292"},
+  agua:      {nom: "agua",               emo: "💧", c: "#a5d8ff"},
+  caramelo:  {nom: "caramelo",           emo: "🍯", c: "#d98e2b"},
+  bebida:    {nom: "bebida",             emo: "🥤", c: "#ff7b2e"}
+};
+const colorIng = p => ING[p.ing] ? ING[p.ing].c : "#ffd43b";
+const dec = x => String(Math.round(x * 100) / 100).replace(".", ",");
+const NUMP = {1: "un", 2: "dos", 3: "tres", 4: "cuatro", 5: "cinco"};
+const DENP = {2: ["medio", "medios"], 3: ["tercio", "tercios"], 4: ["cuarto", "cuartos"], 5: ["quinto", "quintos"], 6: ["sexto", "sextos"]};
+/* "tres cuartos de taza", "medio litro": como se dice en la cocina */
+function palabras(k, n, uni){
+  if(k === 1 && n === 2) return uni === "L" ? "medio litro" : "media taza";
+  if(!NUMP[k] || !DENP[n]) return "";
+  return NUMP[k] + " " + DENP[n][k === 1 ? 0 : 1] + " de " + (uni === "L" ? "litro" : "taza");
+}
+/* una porcion: k/n de un ingrediente. M: cuantas marcas tiene la taza o
+   jarra en toda su capacidad (0: sin marcas). paso: a cuanto se acomoda
+   al soltar (0: a ojo, sin acomodarse). */
+function P(ing, k, n, o){ return Object.assign({ing: ing, k: k, n: n, fmt: "frac", M: n, paso: 1 / n, pal: false}, o || {}); }
+function D(ing, v, o){ return Object.assign({ing: ing, k: Math.round(v * 10), n: 10, fmt: "dec", M: 10, paso: .1, pal: false}, o || {}); }
+function pedR(nom, emo, por, o){ return Object.assign({nom: nom, emo: emo, por: por, uni: "taza", cap: 1, cli: cliente()}, o || {}); }
+/* [nombre, emoji, [[ingrediente, k, n, marcas?], ...]] -> pedido en tazas */
+const recetaTaza = (r, o) => pedR(r[0], r[1], r[2].map(x => P(x[0], x[1], x[2], Object.assign({M: x[3] || x[2], paso: 1 / (x[3] || x[2])}, o))));
+
+function genPrep1(){
+  const medio = [["Chocolate caliente", "☕", [["leche", 3, 4], ["chocolate", 1, 4]]], ["Café con leche", "☕", [["cafe", 1, 2, 4], ["leche", 1, 2, 4]]],
+                 ["Jugo de naranja", "🧃", [["naranja", 1, 4], ["agua", 3, 4]]], ["Leche con frutilla", "🍓", [["leche", 3, 4], ["frutilla", 1, 4]]],
+                 ["Té con leche", "🍵", [["te", 3, 4], ["leche", 1, 4]]]];
+  return [["Leche tibia", "🥛", [["leche", 1, 2]]], ["Un cafecito", "☕", [["cafe", 1, 4]]]]
+    .concat(barajar(medio), [["Mokaccino", "☕", [["cafe", 1, 4], ["chocolate", 1, 4], ["leche", 1, 2, 4]]]])
+    .map(r => recetaTaza(r, {pal: true}));
+}
+function genPrep2(){
+  const medio = [["Capuchino", "☕", [["cafe", 1, 3], ["leche", 1, 3], ["espuma", 1, 3]]], ["Limonada", "🍋", [["limon", 1, 5], ["agua", 4, 5]]],
+                 ["Matcha latte", "🌿", [["matcha", 1, 5], ["leche", 3, 5]]], ["Té chai", "🍵", [["te", 2, 3], ["leche", 1, 3]]],
+                 ["Jugo de frutilla", "🍓", [["frutilla", 2, 5], ["agua", 3, 5]]]];
+  /* los dos ultimos, en una taza de sextos: 1/3 son 2 marcas, 1/2 son 3 */
+  return [["Latte", "☕", [["cafe", 1, 3], ["leche", 2, 3]]]].concat(barajar(medio), [
+    ["Frappé de frutilla", "🍓", [["frutilla", 1, 3, 6], ["leche", 1, 2, 6]]],
+    ["Caramel latte", "☕", [["cafe", 1, 3, 6], ["leche", 1, 2, 6], ["caramelo", 1, 6, 6]]]
+  ]).map(r => recetaTaza(r, {pal: true}));
+}
+function genPrep3(){
+  const solos = barajar([["Leche tibia", "🥛", [["leche", 1, 2]]], ["Un cafecito", "☕", [["cafe", 1, 4]]],
+                         ["Chocolate", "🍫", [["chocolate", 3, 4]]], ["Té", "🍵", [["te", 2, 3]]]]).slice(0, 3);
+  const dobles = barajar([["Chocolate caliente", "☕", [["leche", 3, 4], ["chocolate", 1, 4]]], ["Café con leche", "☕", [["cafe", 1, 2], ["leche", 1, 2]]],
+                          ["Latte", "☕", [["cafe", 1, 3], ["leche", 2, 3]]], ["Té chai", "🍵", [["te", 2, 3], ["leche", 1, 3]]],
+                          ["Jugo de naranja", "🧃", [["naranja", 1, 4], ["agua", 3, 4]]], ["Matcha latte", "🌿", [["matcha", 1, 5], ["leche", 3, 5]]],
+                          ["Leche con frutilla", "🍓", [["leche", 3, 4], ["frutilla", 1, 4]]]]).slice(0, 5);
+  return solos.concat(dobles).map(r => recetaTaza(r, {M: 0, paso: 0}));
+}
+const RECETAS_MESA = [["Limonada", "🍋", [["limon", .3], ["agua", .7]]], ["Naranjada", "🍊", [["naranja", .4], ["agua", .6]]],
+  ["Té helado", "🧊", [["te", .6], ["limon", .1]]], ["Leche con chocolate", "🥛", [["leche", .8], ["chocolate", .2]]],
+  ["Jugo de frutilla", "🍓", [["frutilla", .3], ["agua", .5]]], ["Matcha frío", "🌿", [["matcha", .2], ["leche", .7]]],
+  ["Café helado", "☕", [["cafe", .4], ["leche", .5]]]];
+function genPrep4(){
+  /* primero 3/10, despues 0,3 con (3/10) abajo, y al final solo 0,3 */
+  const mesa = {uni: "L"};
+  const l = barajar(RECETAS_MESA.slice()).slice(0, 5);
+  return [pedR("Jugo para la mesa", "🧃", [D("naranja", .3, {fmt: "frac"})], mesa), pedR("Agua para la mesa", "💧", [D("agua", .7, {fmt: "frac"})], mesa)]
+    .concat(l.map((r, i) => pedR(r[0], r[1], r[2].map(x => D(x[0], x[1], {fmt: i === 0 ? "frac" : (i < 3 ? "ambos" : "dec")})), mesa)),
+            [pedR("Agua para la mesa", "💧", [D("agua", .9)], mesa)]);
+}
+function genPrep5(){
+  /* decimos: 10 marcas, despues 5 (de 0,2 en 0,2) y al final a ojo */
+  const l = [["Agua para la mesa", "💧", [["agua", .8]]]].concat(barajar(RECETAS_MESA.slice()));
+  return l.map((r, i) => pedR(r[0], r[1], r[2].map(x => D(x[0], x[1], i < 3 ? {} : (i < 6 ? {M: 5} : {M: 0, paso: 0}))), {uni: "L"}));
+}
+function genPrep6(){
+  /* se sirve la fraccion y despues se elige como se escribe con coma */
+  const fr = [[1, 2], [1, 5], [1, 4], [3, 5], [3, 4], [2, 5], [4, 5], [1, 4]];
+  const ings = barajar(["leche", "agua", "naranja", "frutilla", "te", "limon", "chocolate", "matcha"]);
+  return fr.map((f, i) => {
+    const ing = ings[i];
+    return pedR(ING[ing].nom[0].toUpperCase() + ING[ing].nom.slice(1), ING[ing].emo, [P(ing, f[0], f[1], {pal: true})], {uni: "L", elegir: true});
+  });
+}
+function genPrep7(){
+  const g = {uni: "L", cap: 2}, d20 = (ing, v) => D(ing, v, {M: 20}), d4 = (ing, v) => D(ing, v, {M: 4});
+  return [
+    pedR("Bebida para el cumpleaños", "🎂", [d20("bebida", 1.5)], g),
+    pedR("Leche para el queque", "🍰", [d20("leche", 1.2)], g),
+    pedR("Agua para el té", "🍵", [P("agua", 3, 2, {fmt: "mixto", M: 4, paso: .5})], g),
+    pedR("Ponche", "🍹", [d20("bebida", 1.2), d20("agua", .5)], g),
+    pedR("Jugo grande", "🧃", [d4("naranja", 1.3)], g),
+    pedR("Limonada grande", "🍋", [d4("limon", .4), d4("agua", 1.4)], g),
+    pedR("Leche con frutilla", "🍓", [d4("leche", 1.6), d4("frutilla", .3)], g),
+    pedR("Té helado grande", "🧊", [D("te", 1.7, {M: 0, paso: 0})], g)
+  ];
+}
+function genPrep8(){
+  const r = o => Object.assign({recta: true, uni: ""}, o || {});
+  const l = [[P(null, 1, 2)], [D(null, .3)], [P(null, 3, 4)], [D(null, .8)], [P(null, 1, 5, {M: 0, paso: 0})],
+             [D(null, .6, {M: 0, paso: 0})], [P(null, 2, 3, {M: 0, paso: 0})]].map(x => pedR("¿Dónde va?", "📍", x, r()));
+  return l.concat([pedR("¿Dónde va?", "📍", [D(null, 1.5, {M: 4})], r({cap: 2}))]);
+}
+const NIVELES_PREP = [
+  {id: 1, emo: "☕", tit: "Recetas fáciles",   gen: genPrep1, ej: () => '<span class="caras">🥛</span>' + frac(3, 4) + opHTML("+") + '<span class="caras">🍫</span>' + frac(1, 4)},
+  {id: 2, emo: "🍵", tit: "Tercios y quintos", gen: genPrep2, ej: () => frac(1, 3) + opHTML("·") + frac(2, 3) + opHTML("·") + frac(1, 5)},
+  {id: 3, emo: "👀", tit: "A ojo",             gen: genPrep3, ej: () => '<span class="caras">sin marcas</span>'},
+  {id: 4, emo: "🔟", tit: "La jarra de 10",    gen: genPrep4, ej: () => frac(3, 10) + opHTML("=") + '<span class="dnum">0,3</span>'},
+  {id: 5, emo: "🍹", tit: "Litros con coma",   gen: genPrep5, ej: () => '<span class="dnum">0,4 L</span>' + opHTML("+") + '<span class="dnum">0,6 L</span>'},
+  {id: 6, emo: "⚖️", tit: "¿Cómo se escribe?", gen: genPrep6, ej: () => frac(1, 2) + opHTML("=") + '<span class="dnum">0,5</span>' + opHTML("·") + frac(1, 4) + opHTML("≠") + '<span class="dnum">0,4</span>'},
+  {id: 7, emo: "🍾", tit: "Más de un litro",   gen: genPrep7, ej: () => '<span class="dnum">1,5 L</span>' + opHTML("=") + mixto(3, 2)},
+  {id: 8, emo: "📍", tit: "La recta",          gen: genPrep8, ej: () => '<span class="caras">0 ─── 📍 ─ 1</span>'}
+];
+
+const R = {
+  nivel: 0, cola: [], hechos: 0, total: 0, errores: 0, conAyuda: 0, extras: 0, racha: 0,
+  ped: null, i: 0, v: 0, hecho: [], fase: "medir", opciones: [], fallo: false, ayuda: 0, usoAyuda: false,
+  forzar: false, meta: false, bloqueado: false, guia: false
+};
+const VISTOS_R = new Set();
+const por = () => R.ped.por[R.i];
+/* cantidad como viene en la receta: 3/4, 0,3 o 1 1/2 */
+function cantidad(p){
+  if(p.fmt === "dec" || p.fmt === "ambos") return '<span class="dnum">' + dec(p.k / p.n) + "</span>";
+  if(p.fmt === "mixto") return mixto(p.k, p.n);
+  return frac(p.k, p.n);
+}
+/* marcas que se ven ahora: las de la porcion, o las del pedido si quedo muy lejos */
+const rMarcas = () => por().M || (R.forzar ? por().n * R.ped.cap : 0);
+
+function empezarPrep(i){
+  G.turno++;
+  Object.assign(R, {nivel: i, cola: NIVELES_PREP[i].gen(), hechos: 0, errores: 0, conAyuda: 0, extras: 0, racha: 0});
+  R.total = R.cola.length;
+  pantalla("p-prep");
+  siguientePrep();
+}
+function siguientePrep(){
+  cortarServir();
+  if(R.hechos >= R.total) return terminarNivel("prep", R.nivel, R);
+  R.ped = R.cola[R.hechos];
+  Object.assign(R, {i: 0, v: 0, hecho: [], fase: "medir", fallo: false, ayuda: 0, usoAyuda: false, forzar: false, meta: false, bloqueado: false});
+  if(R.repite){ R.fallo = R.repite.fallo; R.repite = null; }
+  const tipo = R.ped.recta ? "recta" : R.ped.uni;
+  R.guia = !VISTOS_R.has(tipo);
+  VISTOS_R.add(tipo);
+  $("r-cliente").textContent = R.ped.cli;
+  $("r-globo").innerHTML = '<div class="g-prod"><span class="g-pemo">' + R.ped.emo + "</span><b>" + R.ped.nom + "</b></div>";
+  $("r-receta").innerHTML = rRecetaHTML();
+  rPintarEstacion();
+  rPintarMando();
+  rProgreso();
+  rRefrescar();
+  anima($("r-cliente"), [{transform: "translateX(-24px) scale(.3)", opacity: 0}, {transform: "none", opacity: 1}], {duration: 460, easing: "cubic-bezier(.2,1.4,.4,1)"});
+  anima($("r-globo"), [{transform: "scale(.85)", opacity: 0}, {transform: "none", opacity: 1}], {duration: 360, delay: 120});
+  anima($("r-estacion"), [{transform: "translateY(24px)", opacity: 0}, {transform: "none", opacity: 1}], {duration: 420, delay: 160, easing: "cubic-bezier(.2,.9,.3,1.1)"});
+  sfxTimbre();
+}
+
+/* ---------- pintar ---------- */
+function rRecetaHTML(){
+  const ped = R.ped;
+  if(ped.recta) return "";
+  return ped.por.map((p, i) => {
+    const h = R.hecho[i], cls = h ? " listo" : (i === R.i && R.fase !== "listo" && R.fase !== "hecho" ? " actual" : "");
+    return '<div class="vasito' + cls + '" style="--c:' + colorIng(p) + '"><div class="vs-vaso"><i class="vs-liq" style="height:' + (h ? h.v / ped.cap * 100 : 0) + '%"></i></div>' +
+           '<span class="vs-ic">' + ING[p.ing].emo + '</span><span class="vs-num">' + cantidad(p) + "</span></div>";
+  }).join("") + '<span class="vs-op">→</span><div class="producto' + (R.fase === "hecho" ? " hecho" : "") + '" id="r-prod">' + ped.emo + "</div>";
+}
+function rInstrHTML(){
+  const ped = R.ped, p = por(), ing = ING[p.ing];
+  if(R.fase === "elegir")
+    return '<div class="in-cant">' + frac(p.k, p.n) + '</div><div class="in-uni">L</div><div class="in-preg">¿Cómo se escribe con coma?</div><div class="in-sub">Mira la escala azul →</div>';
+  let h = ing ? '<div class="in-ic">' + ing.emo + '</div><div class="in-nom">' + ing.nom + "</div>" : "";
+  h += '<div class="in-cant">' + cantidad(p) + "</div>";
+  if(ped.uni) h += '<div class="in-uni">' + (ped.uni === "L" ? "L" : "taza") + "</div>";
+  if(p.fmt === "ambos") h += '<div class="in-sub">(' + frac(p.k, p.n) + ")</div>";
+  if(p.pal) h += '<div class="in-pal">' + palabras(p.k, p.n, ped.uni) + "</div>";
+  return h;
+}
+function rMedHTML(){
+  const ped = R.ped, p = por(), cap = ped.cap, M = rMarcas();
+  if(ped.recta) return rRectaHTML();
+  const ing = ING[p.ing], nivel = x => (x / cap * 100).toFixed(3) + "%";
+  let h = "";
+  for(let j = 1; j < M; j++){
+    const uno = cap === 2 && Math.abs(j * cap / M - 1) < 1e-9;
+    h += '<i class="mk' + (uno ? " uno" : "") + '" style="bottom:' + (j / M * 100).toFixed(3) + '%">' + (uno ? "<span>1 L</span>" : "") + "</i>";
+  }
+  if(cap === 2 && !M) h += '<i class="mk uno" style="bottom:50%"><span>1 L</span></i>';
+  if(R.ayuda >= 1) h += '<i class="mitad" style="bottom:50%"><span>' + (cap === 2 ? "1 L" : "mitad") + "</span></i>";
+  if(R.ayuda >= 2){ const A = p.n * cap; for(let j = 1; j < A; j++) h += '<i class="mk ay" style="bottom:' + (j / A * 100).toFixed(3) + '%"><em>' + j + "</em></i>"; }
+  if(R.fase === "elegir"){
+    h += '<div class="escala">';
+    for(let j = 1; j < 10; j++) h += '<span class="esc-t" style="bottom:' + j * 10 + '%">' + dec(j / 10) + "</span>";
+    h += '</div><i class="nivel-guia" style="bottom:' + nivel(R.v) + '"></i>';
+  }
+  if(R.meta) h += '<i class="meta-l" style="bottom:' + nivel(p.k / p.n) + '"><span>' + ped.cli + "</span></i>";
+  return '<div class="med ' + (ped.uni === "L" ? "jarra" : "taza") + '" id="r-med"><span class="med-tope">' + (ped.uni === "L" ? cap + " L" : "1 taza") + "</span>" +
+    '<div class="vaso-m" id="r-vaso" style="--c:' + ing.c + (ing.b ? ";--b:" + ing.b : "") + '"><div class="liq" id="r-liq"></div><div class="chorro" id="r-chorro"></div>' + h +
+    '</div><span class="med-cero">0</span><span class="botella">' + ing.emo + "</span></div>";
+}
+/* la recta: la jarra acostada y sin jarra */
+function rRectaHTML(){
+  const p = por(), cap = R.ped.cap, M = rMarcas(), T0 = M || cap;
+  let h = '<div class="linea"></div>';
+  for(let j = 0; j <= T0; j++){
+    const x = (j / T0 * 100).toFixed(3) + "%", val = j * cap / T0, entero = Math.abs(val - Math.round(val)) < 1e-9;
+    h += '<i class="tk' + (entero ? "" : " chica") + '" style="--x:' + x + '"></i>' + (entero ? '<span class="tk-l" style="--x:' + x + '">' + Math.round(val) + "</span>" : "");
+  }
+  if(R.ayuda >= 1) h += '<i class="mitad-x"></i>';
+  if(R.ayuda >= 2){ const A = p.n * cap; for(let j = 1; j < A; j++) h += '<i class="tk ay" style="--x:' + (j / A * 100).toFixed(3) + '%"><em>' + j + "</em></i>"; }
+  if(R.meta) h += '<i class="meta-x" style="--x:' + (p.k / p.n / cap * 100).toFixed(3) + '%"></i>';
+  return '<div class="recta-h" id="r-vaso">' + h + '<span class="pin" id="r-pin">📍</span></div>';
+}
+function rPintarEstacion(entrada){
+  const ped = R.ped, est = $("r-estacion");
+  est.classList.toggle("horiz", !!ped.recta);
+  if(R.fase === "listo" || R.fase === "hecho"){ est.innerHTML = '<div class="listo-msg">¡Todo medido!<span>' + ped.emo + "</span></div>"; return; }
+  const ctl = R.fase === "elegir" ? "" : (ped.recta
+    ? '<div class="ctl-h"><button type="button" class="sacar" data-pour="-1" aria-label="Mover a la izquierda">◀</button>' +
+      '<button type="button" class="sacar" data-pour="1" aria-label="Mover a la derecha">▶</button></div>'
+    : '<div class="ctl-v"><button type="button" class="servir" data-pour="1" aria-label="Servir"><span>💧</span><small>▲ servir</small></button>' +
+      '<button type="button" class="sacar" data-pour="-1" aria-label="Sacar"><span>▼</span><small>sacar</small></button></div>');
+  est.innerHTML = '<div class="instr">' + rInstrHTML() + "</div>" + rMedHTML() + ctl;
+  setV(R.v);
+  if(entrada) anima(est.querySelector(".instr"), [{transform: "scale(.7)", opacity: 0}, {transform: "none", opacity: 1}], {duration: 380, easing: "cubic-bezier(.2,1.4,.4,1)"});
+}
+function rPintarMando(){
+  $("r-mando").innerHTML = R.fase !== "elegir" ? "" :
+    '<div class="elige3">' + R.opciones.map(o => '<button type="button" class="btn claro" data-op="' + o + '">' + o + "</button>").join("") + "</div>";
+}
+function rProgreso(){
+  $("r-prog-i").style.width = (100 * R.hechos / Math.max(1, R.total)) + "%";
+  $("r-prog-n").textContent = R.hechos + " / " + R.total;
+}
+function rRefrescar(){
+  const ped = R.ped, b = $("r-accion");
+  b.hidden = R.fase === "elegir" || R.fase === "hecho";
+  if(R.fase === "listo"){ b.textContent = ped.uni === "L" ? "🍹 ¡Preparar!" : "☕ ¡Preparar!"; b.disabled = false; }
+  else{ b.textContent = "✓ Listo"; b.disabled = !(R.v > 1e-9); }
+  $("r-ayuda").classList.toggle("gastada", R.ayuda >= 2 || (R.fase !== "medir" && R.fase !== "elegir"));
+  let h = "";
+  if(R.fase === "elegir") h = "👆 Elige el número";
+  else if(R.fase === "listo") h = "👇 ¡Todo listo! A preparar";
+  else if(R.fase === "medir"){
+    if(ped.recta) h = R.v > 1e-9 ? (rMarcas() ? "✓ cuando esté en su lugar" : "👀 Sin marcas: ¡a ojo!") : "👆 Arrastra el 📍 o usa ◀ ▶";
+    else if(!(R.v > 1e-9)) h = "💧 Mantén apretado para servir";
+    else h = rMarcas() ? "▲ ▼ de a una marca · ✓ cuando esté" : "👀 Sin marcas: ¡a ojo!";
+  }
+  $("r-aviso").innerHTML = h;
+  rInvitar();
+}
+/* la primera vez de cada tipo: se mueve lo que hay que tocar */
+function rInvitar(){
+  document.querySelectorAll("#p-prep .invita").forEach(e => e.classList.remove("invita"));
+  if(!R.guia || R.bloqueado) return;
+  let el = null;
+  if(R.fase === "medir") el = R.v > 1e-9 ? $("r-accion") : document.querySelector('#r-estacion [data-pour="1"]');
+  else if(R.fase === "listo") el = $("r-accion");
+  if(el) el.classList.add("invita");
+}
+function setV(v, suave){
+  const ped = R.ped, cap = ped.cap;
+  R.v = Math.max(0, Math.min(cap, v));
+  const pct = R.v / cap * 100;
+  if(ped.recta){
+    const pin = $("r-pin");
+    if(pin){ pin.classList.toggle("suave", !!suave); pin.style.left = pct + "%"; }
+  } else {
+    const l = $("r-liq"), ch = $("r-chorro");
+    if(l){ l.classList.toggle("suave", !!suave); l.classList.remove("vacia"); l.style.height = pct + "%"; }
+    if(ch) ch.style.height = "calc(" + (100 - pct).toFixed(2) + "% + 30px)";
+  }
+  if(fuenteServir) actualizarServir();
+  if(R.fase === "medir") $("r-accion").disabled = !(R.v > 1e-9);
+}
+
+/* ---------- servir: mantener apretado sube; un toque, una marca ---------- */
+let pour = null, arrastre = false, fuenteServir = null;
+const puedeMedir = () => !!R.ped && R.fase === "medir" && !R.bloqueado && !hojaAbierta() && activa() === "p-prep";
+function empezarServir(dir, btn){
+  if(!puedeMedir() || pour) return;
+  pour = {dir: dir, t0: performance.now(), last: performance.now(), movido: false, rebalso: false, btn: btn};
+  if(btn) btn.classList.add("apretado");
+  pour.raf = requestAnimationFrame(tickServir);
+}
+function tickServir(now){
+  if(!pour) return;
+  const dt = Math.min(.05, (now - pour.last) / 1000);
+  pour.last = now;
+  if(now - pour.t0 > 170){
+    if(!pour.movido){
+      pour.movido = true;
+      if(pour.dir > 0 && !R.ped.recta && $("r-med")) $("r-med").classList.add("sirviendo");
+      sonidoServir(true);
+    }
+    const cap = R.ped.cap;
+    setV(R.v + pour.dir * cap * .2 * dt);           /* una taza entera en unos 5 segundos */
+    if(pour.dir > 0 && !R.ped.recta && R.v >= cap - 1e-9 && !pour.rebalso){ pour.rebalso = true; rebalsar(); }
+  }
+  pour.raf = requestAnimationFrame(tickServir);
+}
+function cortarServir(){
+  if(!pour) return false;
+  const p = pour;
+  pour = null;
+  cancelAnimationFrame(p.raf);
+  if(p.btn) p.btn.classList.remove("apretado");
+  if($("r-med")) $("r-med").classList.remove("sirviendo");
+  sonidoServir(false);
+  return p;
+}
+function pararServir(){
+  const p = cortarServir();
+  if(!p || !puedeMedir()) return;
+  if(!p.movido){
+    const paso = por().paso || R.ped.cap * .02;
+    setV(Math.round((R.v + p.dir * paso) / paso) * paso, true);
+    sfxGota();
+  } else ajustar();
+  rRefrescar();
+}
+function ajustar(){
+  const paso = por().paso;
+  if(paso) setV(Math.round(R.v / paso) * paso, true);
+}
+function vDesdePuntero(e){
+  const r = $("r-vaso").getBoundingClientRect(), cap = R.ped.cap;
+  return R.ped.recta ? (e.clientX - r.left) / r.width * cap : (r.bottom - e.clientY) / r.height * cap;
+}
+function soltar(){
+  if(pour) pararServir();
+  if(arrastre){ arrastre = false; ajustar(); sfxGota(); rRefrescar(); }
+}
+function sonidoServir(on){
+  const c = ctx();
+  if(!on){
+    if(fuenteServir && c){
+      const s = fuenteServir;
+      fuenteServir = null;
+      try{ s.g.gain.setTargetAtTime(0.0001, c.currentTime, .04); s.src.stop(c.currentTime + .25); }catch(e){}
+    }
+    return;
+  }
+  if(fuenteServir || !G.sonido || !c) return;
+  const n = c.sampleRate, buf = c.createBuffer(1, n, c.sampleRate), d = buf.getChannelData(0);
+  for(let i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
+  const src = c.createBufferSource(); src.buffer = buf; src.loop = true;
+  const f = c.createBiquadFilter(); f.type = "bandpass"; f.Q.value = 3;
+  const g = c.createGain(); g.gain.setValueAtTime(0.0001, c.currentTime); g.gain.exponentialRampToValueAtTime(.2, c.currentTime + .08);
+  src.connect(f); f.connect(g); g.connect(c.destination); src.start();
+  fuenteServir = {src: src, f: f, g: g};
+  actualizarServir();
+}
+/* el sonido sube a medida que se llena, como al servir de verdad */
+function actualizarServir(){ const c = ctx(); if(fuenteServir && c) fuenteServir.f.frequency.setTargetAtTime(300 + 1700 * R.v / R.ped.cap, c.currentTime, .03); }
+const sfxGota = () => tono(700 + 700 * (R.v / R.ped.cap), 0, .07, "sine", .08);
+function rebalsar(){
+  const r = $("r-vaso").getBoundingClientRect(), c = colorIng(por());
+  for(let i = 0; i < 10; i++){
+    const g = document.createElement("i");
+    g.className = "gota";
+    g.style.setProperty("--c", c);
+    g.style.left = (i % 2 ? r.right + 2 : r.left - 13) + "px";
+    g.style.top = (r.top - 4) + "px";
+    $("chispas").appendChild(g);
+    anima(g, [{transform: "translate(0,0)", opacity: 1}, {transform: "translate(" + (i % 2 ? 1 : -1) * azar(4, 26) + "px," + azar(60, 140) + "px)", opacity: 0}],
+          {duration: azar(500, 900), delay: i * 60, easing: "cubic-bezier(.5,0,.9,.6)"}).then(() => g.remove());
+  }
+  soplo(0, .45, 2000, 400, .4);
+  tono(330, .05, .2, "triangle", .08);
+  toast(R.ped.cap === 2 ? "¡Se rebalsó! 💦 Caben 2 litros" : (R.ped.uni === "L" ? "¡Se rebalsó! 💦 Cabe 1 litro" : "¡Se rebalsó! 💦 Cabe 1 taza"));
+}
+
+/* ---------- revisar ---------- */
+function revisarPorcion(){
+  const p = por(), e = Math.abs(R.v - p.k / p.n) / R.ped.cap;
+  if(p.paso) return e < 1e-6 ? porcionBien(0) : porcionMal(false);
+  const est = e <= .035 ? 3 : (e <= .07 ? 2 : (e <= .12 ? 1 : 0));
+  return est ? porcionBien(est) : porcionMal(true);
+}
+async function porcionBien(est){
+  const tk = G.turno, ped = R.ped;
+  R.bloqueado = true; rInvitar();
+  R.hecho[R.i] = {v: R.v, est: est};
+  sfxEncaja();
+  if(!por().paso){ R.meta = true; rPintarEstacion(); }       /* a ojo: se ve donde era */
+  flotar($("r-vaso"), est ? "⭐".repeat(est) : "👍");
+  await espera(est ? 1000 : 500);
+  if(tk !== G.turno) return;
+  R.meta = false;
+  if(ped.elegir){
+    R.fase = "elegir";
+    R.opciones = opcionesNombre(por().k, por().n);
+    rPintarEstacion(); rPintarMando();
+    R.bloqueado = false; rRefrescar();
+    return;
+  }
+  await pasarAVasito();
+  if(tk === G.turno) siguientePorcion();
+}
+/* lo medido pasa a su vasito, y se vacia la taza o jarra */
+async function pasarAVasito(){
+  if(R.ped.recta) return;
+  const l = $("r-liq"), vs = document.querySelectorAll("#r-receta .vs-liq")[R.i];
+  if(l){ l.classList.remove("suave"); l.classList.add("vacia"); l.style.height = "0"; }
+  if(vs) vs.style.height = (R.hecho[R.i].v / R.ped.cap * 100) + "%";
+  sfxDesliza();
+  await espera(560);
+}
+function siguientePorcion(){
+  const ped = R.ped;
+  R.i++;
+  Object.assign(R, {v: 0, ayuda: 0, forzar: false, meta: false});
+  if(R.i >= ped.por.length){
+    if(ped.recta) return finPedido();
+    R.fase = "listo";
+    R.i = ped.por.length - 1;
+  } else R.fase = "medir";
+  $("r-receta").innerHTML = rRecetaHTML();
+  rPintarEstacion(true);
+  rPintarMando();
+  R.bloqueado = false;
+  rRefrescar();
+}
+function rFalloContar(){
+  if(R.fallo) return;
+  R.fallo = true; R.errores++;
+  if(R.extras < 3){
+    R.extras++;
+    const q = JSON.parse(JSON.stringify(R.ped));
+    q.cli = cliente();
+    R.cola.splice(Math.min(R.cola.length, R.hechos + 3), 0, q);
+    R.total = R.cola.length;
+    rProgreso();
+  }
+}
+function porcionMal(lejos){
+  R.bloqueado = true; rInvitar();
+  R.racha = 0;
+  rFalloContar();
+  sfxMal(); vibrar();
+  flotar($("r-cliente"), "🤔");
+  sacudir($("r-vaso"));
+  abrirHoja(rHojaMal(lejos), [{txt: lejos ? "👀 Otra vez, con marcas" : "↻ Otra vez", fn: () => {
+    cerrarHoja();
+    if(lejos){ R.forzar = true; rPintarEstacion(); }
+    R.bloqueado = false; rRefrescar();
+  }}]);
+}
+/* las tres opciones: la buena y los dos errores tipicos (1/2 -> 0,12 y 1/4 -> 0,4) */
+function opcionesNombre(k, n){
+  const l = [dec(k / n), "0," + k + n, "0," + n];
+  return barajar(l.filter((x, i) => l.indexOf(x) === i));
+}
+async function elegirNombre(op){
+  if(R.bloqueado || R.fase !== "elegir") return;
+  const p = por(), ok = dec(p.k / p.n), tk = G.turno;
+  R.bloqueado = true;
+  if(op === ok){
+    sfxEncaja();
+    flotar($("r-vaso"), "👍");
+    document.querySelectorAll("#r-mando [data-op]").forEach(b => { if(b.dataset.op !== ok) b.disabled = true; });
+    await espera(650);
+    if(tk !== G.turno) return;
+    await pasarAVasito();
+    if(tk === G.turno) siguientePorcion();
+    return;
+  }
+  R.racha = 0;
+  rFalloContar();
+  sfxMal(); vibrar();
+  flotar($("r-cliente"), "🤔");
+  abrirHoja(rHojaNombre(op), [{txt: "↻ Otra vez", fn: () => { cerrarHoja(); R.bloqueado = false; rRefrescar(); }}]);
+}
+async function preparar(){
+  if(R.bloqueado || R.fase !== "listo") return;
+  const tk = G.turno, prod = $("r-prod");
+  R.bloqueado = true;
+  R.fase = "hecho";
+  rRefrescar();
+  sfxDesliza();
+  const vasos = Array.from(document.querySelectorAll("#r-receta .vs-vaso"));
+  vasos.forEach((el, i) => {
+    const c = el.cloneNode(true);
+    c.style.setProperty("--c", getComputedStyle(el).getPropertyValue("--c"));
+    volar(c, el, prod, {duration: 520, delay: i * 110, desvanece: true});
+    setTimeout(() => { const l = el.querySelector(".vs-liq"); if(l) l.style.height = "0"; }, T(i * 110 + 100));
+  });
+  await espera(600 + vasos.length * 110);
+  if(tk !== G.turno) return;
+  prod.classList.add("hecho");
+  anima(prod, [{transform: "scale(.6)"}, {transform: "scale(1.25)"}, {transform: "none"}], {duration: 520, easing: "cubic-bezier(.3,1.5,.5,1)"});
+  chispas(prod, "#ffd43b", 14);
+  sfxEncaja();
+  await espera(650);
+  if(tk !== G.turno) return;
+  volar(prod.cloneNode(true), prod, $("r-cliente"), {duration: 480});
+  await espera(480);
+  if(tk === G.turno) finPedido();
+}
+function finPedido(){
+  R.bloqueado = true;
+  R.fase = "hecho";
+  R.racha++;
+  if(R.usoAyuda) R.conAyuda++;
+  sfxBien(R.racha);
+  flotar($("r-cliente"), elegir(["😋", "💖", "😍", "🤤"]));
+  saltito($("r-cliente"));
+  chispas($("r-cliente"), "#ffd43b", 14);
+  abrirHoja(rHojaBien(), [
+    {txt: R.hechos + 1 >= R.total ? "🏁 Terminar" : "Siguiente 👉", fn: () => { cerrarHoja(); R.hechos++; rProgreso(); siguientePrep(); }},
+    {txt: "↻ Repetir este", cls: "sec", fn: repetirEjercicio}]);
+}
+
+/* ---------- hojas ---------- */
+/* la jarra acostada: un tubo del 0 al 1 (o al 2), con lo servido */
+function rmHTML(p, v, conMeta){
+  const cap = R.ped.cap, w = v / cap * 100, t = p.k / p.n / cap * 100;
+  let h = '<div class="rm" style="--c:' + colorIng(p) + '"><div class="rm-tubo"><i class="rm-liq" style="width:' + w.toFixed(2) + '%"></i></div>';
+  for(let j = 0; j <= cap; j++) h += '<span class="rm-t" style="--x:' + (j / cap * 100) + '%">' + j + "</span>";
+  if(conMeta && Math.abs(w - t) > .01) h += '<i class="rm-meta" style="--x:' + t.toFixed(2) + '%"></i>';
+  return h + "</div>";
+}
+function vasoMini(val, quien, p, escala){
+  const alta = !!escala;
+  const cap = R.ped.cap, M = p.M || p.n * cap;
+  let h = "";
+  for(let j = 1; j < M; j++) h += '<i class="vm-mk" style="bottom:' + (j / M * 100).toFixed(3) + '%"></i>';
+  let esc = "";
+  if(escala){
+    esc = '<div class="escala">';
+    for(let j = 1; j < 10; j++) esc += '<span class="esc-t" style="bottom:' + j * 10 + '%">' + dec(j / 10) + "</span>";
+    esc += "</div>";
+  }
+  return '<div class="vm' + (alta ? " alta" : "") + '"><div class="vm-vaso" style="--c:' + colorIng(p) + '"><i class="vm-liq" style="height:' + (val / cap * 100).toFixed(2) + '%"></i>' + h + "</div>" +
+         esc + (quien ? '<span class="vm-q">' + quien + "</span>" : "") + "</div>";
+}
+function vasoCliente(){
+  return '<div class="vc">' + R.ped.por.map((p, i) => '<i style="--c:' + colorIng(p) + ";height:" + (R.hecho[i].v / R.ped.cap * 100).toFixed(2) + '%"></i>').join("") + "</div>";
+}
+/* lo mismo escrito de otra forma: 3/10 = 0,3 · 1/2 = 0,5 · 1/3 = 2/6 */
+function equivalencia(p){
+  const ped = R.ped, d = dec(p.k / p.n), igual = "<span>=</span>";
+  if(p.n === 10) return (p.k < 10 ? frac(p.k, 10) : mixto(p.k, 10)) + igual + '<span class="dnum">' + d + "</span>";
+  if(p.fmt === "mixto") return mixto(p.k, p.n) + igual + '<span class="dnum">' + d + "</span>";
+  if((ped.uni === "L" || ped.recta) && 100 % p.n === 0) return frac(p.k, p.n) + igual + '<span class="dnum">' + d + "</span>";
+  if(p.M && p.M !== p.n * ped.cap && ped.cap === 1) return frac(p.k, p.n) + igual + frac(p.k * p.M / p.n, p.M);
+  return "";
+}
+function rHojaBien(){
+  const ped = R.ped;
+  let h = '<div class="h-tit">' + elegir(["¡Rico!", "¡Perfecto!", "¡Delicioso!", "¡Justo!"]) + " 😋</div>";
+  if(!ped.recta) h += '<div class="rp-prod">' + vasoCliente() + "<b>" + ped.emo + " " + ped.nom + "</b></div>";
+  /* si todo junto llena justo 1 taza (o 1 litro), se dice: 1/3 + 2/3 = 1 */
+  if(ped.por.length > 1){
+    const den = ped.por.reduce((d, p) => mcm(d, p.n), 1), num = ped.por.reduce((s, p) => s + p.k * den / p.n, 0);
+    if(num === den){
+      const sum = ped.por.map(p => cantidad(p)).join("<span>+</span>");
+      h += '<div class="rp-eq rp-total">' + sum + '<span>=</span><span>1</span><span class="rp-uni">' + (ped.uni === "L" ? "litro justo" : "taza justa") + " ✨</span></div>";
+    }
+  }
+  ped.por.forEach((p, i) => {
+    const r = R.hecho[i], eq = equivalencia(p);
+    h += '<div class="rp-fila"><span class="rp-ic">' + (ING[p.ing] ? ING[p.ing].emo : "📍") + '</span><span class="rp-num">' + cantidad(p) + "</span>" + rmHTML(p, r.v, true) + "</div>";
+    if(r.est) h += '<div class="rp-est">' + estrellasHTML(r.est) + "</div>";
+    if(eq) h += '<div class="rp-eq">' + eq + "</div>";
+  });
+  return h;
+}
+function rHojaMal(lejos){
+  const ped = R.ped, p = por(), t = p.k / p.n, cap = ped.cap;
+  let h = '<div class="h-tit mal">' + (lejos ? "Muy lejos 🤔" : (R.v > t ? "Te pasaste un poco 🤔" : "Te faltó un poco 🤔")) + "</div>";
+  if(ped.recta) h += '<div class="rm-fila"><span class="rp-ic">' + ped.cli + "</span>" + rmHTML(p, t) + '</div><div class="rm-fila"><span class="rp-ic">🙋</span>' + rmHTML(p, R.v) + "</div>";
+  else h += '<div class="cmp">' + vasoMini(t, ped.cli, p) + vasoMini(R.v, "🙋", p) + "</div>";
+  const M = p.M || p.n * cap, paso = cap / M, tm = t / paso, tu = R.v / paso, entero = x => Math.abs(x - Math.round(x)) < 1e-6;
+  const uni = ped.uni === "L" ? " L" : (ped.uni === "taza" ? " de taza" : "");
+  let txt;
+  if(lejos) txt = "Ahora te muestro las marcas, para que lo intentes de nuevo.";
+  else if((p.fmt === "dec" || p.fmt === "ambos") && entero(tu * paso * 10)){
+    /* en litros se dice en litros: pidio 1,5 L y serviste 1,6 L */
+    txt = ped.cli + " pidió <b>" + dec(t) + " L</b>. Tú serviste <b>" + dec(R.v) + " L</b>.";
+    if(p.fmt === "ambos") txt += "<br>" + frac(p.k, p.n) + " L = " + dec(t) + " L";
+  }
+  else if(entero(tm)){
+    txt = cantidad(p) + uni + ": hasta la marca <b>" + Math.round(tm) + "</b> de " + M + ".";
+    if(entero(tu)) txt += " Tú llegaste a la <b>" + Math.round(tu) + "</b>.";
+    if(M !== p.n * cap && cap === 1) txt += "<br>" + frac(p.k, p.n) + " = " + frac(Math.round(tm), M);
+  } else txt = cantidad(p) + uni + " está entre la marca de " + dec(Math.floor(tm) * paso) + " y la de " + dec(Math.ceil(tm) * paso) + ".";
+  return h + '<div class="h-txt">' + txt + "</div>";
+}
+function rHojaNombre(op){
+  const p = por(), ok = dec(p.k / p.n), t = p.k / p.n;
+  const donde = ok.length > 3 ? "queda entre " + dec(Math.floor(t * 10) / 10) + " y " + dec(Math.ceil(t * 10) / 10) + ": es <b>" + ok + "</b>" : "llega a <b>" + ok + "</b>";
+  const msg = op === "0," + p.k + p.n ? "No se juntan los dos números.<br>" : (op === "0," + p.n ? "No es 0," + p.n + ".<br>" : "");
+  return '<div class="h-tit mal">Casi… 🤔</div><div class="cmp">' + vasoMini(t, "", p, true) + "</div>" +
+         '<div class="h-txt">' + msg + frac(p.k, p.n) + " L " + donde + " L.</div>";
+}
+
+/* ---------- ayuda 💡 ---------- */
+function rAyuda(){
+  if(!R.ped || R.bloqueado) return;
+  if(R.fase === "elegir"){ R.usoAyuda = true; sfxDuda(); toast("Sigue la línea azul hasta la escala"); return; }
+  if(R.fase !== "medir") return;
+  if(R.ayuda >= 2) return toast("💡 Ya está toda la ayuda");
+  R.ayuda++;
+  R.usoAyuda = true;
+  sfxDuda();
+  rPintarEstacion();
+  rRefrescar();
+  toast(R.ayuda === 1 ? (R.ped.cap === 2 ? "La línea amarilla es 1 litro" : "La línea amarilla es la mitad") : "Cuenta las marcas amarillas");
+}
+
+/* =====================================================================
    FIN DE NIVEL (de cualquiera de los dos juegos)
    ===================================================================== */
 function finNivel(){ terminarNivel("corta", NIVELES.indexOf(J.nivel), J); }
@@ -2146,11 +2981,12 @@ function terminarNivel(juego, i, r){
    ===================================================================== */
 const JUEGOS = {
   corta: {tit: "🔪 Corta y reparte", niveles: NIVELES,      clave: "estrellas",      empezar: i => empezarNivel(i)},
-  suma:  {tit: "➕ Junta y quita",   niveles: NIVELES_SUMA, clave: "estrellas-suma", empezar: i => empezarSuma(i)}
+  suma:  {tit: "➕ Junta y quita",   niveles: NIVELES_SUMA, clave: "estrellas-suma", empezar: i => empezarSuma(i)},
+  prep:  {tit: "🥛 Prepara el pedido", niveles: NIVELES_PREP, clave: "estrellas-prep", empezar: i => empezarPrep(i)}
 };
 let JUEGO = "corta";
 function pintarMesa(){
-  ["corta", "suma"].forEach(k => {
+  ["corta", "suma", "prep"].forEach(k => {
     const jg = JUEGOS[k], prog = leer(jg.clave, {}), tot = jg.niveles.reduce((s, nv) => s + (prog[nv.id] || 0), 0);
     $("j-" + k + "-sub").textContent = jg.niveles.length + " niveles · ★ " + tot + " de " + jg.niveles.length * 3;
   });
@@ -2159,6 +2995,7 @@ function abrirMapa(juego){
   if(juego) JUEGO = juego;
   const jg = JUEGOS[JUEGO];
   G.turno++;
+  cortarServir();
   cerrarHoja();
   $("vuelos").innerHTML = "";
   $("mapa-tit").textContent = jg.tit;
@@ -2190,7 +3027,7 @@ function volverMesa(){
 }
 async function atras(){
   const id = activa();
-  if(id === "p-juego" || id === "p-suma"){
+  if(id === "p-juego" || id === "p-suma" || id === "p-prep"){
     const ok = await preguntar("¿Dejar el nivel?", "Lo que llevas de este nivel se pierde.", "Salir", "Seguir jugando");
     if(!ok || activa() !== id) return;
     return abrirMapa();
@@ -2217,6 +3054,7 @@ function pintarSonido(){ document.querySelectorAll(".btn-sonido").forEach(b => {
    ===================================================================== */
 $("j-corta").onclick = () => { sfxClick(); abrirMapa("corta"); };
 $("j-suma").onclick = () => { sfxClick(); abrirMapa("suma"); };
+$("j-prep").onclick = () => { sfxClick(); abrirMapa("prep"); };
 document.querySelectorAll(".juego.pronto").forEach(b => b.onclick = () => { sfxClick(); toast("¡Muy pronto! 🍫"); });
 $("niveles").addEventListener("click", e => {
   const b = e.target.closest(".nivel");
@@ -2248,6 +3086,7 @@ function repetirEjercicio(){
   $("vuelos").innerHTML = "";
   if(activa() === "p-suma"){ S.repite = {fallo: S.fallo}; siguienteSuma(); }
   else if(activa() === "p-juego"){ J.repite = {fallo: J.fallo}; siguientePedido(); }
+  else if(activa() === "p-prep"){ R.repite = {fallo: R.fallo}; siguientePrep(); }
 }
 document.querySelectorAll(".btn-repetir").forEach(b => b.onclick = repetirEjercicio);
 $("accion").onclick = () => {
@@ -2287,7 +3126,7 @@ $("m-no").onclick = () => cerrarModal(false);
 $("btn-borrar").onclick = async () => {
   const ok = await preguntar("¿Borrar el avance?", "Se borran las estrellas de todos los niveles, solo en este aparato.", "Borrar", "Cancelar");
   if(!ok) return;
-  try{ ["estrellas", "estrellas-suma"].forEach(k => localStorage.removeItem(CLAVE + "." + k)); }catch(e){}
+  try{ ["estrellas", "estrellas-suma", "estrellas-prep"].forEach(k => localStorage.removeItem(CLAVE + "." + k)); }catch(e){}
   pintarMesa();
 };
 /* teclado (computador): + y − cortan, Enter entrega, 1 2 3 eligen la barra justa */
@@ -2300,6 +3139,13 @@ document.addEventListener("keydown", e => {
     return;
   }
   if(e.key === "Escape"){ if(activa() !== "p-mesa") atras(); return; }
+  if(activa() === "p-prep" && R.ped){
+    if(e.key === "Enter"){ e.preventDefault(); if(!R.bloqueado && !$("r-accion").hidden) $("r-accion").click(); return; }
+    if(R.fase === "elegir"){ const k = "123".indexOf(e.key); if(k >= 0 && R.opciones[k]) elegirNombre(R.opciones[k]); return; }
+    const dir = {ArrowUp: 1, ArrowRight: 1, ArrowDown: -1, ArrowLeft: -1}[e.key];
+    if(dir){ e.preventDefault(); if(!e.repeat) empezarServir(dir); }
+    return;
+  }
   if(activa() === "p-suma" && S.ped){
     if(e.key === "Enter"){ e.preventDefault(); if(!S.bloqueado && !$("s-accion").hidden) $("s-accion").click(); return; }
     if(S.paso === 0 && (e.key === "1" || e.key === "2")) elegirSP(e.key === "1");
@@ -2316,6 +3162,24 @@ document.addEventListener("keydown", e => {
   }
 });
 window.addEventListener("resize", colocarGuia);
+document.addEventListener("keyup", e => { if(/^Arrow/.test(e.key)) soltar(); });
+/* Prepara el pedido: los botones de servir se mantienen apretados, y la taza se puede arrastrar */
+$("r-estacion").addEventListener("pointerdown", e => {
+  const b = e.target.closest("[data-pour]");
+  if(b){ e.preventDefault(); try{ b.setPointerCapture(e.pointerId); }catch(x){} empezarServir(+b.dataset.pour, b); return; }
+  const v = e.target.closest("#r-vaso");
+  if(v && puedeMedir()){ e.preventDefault(); arrastre = true; try{ v.setPointerCapture(e.pointerId); }catch(x){} setV(vDesdePuntero(e)); }
+});
+$("r-estacion").addEventListener("pointermove", e => { if(arrastre) setV(vDesdePuntero(e)); });
+["pointerup", "pointercancel", "lostpointercapture"].forEach(t => $("r-estacion").addEventListener(t, soltar));
+$("r-estacion").addEventListener("contextmenu", e => e.preventDefault());
+$("r-accion").onclick = () => {
+  if(R.bloqueado || $("r-accion").disabled) return;
+  if(R.fase === "medir") revisarPorcion();
+  else if(R.fase === "listo") preparar();
+};
+$("r-mando").addEventListener("click", e => { const b = e.target.closest("[data-op]"); if(b && !b.disabled) elegirNombre(b.dataset.op); });
+$("r-ayuda").onclick = rAyuda;
 /* atras del celular: la entrada anotada ya se gasto. Se vuelve a anotar
    (por si se decide quedarse) y se hace lo mismo que la flecha ←.      */
 window.addEventListener("popstate", () => {
