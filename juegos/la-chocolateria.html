@@ -115,6 +115,8 @@ h2{font-size:clamp(26px, 7vw, 34px); margin:6px 0 4px; font-weight:700; line-hei
 }
 .ico svg{width:20px; height:20px}
 .ico.gastada{opacity:.4}
+/* en celulares angostos caben los seis botones de la barra */
+@media (max-width:400px){ .barra{gap:6px} .barra .ico{width:38px; height:38px; border-radius:12px; font-size:17px} .barra .ico svg{width:18px; height:18px} }
 .btn{
   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px;
   width:100%; border:0; border-radius:20px; padding:14px 18px; margin-top:18px;
@@ -874,6 +876,7 @@ h2{font-size:clamp(26px, 7vw, 34px); margin:6px 0 4px; font-weight:700; line-hei
   <div class="barra">
     <button class="ico btn-atras" aria-label="Volver">←</button>
     <div class="barra-tit" id="mapa-tit">🔪 Corta y reparte</div>
+    <button class="ico btn-pantalla" aria-label="Pantalla completa" hidden></button>
     <button class="ico btn-sonido" aria-label="Sonido">🔊</button>
   </div>
   <div class="niveles" id="niveles"></div>
@@ -887,6 +890,7 @@ h2{font-size:clamp(26px, 7vw, 34px); margin:6px 0 4px; font-weight:700; line-hei
     <span class="cuenta" id="prog-n">0 / 0</span>
     <button class="ico btn-repetir" aria-label="Repetir este ejercicio">↻</button>
     <button class="ico" id="btn-ayuda" aria-label="Ayuda">💡</button>
+    <button class="ico btn-pantalla" aria-label="Pantalla completa" hidden></button>
     <button class="ico btn-sonido" aria-label="Sonido">🔊</button>
   </div>
   <div class="mostrador">
@@ -907,6 +911,7 @@ h2{font-size:clamp(26px, 7vw, 34px); margin:6px 0 4px; font-weight:700; line-hei
     <span class="cuenta" id="s-prog-n">0 / 0</span>
     <button class="ico btn-repetir" aria-label="Repetir este ejercicio">↻</button>
     <button class="ico" id="s-ayuda" aria-label="Ayuda">💡</button>
+    <button class="ico btn-pantalla" aria-label="Pantalla completa" hidden></button>
     <button class="ico btn-sonido" aria-label="Sonido">🔊</button>
   </div>
   <div class="mostrador">
@@ -927,6 +932,7 @@ h2{font-size:clamp(26px, 7vw, 34px); margin:6px 0 4px; font-weight:700; line-hei
     <span class="cuenta" id="r-prog-n">0 / 0</span>
     <button class="ico btn-repetir" aria-label="Repetir este ejercicio">↻</button>
     <button class="ico" id="r-ayuda" aria-label="Ayuda">💡</button>
+    <button class="ico btn-pantalla" aria-label="Pantalla completa" hidden></button>
     <button class="ico btn-sonido" aria-label="Sonido">🔊</button>
   </div>
   <div class="mostrador">
@@ -948,6 +954,7 @@ h2{font-size:clamp(26px, 7vw, 34px); margin:6px 0 4px; font-weight:700; line-hei
     <span class="cuenta" id="z-prog-n">0 / 0</span>
     <button class="ico btn-repetir" aria-label="Repetir este ejercicio">↻</button>
     <button class="ico" id="z-ayuda" aria-label="Ayuda">💡</button>
+    <button class="ico btn-pantalla" aria-label="Pantalla completa" hidden></button>
     <button class="ico btn-sonido" aria-label="Sonido">🔊</button>
   </div>
   <div class="mostrador">
@@ -3686,19 +3693,36 @@ window.addEventListener("popstate", () => {
 const ICONO_AMPLIAR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
 const ICONO_REDUCIR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>';
 function pintarPantalla(){
-  const b = $("btn-pantalla"), llena = !!document.fullscreenElement;
-  b.innerHTML = llena ? ICONO_REDUCIR : ICONO_AMPLIAR;
-  b.setAttribute("aria-label", llena ? "Salir de pantalla completa" : "Pantalla completa");
+  const llena = !!document.fullscreenElement;
+  document.querySelectorAll(".btn-pantalla").forEach(b => {
+    b.innerHTML = llena ? ICONO_REDUCIR : ICONO_AMPLIAR;
+    b.setAttribute("aria-label", llena ? "Salir de pantalla completa" : "Pantalla completa");
+  });
+}
+/* Si se eligio pantalla completa y se sale sin querer (el gesto atras del
+   celular, un cambio de pantalla), el proximo toque la vuelve a poner.
+   Solo el boton la quita de verdad.                                      */
+let quiereLlena = leer("pantalla", false);
+function ponerLlena(){
+  const p = document.documentElement.requestFullscreen({navigationUI: "hide"});
+  if(p && p.catch) p.catch(() => {});
 }
 if(document.fullscreenEnabled && document.documentElement.requestFullscreen){
-  $("btn-pantalla").hidden = false;
+  document.querySelectorAll(".btn-pantalla").forEach(b => {
+    b.hidden = false;
+    b.onclick = () => {
+      sfxClick();
+      quiereLlena = !document.fullscreenElement;
+      guardar("pantalla", quiereLlena);
+      if(quiereLlena) ponerLlena();
+      else{ const p = document.exitFullscreen(); if(p && p.catch) p.catch(() => {}); }
+    };
+  });
   pintarPantalla();
-  $("btn-pantalla").onclick = () => {
-    sfxClick();
-    const p = document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen({navigationUI: "hide"});
-    if(p && p.catch) p.catch(() => {});
-  };
   document.addEventListener("fullscreenchange", pintarPantalla);
+  document.addEventListener("pointerdown", e => {
+    if(quiereLlena && !document.fullscreenElement && !e.target.closest(".btn-pantalla")) ponerLlena();
+  }, true);
 }
 if(!sePuedeGuardar()){
   $("pie").classList.add("sin-guardar");
