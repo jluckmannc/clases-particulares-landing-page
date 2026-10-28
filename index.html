@@ -4,9 +4,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>Jaime Luckmann – Acompañamiento matemático humano</title>
+    <title>Matemática sin miedo · Clases de matemática con Jaime Luckmann</title>
+    <meta name="description" content="Acompaño a estudiantes escolares y universitarios desde la calma, la claridad y el respeto por su proceso. Clases online y presenciales en Talcahuano y Concepción." />
+    <meta property="og:title" content="Matemática sin miedo · Jaime Luckmann" />
+    <meta property="og:description" content="La matemática es desafiante, pero aprenderla nunca debería ser doloroso." />
+    <meta property="og:image" content="assets/img/avatar-jaime.png" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
     <script src="https://cdn.tailwindcss.com"></script>
@@ -20,8 +24,8 @@
             },
             colors: {
               terracotta: {
-                DEFAULT: "#D9A384",
-                dark: "#B47F6E",
+                DEFAULT: "#C48A6A",
+                dark: "#A8735D",
               },
             },
             boxShadow: {
@@ -48,7 +52,7 @@
         user-select: none;
       }
     </style>
-    <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#f7f4ef" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
     <link rel="stylesheet" href="assets/css/apple.css" />
     <script>
@@ -68,17 +72,16 @@
     >
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
-          <div class="flex items-center space-x-3 min-w-0">
+          <a href="#inicio" class="flex items-center space-x-3 min-w-0">
             <img
               src="assets/img/avatar-jaime.png"
               alt="Avatar de Jaime"
               class="w-8 h-8 rounded-full flex-shrink-0"
             />
-            <span class="font-semibold text-base sm:text-lg truncate">Jaime Luckmann</span>
-          </div>
+            <span class="brand-mark min-w-0"><span class="brand-name">Matemática sin miedo</span><span class="brand-sub">Jaime Luckmann</span></span>
+          </a>
 
           <nav class="hidden xl:flex items-center text-sm whitespace-nowrap">
-            <a href="#inicio" class="hover:text-terracotta-dark transition-colors">Inicio</a>
             <a href="#enfoque" class="hover:text-terracotta-dark transition-colors">Enfoque</a>
             <a href="#testimonios" class="hover:text-terracotta-dark transition-colors">Testimonios</a>
             <a href="#servicios" class="hover:text-terracotta-dark transition-colors">Servicios</a>
@@ -97,6 +100,7 @@
               class="btn-primary hidden xl:inline-flex items-center px-4 py-2 rounded-full text-white text-sm font-semibold"
               >WhatsApp</a
             >
+            <a id="nav-instagram" href="https://www.instagram.com/matematica.sin.miedo" target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label="Instagram @matematica.sin.miedo" title="@matematica.sin.miedo"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s0 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.8.07s-3.58 0-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92C2.17 15.58 2.16 15.2 2.16 12s0-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23 8.42 2.17 8.8 2.16 12 2.16ZM12 0C8.74 0 8.33 0 7.05.07 2.7.27.27 2.69.07 7.05 0 8.33 0 8.74 0 12s0 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98C8.33 24 8.74 24 12 24s3.67 0 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s0-3.67-.07-4.95c-.2-4.35-2.62-6.78-6.98-6.98C15.67 0 15.26 0 12 0Zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.4-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88Z"/></svg></a>
             <button
               id="theme-toggle"
               class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
@@ -149,6 +153,7 @@
           <a href="#contacto" class="block py-2 px-2 rounded hover:bg-slate-200 dark:hover:bg-slate-700">Contacto</a>
           <a href="material.html" class="block py-2 px-2 rounded hover:bg-slate-200 dark:hover:bg-slate-700">Material</a>
           <a href="juegos.html" class="block py-2 px-2 rounded hover:bg-slate-200 dark:hover:bg-slate-700">Juegos</a>
+          <a id="menu-instagram" href="https://www.instagram.com/matematica.sin.miedo" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 py-2 px-2 rounded hover:bg-slate-200 dark:hover:bg-slate-700"><svg class="w-5 h-5 text-terracotta-dark dark:text-terracotta" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s0 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.8.07s-3.58 0-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92C2.17 15.58 2.16 15.2 2.16 12s0-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23 8.42 2.17 8.8 2.16 12 2.16ZM12 0C8.74 0 8.33 0 7.05.07 2.7.27.27 2.69.07 7.05 0 8.33 0 8.74 0 12s0 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98C8.33 24 8.74 24 12 24s3.67 0 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s0-3.67-.07-4.95c-.2-4.35-2.62-6.78-6.98-6.98C15.67 0 15.26 0 12 0Zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.4-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88Z"/></svg>Instagram<span class="ml-auto text-sm font-normal text-slate-500 dark:text-slate-400">@matematica.sin.miedo</span></a>
           <a
             href="https://wa.me/56958733947"
             target="_blank"
@@ -170,11 +175,13 @@
               <span id="cupos">Aún con algunos cupos disponibles.</span>
             </p>
 
-            <h1 class="display-title mt-5 text-slate-900 dark:text-slate-50">
+            <h1 class="display-title mt-6 text-slate-900 dark:text-slate-50">
               La matemática es desafiante, pero aprenderla nunca debería ser&nbsp;doloroso.
             </h1>
 
-            <p class="mt-5 text-[1.0625rem] sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+            <span class="hero-rule mt-6 mx-auto lg:mx-0" aria-hidden="true"></span>
+
+            <p class="mt-6 text-[1.0625rem] sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
               Acompaño a estudiantes escolares y universitarios desde la calma, la claridad y el respeto por su proceso. Mi objetivo no es solo ayudarte a resolver ejercicios, sino que vuelvas a sentirte capaz de aprender.
             </p>
 
@@ -217,18 +224,18 @@
               </li>
             </ul>
 
-            <div class="mt-8 grid grid-cols-2 gap-3 max-w-md mx-auto lg:mx-0">
-              <a href="material.html" class="press lift group flex flex-col gap-1 rounded-2xl p-4 text-left bg-white/80 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/70">
-                <span class="text-xs font-medium text-slate-500 dark:text-slate-400">Gratis</span>
-                <span class="font-semibold text-slate-900 dark:text-slate-100 leading-snug">Material de muestra</span>
-                <span class="mt-1 text-sm text-terracotta-dark dark:text-terracotta inline-flex items-center gap-1">Ver PDFs <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span></span>
-              </a>
-              <a href="juegos.html" class="press lift group flex flex-col gap-1 rounded-2xl p-4 text-left bg-white/80 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/70">
-                <span class="text-xs font-medium text-slate-500 dark:text-slate-400">Para practicar</span>
-                <span class="font-semibold text-slate-900 dark:text-slate-100 leading-snug">Juegos matemáticos</span>
-                <span class="mt-1 text-sm text-terracotta-dark dark:text-terracotta inline-flex items-center gap-1">Jugar <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span></span>
-              </a>
-            </div>
+            <a
+              href="https://www.instagram.com/matematica.sin.miedo"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="press mt-8 inline-flex items-center gap-3 rounded-2xl pl-3 pr-5 py-3 bg-white/80 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/70 text-left hover:bg-white dark:hover:bg-slate-800"
+            >
+              <span class="ig-badge" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s0 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.8.07s-3.58 0-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92C2.17 15.58 2.16 15.2 2.16 12s0-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23 8.42 2.17 8.8 2.16 12 2.16ZM12 0C8.74 0 8.33 0 7.05.07 2.7.27.27 2.69.07 7.05 0 8.33 0 8.74 0 12s0 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98C8.33 24 8.74 24 12 24s3.67 0 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s0-3.67-.07-4.95c-.2-4.35-2.62-6.78-6.98-6.98C15.67 0 15.26 0 12 0Zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.4-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88Z"/></svg></span>
+              <span class="flex flex-col leading-tight">
+                <span class="text-sm text-slate-500 dark:text-slate-400">Sígueme en Instagram</span>
+                <span class="font-semibold text-slate-900 dark:text-slate-100">@matematica.sin.miedo</span>
+              </span>
+            </a>
           </div>
 
           <div class="order-1 lg:order-2 flex justify-center">
@@ -254,16 +261,17 @@
       </section>
 
       <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 fade-section">
-        <div class="rounded-[2rem] border border-slate-200/80 dark:border-slate-700/70 bg-white/55 dark:bg-slate-800/35 backdrop-blur-sm px-5 sm:px-8 py-8 sm:py-10 text-center shadow-soft dark:shadow-softDark">
-          <span class="inline-block px-3 py-1 text-xs font-medium rounded-full bg-slate-100 dark:bg-slate-700/60 text-slate-500 dark:text-slate-300">
+        <div class="slide-card rounded-[2rem] px-6 sm:px-12 py-12 sm:py-16 text-center shadow-softDark">
+          <span class="inline-block rounded-full text-sm">
             Para quienes han sentido distancia con la matemática
           </span>
-          <h2 class="mt-4 text-2xl sm:text-3xl font-semibold text-slate-900 dark:text-slate-100 leading-snug">
+          <h2 class="mt-4 text-[1.75rem] sm:text-4xl max-w-2xl mx-auto">
             A veces no falta capacidad. Falta una forma más clara, humana y paciente de aprender.
           </h2>
-          <p class="mt-4 text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
+          <p class="mt-6 text-slate-300 max-w-2xl mx-auto leading-relaxed">
             Trabajo con estudiantes que llegan con ansiedad matemática, vacíos de base o malas experiencias previas. Mi acompañamiento busca ordenar, explicar con calma y construir confianza paso a paso.
           </p>
+          <a href="https://www.instagram.com/matematica.sin.miedo" target="_blank" rel="noopener noreferrer" class="mt-8 inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-white transition-colors"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s0 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.8.07s-3.58 0-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92C2.17 15.58 2.16 15.2 2.16 12s0-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23 8.42 2.17 8.8 2.16 12 2.16ZM12 0C8.74 0 8.33 0 7.05.07 2.7.27.27 2.69.07 7.05 0 8.33 0 8.74 0 12s0 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98C8.33 24 8.74 24 12 24s3.67 0 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s0-3.67-.07-4.95c-.2-4.35-2.62-6.78-6.98-6.98C15.67 0 15.26 0 12 0Zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.4-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88Z"/></svg>@matematica.sin.miedo</a>
         </div>
       </section>
 
@@ -455,6 +463,81 @@
         </div>
       </section>
 
+      <section id="material" class="fade-section">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-3xl mx-auto">
+            <span class="inline-block rounded-full text-xs">Material de muestra</span>
+            <h2 class="mt-4 text-3xl sm:text-4xl font-semibold text-slate-900 dark:text-slate-100">
+              Algunos ejemplos del material que preparo.
+            </h2>
+            <p class="mt-5 text-slate-600 dark:text-slate-300 leading-relaxed">
+              No son solo apuntes: buscan explicar con claridad, ordenar ideas y hacer que el proceso se sienta más amable. Muchas veces adapto el material según el ritmo y el momento de cada estudiante.
+            </p>
+          </div>
+        </div>
+        <div class="max-w-5xl mx-auto md:px-6 lg:px-8 mt-8">
+          <div class="snap-row stagger">
+            <a href="assets/pdfs/Fracciones.pdf" target="_blank" rel="noopener" class="tile group">
+              <div class="paper"><img src="assets/img/material/Fracciones.webp" alt="Primera página de la guía de Fracciones" loading="lazy" width="520" height="735" /></div>
+              <h3 class="mt-4 text-lg font-semibold text-slate-900 dark:text-slate-100">Fracciones</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Guía introductoria para comprender y operar con fracciones de manera clara, ordenada y sencilla.</p>
+              <span class="mt-1 text-sm font-medium text-terracotta-dark dark:text-terracotta">Ver PDF <span aria-hidden="true">→</span></span>
+            </a>
+            <a href="assets/pdfs/Factorizacion.pdf" target="_blank" rel="noopener" class="tile group">
+              <div class="paper"><img src="assets/img/material/Factorizacion.webp" alt="Primera página de la guía de Factorización" loading="lazy" width="520" height="735" /></div>
+              <h3 class="mt-4 text-lg font-semibold text-slate-900 dark:text-slate-100">Factorización</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Una guía para revisar los métodos principales de factorización con ejemplos explicados paso a paso.</p>
+              <span class="mt-1 text-sm font-medium text-terracotta-dark dark:text-terracotta">Ver PDF <span aria-hidden="true">→</span></span>
+            </a>
+            <a href="assets/pdfs/Valor-absoluto.pdf" target="_blank" rel="noopener" class="tile group">
+              <div class="paper"><img src="assets/img/material/Valor-absoluto.webp" alt="Primera página de la guía de Valor absoluto" loading="lazy" width="520" height="735" /></div>
+              <h3 class="mt-4 text-lg font-semibold text-slate-900 dark:text-slate-100">Valor absoluto</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Material de apoyo para explorar el concepto de valor absoluto y resolver ecuaciones que lo contienen.</p>
+              <span class="mt-1 text-sm font-medium text-terracotta-dark dark:text-terracotta">Ver PDF <span aria-hidden="true">→</span></span>
+            </a>
+          </div>
+        </div>
+        <div class="mt-4 text-center">
+          <a href="material.html" class="inline-flex items-center gap-1.5 rounded-full px-5 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-200 bg-white/80 dark:bg-slate-800/70 border border-slate-200/70 dark:border-slate-700/70 hover:bg-white dark:hover:bg-slate-800">Ver todo el material <span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+
+      <section id="juegos" class="fade-section">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-3xl mx-auto">
+            <span class="inline-block rounded-full text-xs">Juegos para practicar</span>
+            <h2 class="mt-4 text-3xl sm:text-4xl font-semibold text-slate-900 dark:text-slate-100">
+              Juegos que hago para mis alumnos
+            </h2>
+            <p class="mt-5 text-slate-600 dark:text-slate-300 leading-relaxed">
+              En estos juegos nadie te apura. Te puedes demorar todo lo que quieras en contestar, y si te equivocas no pasa nada: la pregunta vuelve a salir hasta que la respondes bien.
+            </p>
+          </div>
+        </div>
+        <div class="max-w-5xl mx-auto md:px-6 lg:px-8 mt-8">
+          <div class="snap-row stagger">
+            <a href="juegos/tablas-al-vuelo.html" class="tile group">
+              <div class="phone"><img src="assets/img/juegos/tablas-al-vuelo.webp" alt="Pantalla de inicio del juego Tablas al vuelo" loading="lazy" width="560" height="1212" /></div>
+              <h3 class="mt-4 text-lg font-semibold text-slate-900 dark:text-slate-100">Tablas al vuelo</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400">Tablas de multiplicar del 1 al 10</p>
+            </a>
+            <a href="juegos/carrera-de-perritos.html" class="tile group">
+              <div class="phone"><img src="assets/img/juegos/carrera-de-perritos.webp" alt="Pantalla de inicio del juego Carrera de perritos" loading="lazy" width="560" height="1212" /></div>
+              <h3 class="mt-4 text-lg font-semibold text-slate-900 dark:text-slate-100">Carrera de perritos</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400">Suma de números positivos y negativos</p>
+            </a>
+            <a href="juegos/la-chocolateria.html" class="tile group">
+              <div class="phone"><img src="assets/img/juegos/la-chocolateria.webp" alt="Pantalla de inicio del juego La Cafetería" loading="lazy" width="560" height="1212" /></div>
+              <h3 class="mt-4 text-lg font-semibold text-slate-900 dark:text-slate-100">La Cafetería</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400">Fracciones, decimales y mínimo común múltiplo</p>
+            </a>
+          </div>
+        </div>
+        <div class="mt-4 text-center">
+          <a href="juegos.html" class="inline-flex items-center gap-1.5 rounded-full px-5 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-200 bg-white/80 dark:bg-slate-800/70 border border-slate-200/70 dark:border-slate-700/70 hover:bg-white dark:hover:bg-slate-800">Por qué los hice y cómo se juegan <span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+
       <section id="sobre" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 fade-section">
         <div class="text-center max-w-3xl mx-auto">
           
@@ -636,16 +719,13 @@
                 >Enviar correo</a
               >
             </div>
-            <p class="pt-1 text-sm text-slate-500 dark:text-slate-400">
-              También comparto ideas y recursos en
-              <a
-                href="https://www.instagram.com/matematica.sin.miedo"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-1 font-medium text-[#9a6450] dark:text-terracotta hover:underline underline-offset-4"
-                ><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s0 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.8.07s-3.58 0-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92C2.17 15.58 2.16 15.2 2.16 12s0-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23 8.42 2.17 8.8 2.16 12 2.16ZM12 0C8.74 0 8.33 0 7.05.07 2.7.27.27 2.69.07 7.05 0 8.33 0 8.74 0 12s0 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98C8.33 24 8.74 24 12 24s3.67 0 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s0-3.67-.07-4.95c-.2-4.35-2.62-6.78-6.98-6.98C15.67 0 15.26 0 12 0Zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.4-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88Z"/></svg>@matematica.sin.miedo</a
-              >
-            </p>
+            <a
+              href="https://www.instagram.com/matematica.sin.miedo"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 text-sm font-medium text-terracotta-dark dark:text-terracotta hover:underline underline-offset-4"
+              ><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s0 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.8.07s-3.58 0-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92C2.17 15.58 2.16 15.2 2.16 12s0-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23 8.42 2.17 8.8 2.16 12 2.16ZM12 0C8.74 0 8.33 0 7.05.07 2.7.27.27 2.69.07 7.05 0 8.33 0 8.74 0 12s0 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98C8.33 24 8.74 24 12 24s3.67 0 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s0-3.67-.07-4.95c-.2-4.35-2.62-6.78-6.98-6.98C15.67 0 15.26 0 12 0Zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.4-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88Z"/></svg>También puedes escribirme por Instagram: @matematica.sin.miedo</a
+            >
           </div>
         </div>
       </section>
@@ -678,7 +758,7 @@
       class="float-cta"
     >
       <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.66 15l-1.3 4.76 4.88-1.28A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-2.9.76.78-2.83-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.14c-.25-.12-1.46-.72-1.69-.8-.22-.09-.39-.13-.55.12-.16.25-.63.8-.78.96-.14.17-.29.19-.53.07a6.7 6.7 0 0 1-3.32-2.9c-.25-.43.25-.4.71-1.33.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.41-.55-.42h-.47a.9.9 0 0 0-.65.3 2.74 2.74 0 0 0-.86 2.04 4.76 4.76 0 0 0 1 2.53 10.9 10.9 0 0 0 4.18 3.69c1.55.67 2.16.73 2.94.61.47-.07 1.46-.6 1.66-1.17.2-.58.2-1.07.15-1.17-.06-.1-.22-.17-.47-.29Z"/></svg>
-      Agenda tu primera conversación
+      Escríbeme por WhatsApp
     </a>
 
     <script src="assets/js/main.js"></script>

@@ -1,6 +1,9 @@
 /* =========================================================
-   Capa de diseño "apple-design"
+   Capa de diseño "Matemática sin miedo"
    Se carga en todas las páginas, encima de Tailwind.
+   Colores y tipos según la guía de marca (Publicidad Clases
+   Particulares): fondo #F7F4EF, texto #2F2F2F, terracota
+   #C48A6A, secundario #6B6B6B, Playfair Display + Inter.
    Respuesta inmediata, materiales translúcidos, tipografía
    con tracking según tamaño y movimiento que respeta
    las preferencias de accesibilidad.
@@ -13,16 +16,22 @@
   --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 
-  --page-bg: #f5f5f7;
-  --material: rgba(255, 255, 255, 0.72);
-  --material-edge: rgba(15, 23, 42, 0.08);
-  --hairline: rgba(15, 23, 42, 0.1);
-  --terracotta: #d9a384;
-  --terracotta-dark: #b47f6e;
+  --page-bg: #f7f4ef;
+  --ink: #2f2f2f;
+  --ink-2: #4a4643;
+  --ink-3: #6b6b6b;
+  --line: #e6dfd5;
+  --material: rgba(247, 244, 239, 0.74);
+  --material-edge: rgba(47, 47, 47, 0.08);
+  --hairline: rgba(47, 47, 47, 0.1);
+  --terracotta: #c48a6a;
+  --terracotta-dark: #a8735d;
+  --navy: #111827;
   --terracotta-ink: #9a6450; /* terracota legible sobre fondo claro */
   --accent: #9f6a56; /* terracota con contraste suficiente para texto blanco */
   --accent-hover: #8d5c4a;
-  --sheet: rgba(255, 255, 255, 0.94);
+  --sheet: rgba(255, 253, 250, 0.95);
+  --serif: "Playfair Display", Georgia, "Times New Roman", serif;
 
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
@@ -32,7 +41,7 @@ html.dark {
   --material: rgba(15, 23, 42, 0.68);
   --material-edge: rgba(255, 255, 255, 0.08);
   --hairline: rgba(255, 255, 255, 0.1);
-  --terracotta-ink: #e2b497;
+  --terracotta-ink: #d9a384;
   --sheet: rgba(30, 41, 59, 0.94);
 }
 
@@ -88,8 +97,7 @@ main span.text-xs.rounded-full {
 }
 
 .display-title {
-  font-size: clamp(2.35rem, 1.4rem + 4.2vw, 3.6rem);
-  font-weight: 650;
+  font-size: clamp(2.4rem, 1.5rem + 4vw, 3.75rem);
 }
 
 /* ---------- Barra superior: material translúcido ---------- */
@@ -487,4 +495,240 @@ footer.bg-slate-200 {
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-enter > * > * { animation: none; }
+}
+
+/* =========================================================
+   Identidad "Matemática sin miedo"
+   ========================================================= */
+
+/* Titulares en serif, como en los afiches y en Instagram.
+   La serif pide menos tracking negativo que la sans. */
+main h1,
+main h2,
+.brand-name {
+  font-family: var(--serif);
+  font-weight: 600;
+  letter-spacing: -0.012em;
+}
+main h1 { line-height: 1.08; }
+main h2 { line-height: 1.15; }
+
+/* Neutros cálidos en modo claro en vez del gris azulado de Tailwind */
+html:not(.dark) body.text-slate-900,
+html:not(.dark) .text-slate-900,
+html:not(.dark) .text-slate-800 { color: var(--ink); }
+html:not(.dark) .text-slate-700 { color: var(--ink-2); }
+html:not(.dark) .text-slate-600,
+html:not(.dark) .text-slate-500 { color: var(--ink-3); }
+html:not(.dark) .border-slate-200,
+html:not(.dark) .border-slate-200\/80,
+html:not(.dark) .border-slate-200\/70,
+html:not(.dark) .border-slate-300,
+html:not(.dark) .border-slate-300\/70 { border-color: var(--line); }
+html:not(.dark) .bg-slate-100 { background-color: #efe9e0; }
+html:not(.dark) .bg-white { background-color: #fffdfa; }
+
+/* Etiquetas sobre los títulos: texto terracota, sin cápsula
+   (igual que "Acompañamiento matemático humano" en el afiche) */
+main span.inline-block.rounded-full.text-xs,
+main span.inline-block.rounded-full.text-sm {
+  padding: 0;
+  background: none !important;
+  color: var(--terracotta-ink) !important;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* Línea fina terracota bajo los títulos de sección */
+main .text-center > h2::after,
+main h2.text-center::after,
+main .text-center > h1::after,
+.brand-rule::after {
+  content: "";
+  display: block;
+  width: 3.5rem;
+  height: 1.5px;
+  margin: 1.15rem auto 0;
+  border-radius: 1px;
+  background: var(--terracotta);
+}
+.hero-rule {
+  display: block;
+  width: 4.5rem;
+  height: 1.5px;
+  border-radius: 1px;
+  background: var(--terracotta);
+}
+
+/* ---------- Marca en la barra superior ---------- */
+
+.brand-mark {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+.brand-name {
+  font-size: 1.0625rem;
+  white-space: nowrap;
+}
+.brand-sub {
+  font-size: 0.75rem;
+  color: var(--ink-3);
+  letter-spacing: 0.01em;
+}
+html.dark .brand-sub { color: #94a3b8; }
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  transition: transform 0.4s var(--ease-spring), background-color 0.2s ease, color 0.2s ease;
+}
+.icon-btn:hover { background-color: rgba(148, 163, 184, 0.18); color: var(--terracotta-ink); }
+.icon-btn:active { transform: scale(0.92); transition-duration: 0.08s; }
+
+/* ---------- Tarjeta "slide" (eco de los posts oscuros) ---------- */
+
+.slide-card {
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(196, 138, 106, 0.14), transparent 60%),
+    var(--navy);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  color: #e2e8f0;
+}
+.slide-card h2 { color: #fff; }
+
+/* ---------- Carrusel con scroll nativo (inercia y snap del sistema) ---------- */
+
+.snap-row {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(74%, 300px);
+  gap: 1rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 1rem;
+  padding: 0.5rem 1rem 1.5rem;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.snap-row::-webkit-scrollbar { display: none; }
+.snap-row > * { scroll-snap-align: start; }
+
+@media (min-width: 768px) {
+  .snap-row {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-columns: auto;
+    overflow: visible;
+    padding: 0.5rem 0 1rem;
+    gap: 1.5rem;
+  }
+}
+
+/* Marco de celular para los pantallazos de los juegos */
+.phone {
+  position: relative;
+  aspect-ratio: 10 / 17;
+  padding: 7px;
+  border-radius: 2.1rem;
+  background: #1b1b1f;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+    0 30px 50px -28px rgba(47, 47, 47, 0.55),
+    0 12px 24px -16px rgba(47, 47, 47, 0.35);
+  overflow: hidden;
+}
+.phone img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 1.6rem;
+}
+
+/* Hoja de papel para las portadas de las guías */
+.paper {
+  aspect-ratio: 520 / 600;
+  overflow: hidden;
+  border-radius: 0.9rem;
+  background: #fff;
+  box-shadow:
+    0 0 0 1px rgba(47, 47, 47, 0.06),
+    0 24px 40px -26px rgba(47, 47, 47, 0.45);
+}
+.paper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  transition: transform 0.5s var(--ease-spring);
+}
+.tile .phone,
+.tile .paper {
+  transition: transform 0.6s var(--ease-spring), box-shadow 0.4s ease;
+}
+@media (hover: hover) {
+  .tile:hover .phone,
+  .tile:hover .paper { transform: translateY(-6px); }
+}
+.tile:active { transform: scale(0.97); transition-duration: 0.08s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tile:hover .phone,
+  .tile:hover .paper { transform: none; }
+}
+
+.slide-card span.inline-block.rounded-full {
+  color: #d9a384 !important;
+}
+
+/* Insignia de Instagram con su degradado reconocible */
+.ig-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  color: #fff;
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+}
+
+/* El título del hero ya lleva su propia línea */
+main h1.display-title::after { content: none; }
+
+@media (max-width: 380px) {
+  .brand-name { font-size: 0.98rem; }
+  #navbar .icon-btn { width: 36px; }
+}
+
+/* Botones terracota con texto blanco: siempre con el tono de contraste suficiente */
+main a.bg-terracotta.text-white,
+#mobile-menu a.bg-terracotta {
+  background-color: var(--accent);
+}
+main a.bg-terracotta.text-white:hover {
+  background-color: var(--accent-hover);
+}
+main a.border-terracotta.text-terracotta {
+  color: var(--terracotta-ink);
+  border-color: var(--terracotta);
+}
+main a.border-terracotta.text-terracotta:hover {
+  color: #fff;
+  background-color: var(--accent);
+  border-color: var(--accent);
 }
