@@ -1,4 +1,5 @@
 // ----- Material por nivel -----
+// Es una muestra: como máximo tres guías por nivel.
 // Cada guía tiene su PDF en assets/pdfs/guias/<slug>.pdf y sus vistas
 // previas en assets/img/material/<slug>-<n>.webp (1 = portada).
 
@@ -9,13 +10,13 @@ const MATERIAL = [
     intro: "Guías para imprimir que acompañan los juegos.",
     items: [
       {
-        slug: "fracciones-cafeteria",
-        title: "Fracciones en la Cafetería",
-        tag: "4° básico",
-        pages: 17,
+        slug: "gran-carrera-enteros",
+        title: "La gran carrera: sumar enteros",
+        tag: "Positivos y negativos",
+        pages: 30,
         views: 3,
-        desc: "Qué es una fracción, comparar, sumar y restar, y pasar a decimales. Va de la mano con el juego La Cafetería.",
-        game: { href: "juegos/la-chocolateria.html", label: "La Cafetería" },
+        desc: "Sumas con números positivos y negativos a través de recorridos, igual que en la Carrera de perritos.",
+        game: { href: "juegos/carrera-de-perritos.html", label: "Carrera de perritos" },
       },
       {
         slug: "vaso-lleno",
@@ -26,29 +27,12 @@ const MATERIAL = [
         desc: "Cuánta leche hay en cada vaso, cuál tiene más y cómo se escribe como fracción o como decimal.",
       },
       {
-        slug: "gran-carrera-enteros",
-        title: "La gran carrera: sumar enteros",
-        tag: "Positivos y negativos",
-        pages: 30,
-        views: 3,
-        desc: "Sumas con números positivos y negativos a través de recorridos, igual que en la Carrera de perritos.",
-        game: { href: "juegos/carrera-de-perritos.html", label: "Carrera de perritos" },
-      },
-      {
         slug: "potencias-carrera",
         title: "La gran carrera: potencias",
         tag: "Potencias",
         pages: 7,
         views: 3,
         desc: "Potencias como multiplicación repetida, con los mismos perritos de la carrera.",
-      },
-      {
-        slug: "area-perimetro",
-        title: "Perímetro, área y volumen",
-        tag: "Medición",
-        pages: 10,
-        views: 3,
-        desc: "Desde contar cuadraditos y medir bordes hasta llegar al volumen del cubito.",
       },
     ],
   },
@@ -80,22 +64,6 @@ const MATERIAL = [
         pages: 3,
         views: 3,
         desc: "Directa, inversa o compuesta: reconocer cuál es y resolver problemas.",
-      },
-      {
-        slug: "factorizacion",
-        title: "Factorización paso a paso",
-        tag: "Enseñanza media",
-        pages: 7,
-        views: 3,
-        desc: "Los métodos principales de factorización con ejemplos explicados paso a paso.",
-      },
-      {
-        slug: "valor-absoluto",
-        title: "Valor absoluto",
-        tag: "Enseñanza media",
-        pages: 8,
-        views: 3,
-        desc: "El concepto de valor absoluto y cómo resolver ecuaciones que lo contienen.",
       },
     ],
   },
