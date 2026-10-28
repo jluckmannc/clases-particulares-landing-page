@@ -1,0 +1,490 @@
+/* =========================================================
+   Capa de diseño "apple-design"
+   Se carga en todas las páginas, encima de Tailwind.
+   Respuesta inmediata, materiales translúcidos, tipografía
+   con tracking según tamaño y movimiento que respeta
+   las preferencias de accesibilidad.
+   ========================================================= */
+
+:root {
+  /* Curvas: la primera imita un resorte críticamente amortiguado
+     (llega rápido y se asienta sin rebote); la segunda es para
+     salidas suaves. */
+  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --page-bg: #f5f5f7;
+  --material: rgba(255, 255, 255, 0.72);
+  --material-edge: rgba(15, 23, 42, 0.08);
+  --hairline: rgba(15, 23, 42, 0.1);
+  --terracotta: #d9a384;
+  --terracotta-dark: #b47f6e;
+  --terracotta-ink: #9a6450; /* terracota legible sobre fondo claro */
+  --accent: #9f6a56; /* terracota con contraste suficiente para texto blanco */
+  --accent-hover: #8d5c4a;
+  --sheet: rgba(255, 255, 255, 0.94);
+
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html.dark {
+  --page-bg: #0f172a;
+  --material: rgba(15, 23, 42, 0.68);
+  --material-edge: rgba(255, 255, 255, 0.08);
+  --hairline: rgba(255, 255, 255, 0.1);
+  --terracotta-ink: #e2b497;
+  --sheet: rgba(30, 41, 59, 0.94);
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Fuente del sistema primero (SF en Apple), Inter como respaldo */
+html body.font-sans {
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-optical-sizing: auto;
+}
+
+html:not(.dark) body.bg-slate-100 {
+  background-color: var(--page-bg);
+}
+
+/* Los anclajes no quedan escondidos bajo la barra fija */
+section[id],
+main[id] {
+  scroll-margin-top: 5rem;
+}
+
+/* ---------- Tipografía: tracking y leading según tamaño ---------- */
+
+main h1 {
+  letter-spacing: -0.028em;
+  line-height: 1.06;
+  text-wrap: balance;
+}
+
+main h2 {
+  letter-spacing: -0.022em;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+main h3 {
+  letter-spacing: -0.012em;
+}
+
+main p {
+  text-wrap: pretty;
+}
+
+/* Etiquetas pequeñas: un poco más de aire entre letras */
+main span.text-xs.rounded-full {
+  letter-spacing: 0.01em;
+}
+
+.display-title {
+  font-size: clamp(2.35rem, 1.4rem + 4.2vw, 3.6rem);
+  font-weight: 650;
+}
+
+/* ---------- Barra superior: material translúcido ---------- */
+
+#navbar {
+  background-color: var(--material);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  box-shadow: 0 1px 0 transparent;
+  transition: box-shadow 0.3s ease, background-color 0.4s ease;
+}
+
+/* En vez de una sombra fija, un filo fino aparece solo cuando
+   hay contenido pasando por debajo */
+#navbar.is-scrolled {
+  box-shadow: 0 1px 0 var(--hairline), 0 8px 24px -12px rgba(15, 23, 42, 0.18);
+}
+
+#navbar > div nav a {
+  position: relative;
+  padding: 0.375rem 0.625rem;
+  border-radius: 9999px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+#navbar > div nav a:hover {
+  background-color: rgba(148, 163, 184, 0.16);
+}
+
+#navbar > div nav a[aria-current="true"] {
+  color: var(--terracotta-ink);
+  background-color: rgba(217, 163, 132, 0.16);
+}
+
+#navbar > div nav {
+  column-gap: 0.125rem;
+}
+#navbar > div nav > * + * {
+  margin-left: 0 !important;
+}
+
+/* Botón de menú: tres líneas que se vuelven una X */
+.menu-icon {
+  position: relative;
+  display: block;
+  width: 22px;
+  height: 16px;
+}
+.menu-icon span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 0.4s var(--ease-spring), opacity 0.2s ease;
+}
+.menu-icon span:nth-child(1) { top: 0; }
+.menu-icon span:nth-child(2) { top: 7px; }
+.menu-icon span:nth-child(3) { top: 14px; }
+
+[aria-expanded="true"] .menu-icon span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+[aria-expanded="true"] .menu-icon span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0.4);
+}
+[aria-expanded="true"] .menu-icon span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ---------- Menú móvil como hoja que nace del botón ---------- */
+
+#mobile-menu.menu-sheet {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 12px;
+  left: 12px;
+  display: block;
+  padding: 0.5rem;
+  border-radius: 22px;
+  background-color: var(--sheet);
+  -webkit-backdrop-filter: saturate(180%) blur(28px);
+  backdrop-filter: saturate(180%) blur(28px);
+  box-shadow: 0 0 0 1px var(--material-edge), 0 24px 60px -18px rgba(15, 23, 42, 0.35);
+  transform-origin: top right; /* nace desde el botón que lo abre */
+  opacity: 0;
+  transform: scale(0.92) translateY(-6px);
+  filter: blur(6px);
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.22s ease,
+    transform 0.4s var(--ease-spring),
+    filter 0.3s ease,
+    visibility 0s linear 0.4s;
+}
+
+#mobile-menu.menu-sheet.is-open {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  visibility: visible;
+  pointer-events: auto;
+  transition:
+    opacity 0.2s ease,
+    transform 0.45s var(--ease-spring),
+    filter 0.25s ease,
+    visibility 0s;
+}
+
+#mobile-menu.menu-sheet nav {
+  row-gap: 2px;
+}
+#mobile-menu.menu-sheet nav > * + * {
+  margin-top: 0 !important;
+}
+
+#mobile-menu.menu-sheet nav a {
+  padding: 0.75rem 0.875rem;
+  border-radius: 14px;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.2s ease, transform 0.35s var(--ease-spring), background-color 0.15s ease;
+}
+
+#mobile-menu.menu-sheet.is-open nav a {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(var(--i, 0) * 22ms);
+}
+
+#mobile-menu.menu-sheet nav a[aria-current="true"] {
+  color: var(--terracotta-ink);
+  background-color: rgba(217, 163, 132, 0.16);
+}
+
+#mobile-menu.menu-sheet nav a.bg-terracotta {
+  margin-top: 0.375rem;
+  background-color: var(--accent);
+  text-align: center;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Velo que atenúa el contenido mientras el menú está abierto */
+.menu-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(15, 23, 42, 0.18);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.menu-scrim.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ---------- Respuesta al toque: en el pointer-down, al instante ---------- */
+
+main a.rounded-full,
+header a.rounded-full,
+#theme-toggle,
+#mobile-menu-button,
+.press {
+  transition:
+    transform 0.4s var(--ease-spring),
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.3s ease;
+}
+
+main a.rounded-full:active,
+header a.rounded-full:active,
+#theme-toggle:active,
+#mobile-menu-button:active,
+.press:active {
+  transform: scale(0.96);
+  transition-duration: 0.08s;
+}
+
+#mobile-menu.menu-sheet nav a:active {
+  background-color: rgba(148, 163, 184, 0.22);
+}
+
+.faq-question {
+  transition: transform 0.4s var(--ease-spring);
+}
+.faq-question:active {
+  transform: scale(0.99);
+  transition-duration: 0.08s;
+}
+
+/* Botón principal: más presencia, sombra teñida del color de marca */
+.btn-primary {
+  background-color: var(--accent);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 8px 20px -8px rgba(159, 106, 86, 0.75);
+}
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+}
+
+/* ---------- Tarjetas ---------- */
+
+.lift {
+  transition: transform 0.5s var(--ease-spring), box-shadow 0.4s ease, border-color 0.3s ease;
+}
+@media (hover: hover) {
+  .lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 40px -18px rgba(15, 23, 42, 0.22);
+  }
+}
+
+/* ---------- Aparición de secciones ---------- */
+
+.fade-section {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.8s var(--ease-out), transform 0.9s var(--ease-out);
+}
+.fade-section.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Las tarjetas de una grilla llegan escalonadas */
+.stagger > * {
+  opacity: 0;
+  transform: translateY(14px) scale(0.985);
+  transition:
+    opacity 0.6s var(--ease-out),
+    transform 0.8s var(--ease-spring),
+    box-shadow 0.4s ease;
+  transition-delay: calc(var(--i, 0) * 60ms);
+}
+.visible .stagger > *,
+.stagger.visible > * {
+  opacity: 1;
+  transform: none;
+}
+.visible .stagger > .lift:hover {
+  transform: translateY(-3px);
+  transition-delay: 0s;
+}
+
+/* Cambio de tema sin saltos bruscos de brillo */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition: background-color 0.45s ease, color 0.45s ease, border-color 0.45s ease, fill 0.45s ease !important;
+}
+
+/* ---------- Indicador de cupos ---------- */
+
+.live-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: #22c55e;
+  flex-shrink: 0;
+}
+.live-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  animation: live-ping 2.4s var(--ease-out) infinite;
+}
+@keyframes live-ping {
+  0% { transform: scale(1); opacity: 0.6; }
+  70%, 100% { transform: scale(2.6); opacity: 0; }
+}
+
+/* ---------- Botón flotante de WhatsApp (móvil) ---------- */
+
+.float-cta {
+  position: fixed;
+  left: 50%;
+  bottom: calc(14px + var(--safe-bottom));
+  z-index: 45;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.35rem;
+  border-radius: 9999px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  letter-spacing: -0.005em;
+  background-color: rgba(159, 106, 86, 0.94);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  backdrop-filter: saturate(180%) blur(16px);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18) inset, 0 14px 34px -10px rgba(120, 72, 56, 0.6);
+  transform: translate(-50%, calc(100% + 30px)) scale(0.9);
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  transition: transform 0.5s var(--ease-spring), opacity 0.25s ease;
+}
+.float-cta.is-visible {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.float-cta.is-visible:active {
+  transform: translate(-50%, 0) scale(0.95);
+  transition-duration: 0.08s;
+}
+body.menu-open .float-cta.is-visible {
+  transform: translate(-50%, calc(100% + 30px)) scale(0.9);
+  opacity: 0;
+  pointer-events: none;
+}
+@media (min-width: 1280px) {
+  .float-cta { display: none; }
+}
+
+/* ---------- Pie de página ---------- */
+
+footer.bg-slate-200 {
+  background-color: transparent;
+  border-top: 1px solid var(--hairline);
+}
+
+/* ---------- Accesibilidad ---------- */
+
+:focus-visible {
+  outline: 2px solid var(--terracotta-dark);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-section,
+  .stagger > * {
+    transform: none !important;
+    transition: opacity 0.3s ease !important;
+  }
+  #mobile-menu.menu-sheet,
+  #mobile-menu.menu-sheet nav a,
+  .float-cta {
+    transform: none !important;
+    filter: none !important;
+    transition: opacity 0.2s ease, visibility 0s linear 0.2s !important;
+  }
+  body.menu-open .float-cta.is-visible {
+  transform: translate(-50%, calc(100% + 30px)) scale(0.9);
+  opacity: 0;
+  pointer-events: none;
+}
+.float-cta.is-visible { transform: translateX(-50%) !important; }
+  .float-cta { transform: translateX(-50%) !important; }
+  .live-dot::after { animation: none; }
+  .lift:hover { transform: none; }
+  html { scroll-behavior: auto; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  #navbar,
+  #mobile-menu.menu-sheet,
+  .float-cta {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  #navbar { background-color: var(--page-bg); }
+  #mobile-menu.menu-sheet { background-color: var(--page-bg); }
+  .float-cta { background-color: var(--terracotta-dark); }
+}
+
+@media (prefers-contrast: more) {
+  #navbar { background-color: var(--page-bg); box-shadow: 0 1px 0 currentColor; }
+  #mobile-menu.menu-sheet { background-color: var(--page-bg); box-shadow: 0 0 0 1px currentColor; }
+}
+
+/* ---------- Entrada del hero: inmediata, sin esperar al scroll ---------- */
+
+.hero-enter > * > * {
+  animation: hero-in 0.7s var(--ease-out) both;
+}
+.hero-enter > * > :nth-child(2) {
+  animation-delay: 0.08s;
+}
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(10px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-enter > * > * { animation: none; }
+}

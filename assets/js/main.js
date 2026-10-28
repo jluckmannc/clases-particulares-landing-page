@@ -45,30 +45,114 @@ document.addEventListener("DOMContentLoaded", () => {
 
     themeToggleBtn.addEventListener("click", () => {
       const current = localStorage.getItem("theme");
+      // Transición breve para que el cambio de brillo no sea brusco
+      rootElement.classList.add("theme-transition");
       setTheme(current === "dark" ? "light" : "dark");
+      window.setTimeout(() => rootElement.classList.remove("theme-transition"), 500);
     });
   }
 
-  // ----- Menú móvil -----
+  // En iOS, :active solo funciona si hay un listener de touchstart
+  document.addEventListener("touchstart", () => {}, { passive: true });
+
+  // ----- Barra superior: filo visible solo al hacer scroll -----
+  const navbar = document.getElementById("navbar");
+
+  if (navbar) {
+    const updateNavbar = () => {
+      navbar.classList.toggle("is-scrolled", window.scrollY > 4);
+    };
+    updateNavbar();
+    window.addEventListener("scroll", updateNavbar, { passive: true });
+  }
+
+  // ----- Menú móvil (hoja que nace desde el botón) -----
   const mobileMenuButton = document.getElementById("mobile-menu-button");
   const mobileMenu = document.getElementById("mobile-menu");
 
   if (mobileMenuButton && mobileMenu) {
-    mobileMenuButton.addEventListener("click", () => {
-      mobileMenu.classList.toggle("hidden");
+    mobileMenu.classList.remove("hidden", "px-4", "pb-4", "shadow-md", "backdrop-blur");
+    mobileMenu.classList.add("menu-sheet");
+    mobileMenuButton.innerHTML =
+      '<span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span>';
+    mobileMenuButton.setAttribute("aria-expanded", "false");
+    mobileMenuButton.setAttribute("aria-controls", "mobile-menu");
+
+    mobileMenu.querySelectorAll("a").forEach((link, i) => {
+      link.style.setProperty("--i", i);
     });
 
-    mobileMenu.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        mobileMenu.classList.add("hidden");
-      });
+    const scrim = document.createElement("div");
+    scrim.className = "menu-scrim xl:hidden";
+    document.body.appendChild(scrim);
+
+    const setMenu = (open) => {
+      mobileMenu.classList.toggle("is-open", open);
+      scrim.classList.toggle("is-open", open);
+      document.body.classList.toggle("menu-open", open);
+      mobileMenuButton.setAttribute("aria-expanded", String(open));
+      mobileMenuButton.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+    };
+
+    // Se abre en pointerdown para que responda al instante
+    let openedOnPointerDown = false;
+    mobileMenuButton.addEventListener("pointerdown", (e) => {
+      if (e.button !== 0) return;
+      openedOnPointerDown = true;
+      setMenu(!mobileMenu.classList.contains("is-open"));
     });
+    mobileMenuButton.addEventListener("click", () => {
+      if (openedOnPointerDown) {
+        openedOnPointerDown = false;
+        return;
+      }
+      setMenu(!mobileMenu.classList.contains("is-open"));
+    });
+
+    scrim.addEventListener("click", () => setMenu(false));
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") setMenu(false);
+    });
+    window.matchMedia("(min-width: 1280px)").addEventListener("change", () => setMenu(false));
+
+    mobileMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => setMenu(false));
+    });
+  }
+
+  // ----- Sección activa en el menú -----
+  const sectionLinks = document.querySelectorAll('#navbar a[href^="#"]');
+
+  if (sectionLinks.length > 0) {
+    const sections = [...new Set([...sectionLinks].map((a) => a.getAttribute("href")))]
+      .map((href) => document.querySelector(href))
+      .filter(Boolean);
+
+    const markActive = (id) => {
+      sectionLinks.forEach((a) => {
+        if (a.getAttribute("href") === `#${id}`) a.setAttribute("aria-current", "true");
+        else a.removeAttribute("aria-current");
+      });
+    };
+
+    const spy = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) markActive(entry.target.id);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+
+    sections.forEach((s) => spy.observe(s));
   }
 
   // ----- Acordeón FAQ -----
   const faqQuestions = document.querySelectorAll(".faq-question");
 
   faqQuestions.forEach((question) => {
+    question.setAttribute("aria-expanded", "false");
+
     question.addEventListener("click", () => {
       const item = question.closest(".faq-item");
       const answer = question.nextElementSibling;
@@ -83,6 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
         otherItem.classList.remove("faq-open", "bg-white", "dark:bg-slate-800/50", "shadow-md");
         otherAnswer.classList.remove("grid-rows-[1fr]", "opacity-100");
         otherAnswer.classList.add("grid-rows-[0fr]", "opacity-0");
+        otherQuestion.setAttribute("aria-expanded", "false");
         if (otherIcon) otherIcon.classList.remove("rotate-180");
       });
 
@@ -90,12 +175,17 @@ document.addEventListener("DOMContentLoaded", () => {
         item.classList.add("faq-open", "bg-white", "dark:bg-slate-800/50", "shadow-md");
         answer.classList.remove("grid-rows-[0fr]", "opacity-0");
         answer.classList.add("grid-rows-[1fr]", "opacity-100");
+        question.setAttribute("aria-expanded", "true");
         if (icon) icon.classList.add("rotate-180");
       }
     });
   });
 
   // ----- Animaciones de aparición -----
+  document.querySelectorAll(".stagger").forEach((group) => {
+    [...group.children].forEach((child, i) => child.style.setProperty("--i", i));
+  });
+
   const fadeSections = document.querySelectorAll(".fade-section");
 
   if (fadeSections.length > 0) {
@@ -104,13 +194,44 @@ document.addEventListener("DOMContentLoaded", () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1, rootMargin: "0px 0px -8% 0px" }
     );
 
     fadeSections.forEach((section) => observer.observe(section));
+  }
+
+  // ----- Botón flotante de WhatsApp (móvil) -----
+  // Aparece cuando el botón principal sale de la vista y se esconde
+  // al llegar a Contacto, donde ya hay uno.
+  const floatCta = document.getElementById("float-cta");
+  const heroCta = document.getElementById("hero-cta");
+  const contactSection = document.getElementById("contacto");
+
+  if (floatCta && heroCta) {
+    let heroVisible = true;
+    let contactVisible = false;
+    const update = () => {
+      floatCta.classList.toggle("is-visible", !heroVisible && !contactVisible);
+    };
+
+    new IntersectionObserver(([entry]) => {
+      heroVisible = entry.isIntersecting || entry.boundingClientRect.top > 0;
+      update();
+    }).observe(heroCta);
+
+    if (contactSection) {
+      new IntersectionObserver(
+        ([entry]) => {
+          contactVisible = entry.isIntersecting;
+          update();
+        },
+        { rootMargin: "0px 0px -20% 0px" }
+      ).observe(contactSection);
+    }
   }
 
   // ----- Cargar testimonios -----
@@ -161,14 +282,14 @@ async function loadTestimonials(escapeHTML) {
         ? publicados
         : [...publicados].sort(() => 0.5 - Math.random()).slice(0, 3);
 
-    source.forEach((t) => {
+    source.forEach((t, i) => {
       const card = document.createElement("article");
+      card.style.setProperty("--i", i);
 
       card.className = `
         h-full rounded-2xl border border-slate-200/80 dark:border-slate-700
         bg-white/85 dark:bg-slate-800/70 backdrop-blur-sm
-        p-6 md:p-7 shadow-sm hover:shadow-md
-        transition-all duration-300 hover:-translate-y-0.5
+        p-6 md:p-7 shadow-sm lift
         flex flex-col
       `;
 
